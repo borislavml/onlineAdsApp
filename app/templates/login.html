@@ -1,0 +1,60 @@
+<form name="newVideoForm" class="form-horizontal col-md-6 coll-sm-8 col-centered">
+  <fieldset>
+    <legend class="text-center">New video</legend>
+
+    <!-- video title-->
+    <div class="form-group">
+      <label for="inputTitle" class="col-lg-2 control-label">Title*: </label>
+      <div class="col-lg-7">
+        <input type="text" name="inputTitle" class="form-control" id="inputTitle" placeholder="Title" ng-model="newVideo.title"  required>
+      </div>
+      <div class="pull-right text-primary col-lg-3" ng-show="newVideoForm.inputTitle.$error.required && newVideoForm.inputTitle.$dirty">Title is Required!</div>
+      
+    </div>
+    <!-- video url-->
+    <div class="form-group">
+      <label for="inpuUrl" class="col-lg-2 control-label">URL*: </label>
+      <div class="col-lg-7">
+        <input type="url" class="form-control" id="inpuUrl" name="inpuUrl" placeholder="URL" 
+        ng-model="newVideo.videoUrl"  required>
+      </div>
+      <div class="pull-right text-primary col-lg-3" ng-show="newVideoForm.inpuUrl.$error.required && newVideoForm.inpuUrl.$dirty && newVideoForm.inpuUrl.$valid">URL is Required!</div>
+      <div class="pull-right text-primary col-lg-3" ng-show="newVideoForm.inpuUrl.$invalid && newVideoForm.inpuUrl.$dirty">URL is not valid!</div>  
+    </div>
+
+    <!-- video category-->
+    <div class="form-group">
+      <label for="selectCategory"  class="col-lg-2 control-label">Category*: </label>
+      <div class="col-lg-7">
+        <select name="inputCategory" class="form-control" id="selectCategory" ng-model="newVideo.category" required >
+          <option selected value="">Please select</option>       
+          <option value="sport">Sport</option>
+          <option value="programming">Programming</option>
+          <option value="music">Music</option>
+          <option value="others">Others</option>
+        </select>
+      </div>
+      <div class="pull-right text-primary col-lg-3" ng-show="newVideoForm.inputCategory.$error.required && newVideoForm.inputCategory.$pristine">Select a category!</div>  
+    </div>
+    <!-- video subtitles-->
+    <div class="form-group">
+      <div class="col-lg-8 col-lg-offset-2">
+        <label>
+          <input type="checkbox" name="inputSubtitls" ng-model="newVideo.haveSubtitles"> Has subtitles
+        </label>
+      </div>
+    </div>
+    <div class="col-lg-8 col-lg-offset-2">
+    <p class="pull-left text-primary"><b>Note:</b> The fields with * are required.You can add 
+    only youtube videos submitting thier source url for embedding, not the video url in the browser tab.Otherwise your video won't be displayed.Click <a href="http://postimg.org/image/jk5i3s6jn/" target="_blank"><strong>HERE</strong></a> for more details.</p>
+    </div>
+    <!-- video submit-->
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <a class="btn btn-default" href="#/videos">Cancel</a>
+        <button  name="saveVideo" ng-click="addVideoEvent(newVideo)" type="submit" class="btn btn-primary" ng-disabled="newVideoForm.inpuUrl.$invalid || newVideoForm.inputTitle.$error.required ||
+        newVideoForm.inputCategory.$error.required">Submit</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
