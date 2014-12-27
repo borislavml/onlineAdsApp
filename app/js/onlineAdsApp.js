@@ -1,6 +1,6 @@
 /* App Module */
-
 var onlineAdsApp = angular.module('onlineAdsApp', [
+    'ngResource',
     'ngSanitize',
     'ngRoute',
     'onlineAdsAppControllers',
@@ -13,7 +13,7 @@ onlineAdsApp.config(['$routeProvider',
         $routeProvider.
         when('/login', {
             templateUrl: 'templates/login.html',
-            //controller: 'loginController'
+           // controller: 'loginController'
         }).
         when('/register', {
             templateUrl: 'templates/register.html',
@@ -21,7 +21,7 @@ onlineAdsApp.config(['$routeProvider',
         }).
         when('/home', {
             templateUrl: 'templates/all-ads.html',
-           // controller: 'alladsCtrl'
+            controller: 'AdsController'
         }).
         otherwise({
             redirectTo: '/home'

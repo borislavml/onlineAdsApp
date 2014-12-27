@@ -1,1 +1,39 @@
 /* app css stylesheet */
+
+.all-ads-list {
+	list-style-type: none;
+	margin-left: 0px !important;
+	padding-left: 0px !important;
+}
+
+.ad-info-text {
+  padding-top: 7px;
+}
+
+.ad-info-paragraph {
+	overflow: hidden;
+}
+
+.ad-image {
+	width: 100%;
+	height: 100%;
+	border: 1px solid black;
+	border-radius: 10px;
+	margin: 5px;
+}
+
+.filter-menues {
+	margin: 15px;
+}
+
+.dropdown-filter{
+	margin-bottom: 10px;
+}
+
+.dropdown-filte-button {
+	width: 150px;
+}
+
+.filte-items-link {
+	cursor: pointer;
+}
