@@ -31,9 +31,42 @@
 }
 
 .dropdown-filte-button {
-	width: 150px;
+	width: 160px;
 }
 
 .filte-items-link {
 	cursor: pointer;
 }
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.centerd-buttons { 
+	width: 160px;
+ 	margin: 0 auto;
+}
+
+label, input {
+    display: block;
+}
+
+.label-on-top {
+	width: 100px;
+	display: block;
+	margin-bottom:7px !important;
+	margin-left: 0px !important;
+	padding-left: 0px !important;
+	float:left !important;
+}
+
+#confirm-password-label {
+	width: 160px;
+}
+
+.short-label {
+	width: 75px !important;
+}
+
+

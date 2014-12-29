@@ -4,15 +4,14 @@
   </div>
   <div class="col-md-6 col-sm-7 col-xs-10">
     <ul class="all-ads-list">
-      <li ng-repeat="ad in adsData.ads | filter:filters | filter: query"
-        class="well">
+      <li dir-paginate="ad in adsData.ads | filter: query | itemsPerPage: adsPerPage" total-items="totalAds"  class="well">
         <!--header -->
         <div class="row">
           <div class="col-md-8 col-sm-8 col-xs-12">
             <h3>{{ad.title}}</h3>
           </div>
           <div class="col-md-4 col-sm-4 col-xs-12 pull-right">
-            <span class="text-primary pull-right"> {{ad.date | date:"EEE dd-MMM-yyyy"}} </span>
+            <span class="text-info pull-right"> {{ad.date | date:"EEE dd-MMM-yyyy"}} </span>
           </div>
         </div>
         <!-- info -->
@@ -46,27 +45,34 @@
     <input type="text" class="form-control" id="inputQuery" placeholder="Search" ng-model="query">
     <h3>Filte by: </h3>
     <div class="btn-group dropdown-filter">
-      <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false">Category<span class="caret"></span>
-      </button>
+      <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false"> {{categoryFilter}}
+      <span class="caret"></span> </button>
       <ul class="dropdown-menu" role="menu">
         <li><a href="#">All</a></li>
         <li ng-repeat="category in categoriesData">
-          <a ng-click="filters.categoryId = category.id"class="filte-items-link">
+          <a ng-click="filterByCategory(category.id, category.name)" class="filte-items-link">
           {{category.name}}</a>
         </li>
       </ul>
     </div>
     <div class="btn-group dropdown-filter">
-      <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false">Town<span class="caret"></span>
+      <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false" }> {{townFilter}}
+      <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu" >
         <li><a href="#">All</a></li>
         <li ng-repeat="town in townsData">
-          <a ng-click="filters.townId = town.id" class="filte-items-link" > {{town.name}}</a>
+          <a ng-click="filterByTown(town.id, town.name)" class="filte-items-link" > {{town.name}}</a>
         </li>
       </ul>
     </div>
   </div>
   <div class="col-md-2 col-sm-1 col-xs-1">
+  </div>
+</div>
+<!-- paginaton -->
+<div class="row pagination-div">
+  <div class='col-md-4 col-sm-8 col-xs-10 col-centered'>
+    <dir-pagination-controls boundary-links="true" on-page-change="pageChanged(newPageNumber)" template-url="../templates/dirPagination.tpl.html"></dir-pagination-controls>
   </div>
 </div>

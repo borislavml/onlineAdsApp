@@ -3,6 +3,8 @@ var onlineAdsApp = angular.module('onlineAdsApp', [
     'ngResource',
     'ngSanitize',
     'ngRoute',
+    'ui.bootstrap',
+    'angularUtils.directives.dirPagination',
     'onlineAdsAppControllers',
     'onlineAdsAppFilters'
 ]);
@@ -17,14 +19,15 @@ onlineAdsApp.config(['$routeProvider',
         }).
         when('/register', {
             templateUrl: 'templates/register.html',
-           // controller: 'registerController'
+            controller: 'RegisterController'
         }).
         when('/home', {
-            templateUrl: 'templates/all-ads.html',
-            controller: 'AdsController'
+            templateUrl: 'templates/home.html',
+            controller: 'HomeController'
         }).
         otherwise({
             redirectTo: '/home'
         });
     }
-]);
+])
+.constant('baseUrl', 'http://softuni-ads.azurewebsites.net/api');

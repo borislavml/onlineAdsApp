@@ -1,79 +1,57 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2 col-sm-3">
-      <!--Sidebar content-->
-      <!-- search query -->
-      <label for="inputQuery" class="control-label">Search</label>
-      <input type="text" class="form-control" id="inputQuery" placeholder="Search" ng-model="query">
-      <!-- sort by -->
-      <label for="sortby" class="control-label">Sort by: </label>
-      <select ng-model="orderProp" class="form-control" id="sortby">>
-        <option value="title">Title</option>
-        <option value="length">Length</option>
-        <option value="date">Date</option>
-        <option value="subscribers">Likes</option>
-      </select>
-      <!-- filter by category-->
-      <label for="filtterByCategory" class="control-label">Filter by category: </label>
-      <select ng-model="filterByCategory.category" class="form-control" id="filtterByCategory">
-        <option selected value="">All</option>
-        <option value="sport">Sport</option>
-        <option value="programming">Programming</option>
-        <option value="music">Music</option>
-        <option value="others">Others</option>
-      </select>
-      <!-- filter by subtitles-->
-      <label for="filtterBySubtitles" class="control-label">Filter by subtitles: </label>
-      <select ng-model="filterBySubtitles.haveSubtitles" class="form-control" id="filtterBySubtitles">
-        <option selected value="">All</option>
-        <option value="true">Subtitles</option>
-        <option value="false">No subtitles</option>
-      </select>
-        <!-- add new video-->
-      <a href="#/add-new-video" class="btn btn-primary" id="new-video-button">Add video</a>
+<form name="registerForm" class="form-horizontal col-md-6 coll-sm-6 coll-xs-8 col-centered well sm-well">
+  <fieldset>
+    <legend class="text-center">Register</legend>
+    <div class="row form-group">
+      <div class="col-md-6 col-sm-4 col-xs-6">
+        <label for="username" class="col-md-3 col-sm-3 col-xs-3 control-label label-on-top">Username: <b class="text-danger">*</b></label>
+        <input type="text" name="username" class="form-control" id="username" placeholder="Username" ng-model="register.username" required>
+      </div>
     </div>
-    <div class="col-md-8 col-sm-9">
-      <!--Body content-->
-      <ul class="videos">
-        <li ng-repeat="video in videos | filter:query | orderBy:orderProp | filter:filterByCategory |
-          filter:filterBySubtitles" class="well">
-          <h3 class="text-primary">{{video.title}}</h3>
-          <iframe width="70%" height="315" ng-src="{{video.videoUrl | trusted}}" frameborder="0" allowfullscreen></iframe>
-          <ul class="breadcrumb">
-            <li>Length: {{video.length}}</li>
-            <li>Category: <a href="#">{{video.category}}</a></li>
-            <li class="active">Subscribers: {{video.subscribers}}</li><br>
-            <li class="active">Subtitles: {{video.haveSubtitles | checkmark}}</li>
-            <li class="active">Date: {{video.date |  date:"MM/dd/yyyy 'at' h:mma"}}</li>
-          </ul>
-          <h4>Comments:</h4>
-          <ul class="comments">
-            <li ng-repeat="comment in video.comments">
-              <div class="row well">
-                <div class="col-md-1">
-                  <div ng-click="upVote(comment)" class="vote-button">
-                    <span>&#9650</span>
-                  </div>
-                  <div  class="badge badge-inverse">
-                    {{comment.likes}}
-                  </div>
-                  <div ng-click="downVote(comment)" class="vote-button">
-                    <span >&#9660</span>
-                  </div>
-                </div>
-                <div class="col-md-11 comment-info" >
-                  <strong>Author: {{comment.username}}</strong>
-                  <span class="pull-right">{{comment.date | date:"MM/dd/yyyy 'at' h:mma"}}</span>
-                  <br />
-                  {{comment.content}}
-                  <br />Website:
-                  <a href="{{comment.websiteUrl}}" target="_blanl">{{comment.websiteUrl}}</a>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </li>
-      </ul>
+    <div class="form-group row">
+      <div class="col-md-6 col-sm-4 col-xs-6">
+        <label for="password" class="col-md-3 col-sm-3 col-xs-3 control-label label-on-top">Password: <b class="text-danger">*</b></label>
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password" ng-model="register.password" required>
+      </div>
+      <div class="col-md-6 col-sm-4 col-xs-6">
+        <label for="confirmPassword" class="col-md-3 col-sm-3 col-xs-3 control-label label-on-top" id="confirm-password-label">Confirm password: <b class="text-danger">*</b></label>
+        <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirm password" ng-model="register.confirmPassword" required>
+      </div>
     </div>
-  </div>
-</div>
+    <div class="form-group row">
+      <div class="col-md-6 col-sm-4 col-xs-6">
+        <label for="name" class="col-md-3 col-sm-3 col-xs-3 control-label label-on-top short-label">Name: <b class="text-danger">*</b></label>
+        <input type="text" name="name" class="form-control" id="name" placeholder="Name" ng-model="register.name" required>
+      </div>
+      <div class="col-md-6 col-sm-4 col-xs-6">
+        <label for="email" class="col-md-3 col-sm-3 col-xs-3 control-label label-on-top short-label" >Email: <b class="text-danger">*</b></label>
+        <input type="email" name="email" class="form-control" id="email" placeholder="Email" ng-model="register.name" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-6 col-sm-4 col-xs-6">
+        <label for="phone" class="col-md-3 col-sm-3 col-xs-3 control-label label-on-top short-label">Phone: <b class="text-danger">*</b></label>
+        <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone" ng-model="register.phone" required>
+      </div>
+      <div class="col-md-6 col-sm-4 col-xs-6">
+        <label for="town" class="col-md-3 col-sm-3 col-xs-3 control-label label-on-top short-label" >Town: </label>
+        <select class="form-control" id="select">
+          <option>select</option>
+          <option ng-repeat="town in townsData">{{town.name}}</option>
+
+        </select>
+      </div>
+    </div>
+    <div class="row">
+        <p class="text-danger"><b class="text-danger">Note:</b> The fields with * are required.You can not submit your registration form until filling out all required details information.</p>
+      
+    </div>
+    
+    <!-- register submit-->
+    <div class="form-group row">
+      <div class="centerd-buttons">
+        <a class="btn btn-default" href="#/home">Cancel</a>
+        <button name="login" ng-click="register(register, loginForm)" type="submit" class="btn btn-primary" ng-disabled="registerForm.username.$error.required || registerForm.password.$error.required || registerForm.confirmPassword.$error.required || registerForm.name.$error.required || registerForm.phone.$error.required || registerForm.email.$error.required">Register</button>
+      </div>
+    </div>
+  </fieldset>
+</form>

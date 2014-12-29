@@ -1,18 +1,20 @@
 /* Serrvice for getting all categories  */
-onlineAdsApp.factory('categoriesData', function categoriesData($http) {
+onlineAdsApp.factory('categoriesData', function categoriesData($http, $q, baseUrl) {
     function getAllCategories(success, error) {
+        var deferred =$q.defer();
+
         $http({
             method: 'GET',
-            url: 'http://localhost:1337/api/categories'
-            // headers: {}
-            // data: {}
+            url: baseUrl + '/categories'
         })
             .success(function(data, status, headers, config) {
-                success(data, status, headers(), config);
+                deferred.resolve(data, status, headers, config);
             })
             .error(function(data, status, headers, config) {
-                error(data, status, headers(), config);
+                deferred.reject(data, status, headers, config);
             });
+
+            return deferred.promise;
     }
 
     return {

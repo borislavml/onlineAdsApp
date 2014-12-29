@@ -1,45 +1,59 @@
-/* Serrvice for getting ads data fromt the server  */
-onlineAdsApp.factory('adsData', function adsData($resource) {
-    var resource = $resource(
-        'http://localhost:1337/api/ads', {
-            id: '@id'
-        }, {
-            update: {
-                method: 'PUT'
-            }
-        });
+/* Serrvice for getting ll ads on home page  */
+onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl) {
+    function getAllAdds(pageNumber, townId, categoryId) {
+        var deferred = $q.defer();
 
-    function getAllAds() {
-        return resource.get();
+        $http({
+            method: 'GET',
+            url: baseUrl + '/ads?pagesize=5&startpage=' + pageNumber + '&TownId=' + townId + '&CategoryId=' + categoryId 
+        })
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data, status, headers, config);
+            })
+            .error(function(data, status, headers, config) {
+                deferred.reject(data, status, headers, config);
+            });
+
+        return deferred.promise;
     }
 
-    function createNewAd(ad) {
-        return resource.save(ad);
+     function getAllAdsByTown(townId, categoryId, pageNumber) {
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: baseUrl + '/ads?pagesize=5&TownId=' + townId + '&CategoryId=' + categoryId + '&startpage=' + pageNumber
+        })
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data, status, headers, config);
+            })
+            .error(function(data, status, headers, config) {
+                deferred.reject(data, status, headers, config);
+            });
+
+        return deferred.promise;
     }
 
-    function getAdById(id) {
-        return resource.get({
-            id: id
-        });
+     function getAllAdsByCAtegory(categoryId, townId,  pageNumber) {
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: baseUrl + '/ads?pagesize=5&CategoryId=' + categoryId + '&TownId=' + townId + '&startpage=' + pageNumber
+        })
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data, status, headers, config);
+            })
+            .error(function(data, status, headers, config) {
+                deferred.reject(data, status, headers, config);
+            });
+
+        return deferred.promise;
     }
 
-    function editAd(id, ad) {
-        return resource.update({
-            id: id
-        }, ad);
-    }
-
-    function deleteAd(id) {
-        return resource.delete({
-            id: id
-        });
-    }
-
-    return {
-        getAll: getAllAds,
-        create: createNewAd,
-        getById: getAdById,
-        edit: editAd,
-        delete: deleteAd
+    return{
+        getAll: getAllAdds,
+        getByTown: getAllAdsByTown,
+        getByCategory: getAllAdsByCAtegory
     };
 });
