@@ -69,4 +69,8 @@ label, input {
 	width: 75px !important;
 }
 
+.nav, .pagination, .carousel, .panel-title a {
+	cursor: pointer; 
+}
+
 

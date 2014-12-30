@@ -15,7 +15,7 @@ onlineAdsApp.config(['$routeProvider',
         $routeProvider.
         when('/login', {
             templateUrl: 'templates/login.html',
-           // controller: 'loginController'
+            controller: 'LoginController'
         }).
         when('/register', {
             templateUrl: 'templates/register.html',
@@ -30,4 +30,4 @@ onlineAdsApp.config(['$routeProvider',
         });
     }
 ])
-.constant('baseUrl', 'http://softuni-ads.azurewebsites.net/api');
+    .constant('baseUrl', 'http://softuni-ads.azurewebsites.net/api');
