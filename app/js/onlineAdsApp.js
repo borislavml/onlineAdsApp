@@ -25,6 +25,18 @@ onlineAdsApp.config(['$routeProvider',
             templateUrl: 'templates/home.html',
             controller: 'HomeController'
         }).
+        when('/user/ads', {
+            templateUrl: 'templates/user-allAds.html',
+            controller: 'UserAllAdsController'
+        }).
+        when('/user/publish-new-add', {
+            templateUrl: 'templates/publish-new-add.html',
+            controller: 'UserAllAdsController'
+        }).
+        when('/user/profile', {
+            templateUrl: 'templates/user-profile.html',
+            controller: 'UserProfileController'
+        }).
         otherwise({
             redirectTo: '/home'
         });

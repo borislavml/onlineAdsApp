@@ -11,16 +11,15 @@
 		<!-- Load jQuery and BootstrapJS-->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
 		<!-- Load AngularJS, modules, servieces and controllers -->
 		<script src="lib/angular/angular.js"></script>
 		<script src="lib/angular/angular-resource.js"></script>
 		<script src="lib/angular/angular-route.js"></script>
-		<script src="lib/angular/angular-sanitize.js"></script>	
+		<script src="lib/angular/angular-sanitize.js"></script>
 		<script src="lib/angular/ui-bootstrap-tpls-0.12.0.js"></script>
 		<script src="lib/angular/ui-bootstrap-custom-0.12.0.js"></script>
 		<script src="lib/angular/ui-bootstrap-custom-tpls-0.12.0.js"></script>
-		<script src="lib/angular/dirPagination.js"></script>		
+		<script src="lib/angular/dirPagination.js"></script>
 		<script src="js/onlineAdsApp.js"></script>
 		<script src="js/services/adsService.js"></script>
 		<script src="js/services/categoriesService.js"></script>
@@ -30,19 +29,21 @@
 		<script src="js/controllers/homeController.js"></script>
 		<script src="js/controllers/registerController.js"></script>
 		<script src="js/controllers/loginController.js"></script>
-		<script src="js/controllers/headerController.js"></script>	
+		<script src="js/controllers/mainController.js"></script>
+		<script src="js/controllers/userAllAdsController.js"></script>
+		<script src="js/controllers/userProfileController.js"></script>
 		<script src="js/filters/onlineAdsAppFilters.js"></script>
 	</head>
-	<body>
-	<!-- navigation-->
-		<div class="navbar navbar-default" ng-controller="HeaderController">
+	<body ng-controller="MainController">
+		<!-- navigation-->
+		<div class="navbar navbar-default">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#/" id="home-page">BestAds</a>
+				<a class="navbar-brand" ng-click="loadHomePage()">BestAds</a>
 			</div>
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
@@ -53,13 +54,50 @@
 						<a ng-if="userIsLogged" ng-click="logout()">Logout</a>
 					</li>
 					<li>
-						<a href="#/register">Register</a>
+						<a href="#/register" ng-if="userIsNotLogged">Register</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 		<!-- main -->
-		<div ng-view>
+		<div class="row">
+			<!-- left-side-bar -->
+			<div class="col-md-3 col-sm-10 col-xs-10">
+			<!-- main navigation -->
+				<div class="row sidebar-nav" ng-if="userIsLogged">
+					<div class="col-md-10 col-centered">
+						<div class="well well-sm text-info sidebar-nav-heading">
+							<h4>Wellcome home, {{currentUser}}</h4>
+						</div>
+						<div class="list-group">
+							<a href="#/home" class="list-group-item active" ng-click="loadHomePage()">Home</a>
+							<a class="list-group-item" ng-click="loadUserAds()">My Ads</a>
+							<a class="list-group-item" ng-click="publishNewAdd()">
+							Publish New Add</a>
+							<a class="list-group-item" ng-click="editProfile()">
+							Edit Profile</a>
+						</div>
+					</div>
+				</div>
+                <!-- My adds nav -->
+				<div class="row sidebar-nav" ng-if="clickedMyAds">
+					<div class="col-md-10 col-centered">
+						<div class="well well-sm text-info sidebar-nav-heading">
+							<h4>My ads</h4>
+						</div>
+						<div class="list-group">
+							<a class="list-group-item active" ng-click="loadUserAds()">All</a>
+							<a class="list-group-item" ng-click="">Published</a>
+							<a class="list-group-item">Waiting Approval</a>
+							<a class="list-group-item">Inactive</a>
+							<a class="list-group-item">Rejected</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- different views from routes are displayed here -->
+			<div class="col-md-9 col-sm-11 col-xs-11" ng-view >
+			</div>
 		</div>
 	</body>
 </html>

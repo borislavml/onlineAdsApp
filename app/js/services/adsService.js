@@ -1,11 +1,12 @@
 /* Serrvice for getting ll ads on home page  */
-onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl) {
+onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizationService) {
+
     function getAllAdds(pageNumber, townId, categoryId) {
         var deferred = $q.defer();
 
         $http({
             method: 'GET',
-            url: baseUrl + '/ads?pagesize=5&startpage=' + pageNumber + '&TownId=' + townId + '&CategoryId=' + categoryId 
+            url: baseUrl + '/ads?pagesize=5&startpage=' + pageNumber + '&TownId=' + townId + '&CategoryId=' + categoryId
         })
             .success(function(data, status, headers, config) {
                 deferred.resolve(data, status, headers, config);
@@ -17,7 +18,7 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl) {
         return deferred.promise;
     }
 
-     function getAllAdsByTown(townId, categoryId, pageNumber) {
+    function getAllAdsByTown(townId, categoryId, pageNumber) {
         var deferred = $q.defer();
 
         $http({
@@ -34,7 +35,7 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl) {
         return deferred.promise;
     }
 
-     function getAllAdsByCAtegory(categoryId, townId,  pageNumber) {
+    function getAllAdsByCAtegory(categoryId, townId, pageNumber) {
         var deferred = $q.defer();
 
         $http({
@@ -51,9 +52,33 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl) {
         return deferred.promise;
     }
 
-    return{
+    function getAllUserAds() {
+        var deferred = $q.defer();
+
+        var headers = authorizationService.getAuthorizationHeaders();
+        $http({
+            method: 'GET',
+            url: baseUrl + '/user/ads',
+            data: {},
+            headers: headers
+        })
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data, status, headers, config);
+            })
+            .error(function(data, status, headers, config) {
+                deferred.reject(data, status, headers, config);
+            });
+
+        return deferred.promise;
+    }
+
+
+
+
+    return {
         getAll: getAllAdds,
         getByTown: getAllAdsByTown,
-        getByCategory: getAllAdsByCAtegory
+        getByCategory: getAllAdsByCAtegory,
+        getAllUserAds: getAllUserAds,
     };
 });

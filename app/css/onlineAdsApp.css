@@ -1,4 +1,7 @@
 /* app css stylesheet */
+ body {
+ 	padding: 5px;
+ }
 
 .all-ads-list {
 	list-style-type: none;
@@ -24,6 +27,7 @@
 
 .filter-menues {
 	margin: 15px;
+	margin-top: 0px !important;
 }
 
 .dropdown-filter{
@@ -69,8 +73,20 @@ label, input {
 	width: 75px !important;
 }
 
-.nav, .pagination, .carousel, .panel-title a {
+.nav, .pagination, .carousel, .panel-title a, a {
 	cursor: pointer; 
+}
+
+.sidebar-nav {
+	width: 350px;
+}
+
+.login-register-forms {
+	margin-left: 10px;
+}
+
+.sidebar-nav-heading{
+   margin-bottom: 0px !important;
 }
 
 

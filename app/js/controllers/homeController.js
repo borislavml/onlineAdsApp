@@ -2,7 +2,7 @@
 var onlineAdsAppControllers = angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('HomeController',
-    function AdsController($scope, $http, adsData, categoriesData, townsData) {
+    function homeController($scope, $http, adsData, categoriesData, townsData) {
         $scope.townFilter = "Town";
         $scope.categoryFilter = "Category";
 
@@ -22,9 +22,9 @@ onlineAdsAppControllers.controller('HomeController',
         $scope.pageChanged = function(newPage) {
             getResultsPage(newPage);
         };
-        
+
         function getResultsPage(pageNumber) {
-            adsData.getAll(pageNumber,currentTownId, currentCategoryId).then(function(data) {
+            adsData.getAll(pageNumber, currentTownId, currentCategoryId).then(function(data) {
                 $scope.adsData = data;
                 $scope.totalAds = parseInt(data.numPages) * 5;
                 currentPage = pageNumber;
@@ -39,7 +39,7 @@ onlineAdsAppControllers.controller('HomeController',
         }, function(error) {
             console.log(error);
         });
-        
+
         /* filter ads by category */
         $scope.filterByCategory = function(categoryId, cateogryName) {
             adsData.getByCategory(categoryId, currentTownId, currentPage).then(function(data) {
@@ -56,9 +56,9 @@ onlineAdsAppControllers.controller('HomeController',
         townsData.getAll().then(function(data) {
             $scope.townsData = data;
         }, function(error) {
-            console.log(status, error);
+            console.log(error);
         });
-        
+
         /* filter ads by town*/
         $scope.filterByTown = function(townId, townName) {
             adsData.getByTown(townId, currentCategoryId, currentPage).then(function(data) {
