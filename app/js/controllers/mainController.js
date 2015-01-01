@@ -3,7 +3,7 @@ onlineAdsApp.controller('MainController',
         var userInfo;
         // handle refreshing page to store service state and user data
         function init() {
-            if ($window.sessionStorage["currentUser"]) {
+            if (authorizationService.userIsLogged()) {
                 userInfo = authorizationService.getCurrentUser();
                 $scope.userIsLogged = true;
                 $scope.userIsNotLogged = false;
@@ -37,7 +37,7 @@ onlineAdsApp.controller('MainController',
         };
 
         $scope.loadUserAds = function() {
-            if ($window.sessionStorage['currentUser']) {
+            if (authorizationService.userIsLogged()) {
                 $scope.userIsLogged = true;
                 $scope.userIsNotLogged = false;
                 $location.path('/user/ads');
@@ -46,22 +46,20 @@ onlineAdsApp.controller('MainController',
         };
 
         $scope.publishNewAdd = function() {
-            if ($window.sessionStorage['currentUser']) {
+            if (authorizationService.userIsLogged()) {
                 $scope.userIsLogged = true;
                 $scope.userIsNotLogged = false;
                 $scope.clickedMyAds = false;
                 $location.path('/user/publish-new-add');
-                
             }
         };
 
         $scope.editProfile = function() {
-            if ($window.sessionStorage['currentUser']) {
+            if (authorizationService.userIsLogged()) {
                 $scope.userIsLogged = true;
                 $scope.userIsNotLogged = false;
                 $scope.clickedMyAds = false;
                 $location.path('/user/profile');
-                
             }
         };
     });

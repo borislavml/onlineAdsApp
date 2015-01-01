@@ -11,7 +11,7 @@ var onlineAdsApp = angular.module('onlineAdsApp', [
 
 /* Configure routing and URL paths */
 onlineAdsApp.config(['$routeProvider',
-    function($routeProvider) {
+    function($routeProvider, $locationProvider) {
         $routeProvider.
         when('/login', {
             templateUrl: 'templates/login.html',
@@ -27,7 +27,7 @@ onlineAdsApp.config(['$routeProvider',
         }).
         when('/user/ads', {
             templateUrl: 'templates/user-allAds.html',
-            controller: 'UserAllAdsController'
+            controller: 'UserAllAdsController',
         }).
         when('/user/publish-new-add', {
             templateUrl: 'templates/publish-new-add.html',
@@ -37,9 +37,21 @@ onlineAdsApp.config(['$routeProvider',
             templateUrl: 'templates/user-profile.html',
             controller: 'UserProfileController'
         }).
+        when('/unauthorized', {
+            templateUrl: 'templates/unauthorized.html'
+        }).
         otherwise({
             redirectTo: '/home'
         });
     }
-])
-    .constant('baseUrl', 'http://localhost:1337/api');
+]).
+run(function($rootScope, $location, authorizationService) {
+    $rootScope.$on('$routeChangeStart', function(event, next) {
+        var path = $location.path();
+        if (!authorizationService.userIsLogged() && path !== '/login' &&
+            path !== '/register' && path !== '/home') {
+            $location.path('/unauthorized');
+        }
+    });
+}).
+constant('baseUrl', 'http://localhost:1337/api');
