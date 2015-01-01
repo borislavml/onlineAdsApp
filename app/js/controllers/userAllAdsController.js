@@ -3,10 +3,31 @@ var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineA
 onlineAdsAppControllers.controller('UserAllAdsController',
     function userAllAdsController($scope, adsData) {
 
-        adsData.getAllUserAds().then(function(data) {
-            $scope.userAdsData = data;
-        }, function(error) {
-            console.log(error);
-        });
+        /* pagination */
+        var currentPage = 1;
+        $scope.totalAds = 0;
+        $scope.adsPerPage = 3;
+        getResultsPage(1);
+
+        $scope.pagination = {
+            current: 1
+        };
+
+        $scope.pageChanged = function(newPage) {
+            getResultsPage(newPage);
+        };
+
+        function getResultsPage(pageNumber) {
+            adsData.getAllUserAds(pageNumber).then(function(data) {
+                $scope.userAdsData = data;
+                $scope.totalAds = parseInt(data.numItems);
+                currentPage = pageNumber;
+            }, function(error) {
+            	// TODO proper user message
+                console.log(error);
+            });
+        }
+
+
 
     });

@@ -42,4 +42,4 @@ onlineAdsApp.config(['$routeProvider',
         });
     }
 ])
-    .constant('baseUrl', 'http://softuni-ads.azurewebsites.net/api');
+    .constant('baseUrl', 'http://localhost:1337/api');

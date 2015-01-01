@@ -89,4 +89,9 @@ label, input {
    margin-bottom: 0px !important;
 }
 
+.ad-title {
+	overflow: hidden;
+	word-break: break-all;
+}
+
 

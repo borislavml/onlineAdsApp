@@ -52,13 +52,13 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
         return deferred.promise;
     }
 
-    function getAllUserAds() {
+    function getAllUserAds(pageNumber) {
         var deferred = $q.defer();
 
         var headers = authorizationService.getAuthorizationHeaders();
         $http({
             method: 'GET',
-            url: baseUrl + '/user/ads',
+            url: baseUrl + '/user/ads?pagesize=3&startpage=' + pageNumber,
             data: {},
             headers: headers
         })
@@ -71,10 +71,6 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
 
         return deferred.promise;
     }
-
-
-
-
     return {
         getAll: getAllAdds,
         getByTown: getAllAdsByTown,
