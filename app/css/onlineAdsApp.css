@@ -1,4 +1,4 @@
-/* app css stylesheet */
+/* app css stylesheet #58C0DE*/
  body {
  	padding: 5px;
  }
@@ -77,9 +77,9 @@ label, input {
 	cursor: pointer; 
 }
 
-.sidebar-nav {
+/*.sidebar-nav {
 	width: 350px;
-}
+}*/
 
 .login-register-forms {
 	margin-left: 10px;
@@ -93,5 +93,25 @@ label, input {
 	overflow: hidden;
 	word-break: break-all;
 }
+
+.left-side-ad {
+	border-right: 1px solid black !important;
+	padding-right: 30px;
+}
+
+.right-side-ad {
+	padding-left: 5px;
+}
+
+.ad-edit-buttons {
+	margin-top: 10px;
+}
+
+.ad-edit-buttons-link {
+	width: 98%;
+}
+
+
+
 
 

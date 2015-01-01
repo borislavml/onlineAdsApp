@@ -1,7 +1,9 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 /* login controller*/
 onlineAdsAppControllers.controller('LoginController',
-    function loginController($scope,$rootScope, $location, authenticationService, authorizationService) {
+    function loginController($scope, $rootScope, $location, authenticationService, authorizationService) {
+        var ajaxErrorText = 'Something went wrong, please try again or refresh the page.';
+
         $scope.errorOccurred = false;
         $scope.alertMsg = '';
 
@@ -17,8 +19,13 @@ onlineAdsAppControllers.controller('LoginController',
                     $rootScope.$broadcast('userHasLogged');
                     $location.path('/home');
                 }, function(error) {
+                    console.log(error);
                     $scope.errorOccurred = true;
-                    $scope.alertMsg = error.error_description;
+                    if (error.error_description) {
+                        $scope.alertMsg = error.error_description;
+                    } else{
+                        $scope.alertMsg = ajaxErrorText;
+                    }
                 });
             }
         };

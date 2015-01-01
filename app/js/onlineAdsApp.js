@@ -25,7 +25,7 @@ onlineAdsApp.config(['$routeProvider',
             templateUrl: 'templates/home.html',
             controller: 'HomeController'
         }).
-        when('/user/ads', {
+        when('/user/ads-all', {
             templateUrl: 'templates/user-allAds.html',
             controller: 'UserAllAdsController',
         }).

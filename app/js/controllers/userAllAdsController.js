@@ -1,7 +1,16 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('UserAllAdsController',
-    function userAllAdsController($scope, adsData) {
+    function userAllAdsController($scope,$rootScope, adsData) {
+        $scope.noAdsToDisplay = false;
+        $scope.errorOccurred = false;
+        $scope.alertMsg = '';
+
+        var ajaxErrorText = 'Something went wrong, please try again or refresh the page.';
+
+        $scope.closeAlert = function() {
+            $scope.errorOccurred = false;
+        };
 
         /* pagination */
         var currentPage = 1;
@@ -18,16 +27,18 @@ onlineAdsAppControllers.controller('UserAllAdsController',
         };
 
         function getResultsPage(pageNumber) {
-            adsData.getAllUserAds(pageNumber).then(function(data) {
-                $scope.userAdsData = data;
-                $scope.totalAds = parseInt(data.numItems);
-                currentPage = pageNumber;
+            adsData.getUserAds(pageNumber, '').then(function(data) {
+                if (data.ads.length === 0) {
+                    $scope.noAdsToDisplay = true;
+                } else {
+                    $scope.userAdsData = data;
+                    $scope.totalAds = parseInt(data.numItems);
+                    currentPage = pageNumber;
+                }
             }, function(error) {
-            	// TODO proper user message
-                console.log(error);
+                $scope.errorOccurred = true;
+                $scope.alertMsg = ajaxErrorText;
             });
         }
-
-
 
     });

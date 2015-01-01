@@ -1,74 +1,80 @@
+<!-- alerts-->
+<div class="row" ng-if="errorOccurred">
+  <div class="col-md-8 coll-sm-10 coll-xs-10">
+  <alert type="danger" close="closeAlert()" class="text-center">{{alertMsg}}</alert>
+</div>
+</div>
 <div class="row">
-  <!--All ads list-->
-  <div class="col-md-7 col-sm-8 col-xs-12">
-    <ul class="all-ads-list">
-      <li dir-paginate="ad in adsData.ads | filter: query | itemsPerPage: adsPerPage" total-items="totalAds"  class="well">
-        <!--header -->
-        <div class="row">
-          <div class="col-md-8 col-sm-8 col-xs-12">
-            <h3 class="ad-title">{{ad.title}}</h3>
+<!--All ads list-->
+<div class="col-md-7 col-sm-8 col-xs-12">
+  <ul class="all-ads-list">
+    <li dir-paginate="ad in adsData.ads | filter: query | itemsPerPage: adsPerPage" total-items="totalAds"  class="well">
+      <!--header -->
+      <div class="row">
+        <div class="col-md-8 col-sm-8 col-xs-12">
+          <h3 class="ad-title">{{ad.title}}</h3>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 pull-right">
+          <span class="text-info pull-right"> {{ad.date | date:"EEE dd-MMM-yyyy"}} </span>
+        </div>
+      </div>
+      <!-- info -->
+      <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-8">
+          <img src="./img/No_image_available.svg" ng-src="{{ad.imageDataUrl}}" alt="" class="ad-image img-responsive">
+        </div>
+        <div class="col-md-8 col-sm-8 col-xs-12">
+          <p class="well well-sm ad-info-paragraph"> {{ad.text}} </p>
+          <div class="row">
+            <div class="col-md-2 col-sm-3 col-xs-3  ad-info-text"> <strong>Name: </strong> </div>
+            <div class="col-md-9 col-sm-8 col-xs-8 well well-sm">{{ad.ownerName}}</div>
           </div>
-          <div class="col-md-4 col-sm-4 col-xs-12 pull-right">
-            <span class="text-info pull-right"> {{ad.date | date:"EEE dd-MMM-yyyy"}} </span>
+          <div class="row">
+            <div class="col-md-2 col-sm-3 col-xs-3 ad-info-text"> <strong>Email: </strong>  </div>
+            <div class="col-md-9 col-sm-8 col-xs-8 well well-sm">
+              <a href="mailto:{{ad.ownerEmail}}">{{ad.ownerEmail}}</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 col-sm-3 col-xs-3 ad-info-text"> <strong>Tel: </strong></div>
+            <div class="col-md-9 col-sm-8 col-xs-8 well well-sm">{{ad.ownerPhone}} </div>
           </div>
         </div>
-        <!-- info -->
-        <div class="row">
-          <div class="col-md-4 col-sm-4 col-xs-8">
-            <img src="./img/No_image_available.svg" ng-src="{{ad.imageDataUrl}}" alt="" class="ad-image img-responsive">
-          </div>
-          <div class="col-md-8 col-sm-8 col-xs-12">
-            <p class="well well-sm ad-info-paragraph"> {{ad.text}} </p>
-            <div class="row">
-              <div class="col-md-2 col-sm-3 col-xs-3  ad-info-text"> <strong>Name </strong> </div>
-              <div class="col-md-9 col-sm-8 col-xs-8 well well-sm">{{ad.ownerName}}</div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 col-sm-3 col-xs-3 ad-info-text"> <strong>Email </strong>  </div>
-              <div class="col-md-9 col-sm-8 col-xs-8 well well-sm">
-                <a href="mailto:{{ad.ownerEmail}}">{{ad.ownerEmail}}</a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 col-sm-3 col-xs-3 ad-info-text"> <strong>Tel </strong></div>
-              <div class="col-md-9 col-sm-8 col-xs-8 well well-sm">{{ad.ownerPhone}} </div>
-            </div>
-          </div>
-        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<!--Filters by category and town-->
+<div class="col-md-4 col-sm-3 col-xs-10 filter-menues">
+  <input type="text" class="form-control" id="inputQuery" placeholder="Search" ng-model="query">
+  <h3>Filter by: </h3>
+  <div class="btn-group dropdown-filter">
+    <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false"> {{categoryFilter}}
+    <span class="caret"></span> </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#">All</a></li>
+      <li ng-repeat="category in categoriesData">
+        <a ng-click="filterByCategory(category.id, category.name)" class="filte-items-link">
+        {{category.name}}</a>
       </li>
     </ul>
   </div>
-  <!--Filters by category and town-->
-  <div class="col-md-4 col-sm-3 col-xs-10 filter-menues">
-    <input type="text" class="form-control" id="inputQuery" placeholder="Search" ng-model="query">
-    <h3>Filter by: </h3>
-    <div class="btn-group dropdown-filter">
-      <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false"> {{categoryFilter}}
-      <span class="caret"></span> </button>
-      <ul class="dropdown-menu" role="menu">
-        <li><a href="#">All</a></li>
-        <li ng-repeat="category in categoriesData">
-          <a ng-click="filterByCategory(category.id, category.name)" class="filte-items-link">
-          {{category.name}}</a>
-        </li>
-      </ul>
-    </div>
-    <div class="btn-group dropdown-filter">
-      <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false" }> {{townFilter}}
-      <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu" >
-        <li><a href="#">All</a></li>
-        <li ng-repeat="town in townsData">
-          <a ng-click="filterByTown(town.id, town.name)" class="filte-items-link" > {{town.name}}</a>
-        </li>
-      </ul>
-    </div>
+  <div class="btn-group dropdown-filter">
+    <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false" }> {{townFilter}}
+    <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" >
+      <li><a href="#">All</a></li>
+      <li ng-repeat="town in townsData">
+        <a ng-click="filterByTown(town.id, town.name)" class="filte-items-link" > {{town.name}}</a>
+      </li>
+    </ul>
   </div>
+</div>
 </div>
 <!--paginaton-->
 <div class="row pagination-div">
-  <div class='col-md-9 col-sm-10 col-xs-12 col-centered'>
-    <dir-pagination-controls boundary-links="true" on-page-change="pageChanged(newPageNumber)" template-url="templates/dirPagination.tpl.html"></dir-pagination-controls>
-  </div>
+<div class='col-md-9 col-sm-10 col-xs-12 col-centered'>
+  <dir-pagination-controls boundary-links="true" on-page-change="pageChanged(newPageNumber)" template-url="templates/dirPagination.tpl.html"></dir-pagination-controls>
+</div>
 </div>

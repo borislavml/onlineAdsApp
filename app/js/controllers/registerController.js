@@ -3,6 +3,7 @@ var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineA
 onlineAdsAppControllers.controller('RegisterController',
     function registerController($scope, authenticationService, authorizationService, townsData) {
         var errorMessage = {};
+        var ajaxErrorText = 'Something went wrong, please try again or refresh the page.';
 
         $scope.errorOccurred = false;
         $scope.alertMsg = '';
@@ -18,14 +19,13 @@ onlineAdsAppControllers.controller('RegisterController',
         townsData.getAll().then(function(data) {
             $scope.townsData = data;
         }, function(error) {
-            $scope.alertMsg = 'An error occurred.Sorry for the inconvenience.Please try refreshing the page';
-            console.log(error);
+           // $scope.alertMsg = ajaxErrorText;
         });
 
         $scope.register = function(credentials, registerForm) {
             if (registerForm.$valid) {
                 authenticationService.register(credentials).then(function(data) {
-                    authorizationService.setUserSession(data);                
+                    authorizationService.setUserSession(data);
                     $scope.errorOccurred = true;
                     $scope.registrationActive = false;
 
@@ -39,14 +39,16 @@ onlineAdsAppControllers.controller('RegisterController',
         };
 
         function handleErrorMessage(errorMessage) {
+            $scope.errorOccurred = true;
             if (errorMessage['']) {
-                $scope.errorOccurred = true;
                 $scope.alertType = 'danger';
                 $scope.alertMsg = errorMessage[''][0];
             } else if (errorMessage['model.ConfirmPassword']) {
-                $scope.errorOccurred = true;
                 $scope.alertType = 'danger';
                 $scope.alertMsg = errorMessage['model.ConfirmPassword'][0];
+            } else {
+                $scope.alertType = 'danger';
+                $scope.alertMsg = ajaxErrorText;
             }
         }
     });

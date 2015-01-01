@@ -35,7 +35,7 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
         return deferred.promise;
     }
 
-    function getAllAdsByCAtegory(categoryId, townId, pageNumber) {
+    function getAllAdsByCategory(categoryId, townId, pageNumber) {
         var deferred = $q.defer();
 
         $http({
@@ -52,13 +52,13 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
         return deferred.promise;
     }
 
-    function getAllUserAds(pageNumber) {
+    function getUserAds(pageNumber,adsWithStatus) {
         var deferred = $q.defer();
-
+        
         var headers = authorizationService.getAuthorizationHeaders();
         $http({
             method: 'GET',
-            url: baseUrl + '/user/ads?pagesize=3&startpage=' + pageNumber,
+            url: baseUrl + '/user/ads?pagesize=3&startpage=' + pageNumber + '&status=' + adsWithStatus,
             data: {},
             headers: headers
         })
@@ -74,7 +74,7 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
     return {
         getAll: getAllAdds,
         getByTown: getAllAdsByTown,
-        getByCategory: getAllAdsByCAtegory,
-        getAllUserAds: getAllUserAds,
+        getByCategory: getAllAdsByCategory,
+        getUserAds: getUserAds,
     };
 });
