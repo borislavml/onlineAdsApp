@@ -25,13 +25,29 @@ onlineAdsApp.config(['$routeProvider',
             templateUrl: 'templates/home.html',
             controller: 'HomeController'
         }).
-        when('/user/ads-all', {
+        when('/user/ads', {
+            templateUrl: 'templates/user-allAds.html',
+            controller: 'UserAllAdsController',
+        }).
+        when('/user/ads/published', {
+            templateUrl: 'templates/user-allAds.html',
+            controller: 'UserAllAdsController',
+        }).
+        when('/user/ads/waitingapproval', {
+            templateUrl: 'templates/user-allAds.html',
+            controller: 'UserAllAdsController',
+        }).
+        when('/user/ads/inactive', {
+            templateUrl: 'templates/user-allAds.html',
+            controller: 'UserAllAdsController',
+        }).
+        when('/user/ads/rejected', {
             templateUrl: 'templates/user-allAds.html',
             controller: 'UserAllAdsController',
         }).
         when('/user/publish-new-add', {
             templateUrl: 'templates/publish-new-add.html',
-            controller: 'UserAllAdsController'
+            controller: 'UserProfileController'
         }).
         when('/user/profile', {
             templateUrl: 'templates/user-profile.html',

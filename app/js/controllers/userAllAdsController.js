@@ -1,12 +1,13 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('UserAllAdsController',
-    function userAllAdsController($scope,$rootScope, adsData) {
+    function userAllAdsController($scope, $rootScope, $location, adsData) {
+        var ajaxErrorText = 'Something went wrong, please try again or refresh the page.',
+            adStatus = $location.path().substr(10, $location.path().length);
+
         $scope.noAdsToDisplay = false;
         $scope.errorOccurred = false;
         $scope.alertMsg = '';
-
-        var ajaxErrorText = 'Something went wrong, please try again or refresh the page.';
 
         $scope.closeAlert = function() {
             $scope.errorOccurred = false;
@@ -27,7 +28,7 @@ onlineAdsAppControllers.controller('UserAllAdsController',
         };
 
         function getResultsPage(pageNumber) {
-            adsData.getUserAds(pageNumber, '').then(function(data) {
+            adsData.getUserAds(pageNumber, adStatus).then(function(data) {
                 if (data.ads.length === 0) {
                     $scope.noAdsToDisplay = true;
                 } else {
