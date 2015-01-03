@@ -1,9 +1,8 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 /* login controller*/
 onlineAdsAppControllers.controller('LoginController',
-    function loginController($scope, $rootScope, $location, authenticationService, authorizationService) {
-        var ajaxErrorText = 'Something went wrong, please try again or refresh the page.';
-
+    function loginController($scope, $rootScope, $location, authenticationService,
+     authorizationService, ajaxErrorText) {
         $scope.errorOccurred = false;
         $scope.alertMsg = '';
 

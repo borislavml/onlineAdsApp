@@ -1,9 +1,8 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('UserPiblishAdController',
-    function($scope, adsData, townsData, categoriesData) {
-        var ajaxErrorText = 'Something went wrong, please try again or refresh the page.';
-
+    function($scope, adsData, townsData, categoriesData, authorizationService, ajaxErrorText) {
+        $scope.nullValue = null;
         $scope.errorOccurred = false;
         $scope.publishingActive = true;
         $scope.alertMsg = '';
@@ -33,33 +32,37 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
             categoryId: null
         };
 
-        $scope.fileSelected = function(fileInputField, newAdForm) {
-            // delete $scope.adData.imageDataUrl;
+        $scope.fileSelected = function(fileInputField) {
             delete $scope.newAdData.imageDataUrl;
+             // $('.ad-image').attr('src', '');
+             // $('.image-title').attr('value', '');
             var file = fileInputField.files[0];
+
             if (file.type.match(/image\/.*/)) {
                 var reader = new FileReader();
                 reader.onload = function() {
-                    $scope.fileName = file.name;
                     $scope.newAdData.imageDataUrl = reader.result;
-                    $scope.imageData = reader.result;
+                    $('.ad-image').attr('src', reader.result);
+                    $('.image-title').attr('value', file.name);
                 };
                 reader.readAsDataURL(file);
             } else {
-                $scope.imageData = './img/not-suported.jpg';
+                $scope.newAdData.imageDataUrl = null;
+                $('.ad-image').attr('src', './img/not-suported.jpg');
+                $('.image-title').attr('value', 'file format not supported');
             }
         };
 
         $scope.publishAd = function(newAdData, newAdForm) {
-            if (newAdForm.$valid) {
+            if (newAdForm.$valid && authorizationService.userIsLogged()) {
                 adsData.publishAd(newAdData).then(function(data) {
                     $scope.errorOccurred = true;
                     $scope.publishingActive = false;
                     $scope.alertType = 'success';
-                    $scope.alertMsg = 'Advertisement submitted for approval. Once approved, it will be published.';
+                    $scope.alertMsg = 'Advertisement submitted for approval.Once approved, it will be published.';
                 }, function(error) {
                     $scope.errorOccurred = true;
-                    $scope.alertType = 'success';
+                    $scope.alertType = 'danger';
                     $scope.alertMsg = ajaxErrorText;
                 });
             }

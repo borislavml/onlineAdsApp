@@ -1,12 +1,11 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 /* login controller*/
 onlineAdsAppControllers.controller('RegisterController',
-    function registerController($scope, authenticationService, authorizationService, townsData) {
+    function registerController($scope, authenticationService, authorizationService, townsData, ajaxErrorText) {
         var errorMessage = {};
-        var ajaxErrorText = 'Something went wrong, please try again or refresh the page.';
 
         $scope.errorOccurred = false;
-         $scope.registrationActive = true;
+        $scope.registrationActive = true;
         $scope.alertMsg = '';
         $scope.alertType = '';
 
@@ -18,7 +17,7 @@ onlineAdsAppControllers.controller('RegisterController',
         townsData.getAll().then(function(data) {
             $scope.townsData = data;
         }, function(error) {
-           // $scope.alertMsg = ajaxErrorText;
+            // $scope.alertMsg = ajaxErrorText;
         });
 
         $scope.register = function(credentials, registerForm) {

@@ -32,8 +32,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3 col-sm-4 col-xs-4" >
-				<img src="./img/No_image_available.svg" ng-src="{{newAdData.imageDataUrl}}" alt=""
+			<div class="col-md-4 col-sm-4 col-xs-4" >
+				<img src="./img/no.image-uploaded-mini.jpg" alt=""
 				class="ad-image img-responsive">
 			</div>
 		</div>
@@ -46,11 +46,12 @@
 					<div class="col-md-9 col-sm-8 col-xs-8">
 						<div class="input-group">
 							<span class="input-group-btn">
-							<span class="btn btn-primary btn-file">
-							Browse… <input type="file" multiple="" id="image" onchange="angular.element(this).scope().fileSelected(this, newAdForm)" />
+								<span class="btn btn-primary btn-file">Browse… 
+								<input type="file" multiple="" id="image" onchange="angular.element(this).scope().fileSelected(this)" />
+								</span>
 							</span>
-							</span>
-							<input type="text" class="form-control" readonly="" value="{{fileName}}" />
+							<input type="text" class="form-control image-title" readonly="" 
+							value="" />
 						</div>
 					</div>
 				</div>
@@ -58,7 +59,7 @@
 					<label for="text" class="col-md-3 col-sm-4 col-xs-4 control-label">Town:</label>
 					<div class="col-md-9 col-sm-8 col-xs-8">
 						<select class="form-control" id="select" ng-model="newAdData.townId">
-							<option value="null" selected >None</option>
+							<option value="{{nullValue}}" selected>None</option>
 							<option ng-repeat="town in townsData" value="{{town.id}}">{{town.name}}</option>
 						</select>
 					</div>
@@ -67,7 +68,7 @@
 					<label for="text" class="col-md-3 col-sm-4 col-xs-4 control-label">Category:</label>
 					<div class="col-md-9 col-sm-8 col-xs-8">
 						<select class="form-control" id="select" ng-model="newAdData.categoryId">
-							<option value="null" selected >None</option>
+							<option value="{{nullValue}}" selected>None</option>
 							<option ng-repeat="category in categoriesData" value="{{category.id}}">{{category.name}}</option>
 						</select>
 					</div>
@@ -84,7 +85,7 @@
 		<div class="form-group row">
 			<div class="centerd-buttons">
 				<a class="btn btn-default" href="#/user/ads">Cancel</a>
-				<button name="login" ng-click="publishAd(newAdData, newAdForm)" type="submit" class="btn btn-primary" ng-disabled="newAdForm.$invalid">Register</button>
+				<button name="login" ng-click="publishAd(newAdData,newAdForm)" type="submit" class="btn btn-primary" ng-disabled="newAdForm.$invalid">Submit</button>
 			</div>
 		</div>
 	</fieldset>

@@ -38,13 +38,15 @@
 								<p class="well well-sm ad-info-paragraph"> {{ad.text}} </p>
 								<div class="row">
 									<div class="col-md-3 col-sm-4 col-xs-6 ad-info-text"> <strong>Category:</strong> </div>
-									<div class="col-md-8 col-sm-8 col-xs-6 well well-sm">{{ad.categoryName}}</div>
+									<div class="col-md-8 col-sm-8 col-xs-6 well well-sm">
+										{{ad.categoryName ? ad.categoryName : 'Not available'}}
+									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-3 col-sm-4 col-xs-6 ad-info-text"><strong>Town:
 									</strong> </div>
 									<div class="col-md-8 col-sm-8 col-xs-6 well well-sm">
-										{{ad.townName}}
+										{{ad.townName ? ad.townName : 'Not available'}}
 									</div>
 								</div>
 							</div>

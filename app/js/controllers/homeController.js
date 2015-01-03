@@ -2,11 +2,9 @@
 var onlineAdsAppControllers = angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('HomeController',
-    function homeController($scope, $http, adsData, categoriesData, townsData) {
+    function homeController($scope, $http, adsData, categoriesData, townsData, ajaxErrorText) {
         $scope.errorOccurred = false;
         $scope.alertMsg = '';
-
-        var ajaxErrorText = 'Something went wrong, please try again or refresh the page.';
 
         $scope.closeAlert = function() {
             $scope.errorOccurred = false;

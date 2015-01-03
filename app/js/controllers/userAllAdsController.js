@@ -1,9 +1,8 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('UserAllAdsController',
-    function userAllAdsController($scope, $rootScope, $location, adsData) {
-        var ajaxErrorText = 'Something went wrong, please try again or refresh the page.',
-            adStatus = $location.path().substr(10, $location.path().length);
+    function userAllAdsController($scope, $rootScope, $location, adsData, ajaxErrorText) {
+        var adStatus = $location.path().substr(10, $location.path().length);
 
         $scope.noAdsToDisplay = false;
         $scope.errorOccurred = false;

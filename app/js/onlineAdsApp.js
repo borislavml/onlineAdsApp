@@ -6,7 +6,6 @@ var onlineAdsApp = angular.module('onlineAdsApp', [
     'ui.bootstrap',
     'angularUtils.directives.dirPagination',
     'onlineAdsAppControllers',
-    'onlineAdsAppFilters'
 ]);
 
 /* Configure routing and URL paths */
@@ -70,4 +69,5 @@ run(function($rootScope, $location, authorizationService) {
         }
     });
 }).
-constant('baseUrl', 'http://localhost:1337/api');
+constant('baseUrl', 'http://localhost:1337/api').
+constant('ajaxErrorText', 'Something went wrong, please try again or refresh the page.');
