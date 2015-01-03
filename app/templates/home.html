@@ -52,7 +52,7 @@
     <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false"> {{categoryFilter}}
     <span class="caret"></span> </button>
     <ul class="dropdown-menu" role="menu">
-      <li><a href="#">All</a></li>
+      <li><a ng-click="filterByCategory('', 'Category')">All</a></li>
       <li ng-repeat="category in categoriesData">
         <a ng-click="filterByCategory(category.id, category.name)" class="filte-items-link">
         {{category.name}}</a>
@@ -64,7 +64,7 @@
     <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu" >
-      <li><a href="#">All</a></li>
+      <li><a ng-click="filterByTown('', 'Town')">All</a></li>
       <li ng-repeat="town in townsData">
         <a ng-click="filterByTown(town.id, town.name)" class="filte-items-link" > {{town.name}}</a>
       </li>

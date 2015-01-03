@@ -47,7 +47,7 @@ onlineAdsApp.config(['$routeProvider',
         }).
         when('/user/publish-new-add', {
             templateUrl: 'templates/publish-new-add.html',
-            controller: 'UserProfileController'
+            controller: 'UserPiblishAdController'
         }).
         when('/user/profile', {
             templateUrl: 'templates/user-profile.html',

@@ -1,12 +1,13 @@
 <!-- alerts-->
 <div class="row login-register-forms" ng-if="errorOccurred">
   <div class="col-md-8 coll-sm-8 coll-xs-10">
-  <alert type="{{alertType}}" close="closeAlert()">{{alertMsg}}</alert>
-</div>
+    <alert type="{{alertType}}" close="closeAlert()" class="text-center">
+      {{alertMsg}}
+    </alert>
+  </div>
 </div>
 <!-- register-form -->
-<div class="row login-register-forms">
-<form name="registerForm" class="form-horizontal col-md-8 coll-sm-8 coll-xs-10 well sm-well" ng-if="registrationActive">
+<form name="registerForm" class="form-horizontal col-md-8 coll-sm-8 coll-xs-10 well sm-well login-register-forms" ng-if="registrationActive">
   <fieldset>
     <legend class="text-center">Register</legend>
     <!-- username-->
@@ -87,4 +88,3 @@
     </div>
   </fieldset>
 </form>
-</div>

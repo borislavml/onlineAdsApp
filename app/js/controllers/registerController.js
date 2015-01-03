@@ -6,6 +6,7 @@ onlineAdsAppControllers.controller('RegisterController',
         var ajaxErrorText = 'Something went wrong, please try again or refresh the page.';
 
         $scope.errorOccurred = false;
+         $scope.registrationActive = true;
         $scope.alertMsg = '';
         $scope.alertType = '';
 
@@ -13,9 +14,7 @@ onlineAdsAppControllers.controller('RegisterController',
             $scope.errorOccurred = false;
         };
 
-        $scope.registrationActive = true;
-
-        /* get all towns*/
+        // get all towns
         townsData.getAll().then(function(data) {
             $scope.townsData = data;
         }, function(error) {

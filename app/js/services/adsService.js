@@ -52,9 +52,9 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
         return deferred.promise;
     }
 
-    function getUserAds(pageNumber,adsWithStatus) {
+    function getUserAds(pageNumber, adsWithStatus) {
         var deferred = $q.defer();
-        
+
         var headers = authorizationService.getAuthorizationHeaders();
         $http({
             method: 'GET',
@@ -71,10 +71,32 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
 
         return deferred.promise;
     }
+
+    function publishAd(newAdData) {
+        var deferred = $q.defer();
+        
+        var headers = authorizationService.getAuthorizationHeaders();
+        $http({
+            method: 'POST',
+            url: baseUrl + '/user/ads',
+            data: newAdData,
+            headers: headers
+        })
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data, status, headers, config);
+            })
+            .error(function(data, status, headers, config) {
+                deferred.reject(data, status, headers, config);
+            });
+
+        return deferred.promise;
+    }
+
     return {
         getAll: getAllAdds,
         getByTown: getAllAdsByTown,
         getByCategory: getAllAdsByCategory,
         getUserAds: getUserAds,
+        publishAd: publishAd,
     };
 });

@@ -19,7 +19,6 @@ onlineAdsAppControllers.controller('LoginController',
                     $rootScope.$broadcast('userHasLogged');
                     $location.path('/home');
                 }, function(error) {
-                    console.log(error);
                     $scope.errorOccurred = true;
                     if (error.error_description) {
                         $scope.alertMsg = error.error_description;

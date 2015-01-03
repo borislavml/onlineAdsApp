@@ -6,8 +6,7 @@
 		<!-- Load Bootsrap and custom styles-->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-		<link rel="stylesheet" type="text/css" href="css/onlineAdsApp.css">
-		
+		<link rel="stylesheet" type="text/css" href="css/onlineAdsApp.css">	
 		<!-- Load jQuery and BootstrapJS-->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
@@ -32,6 +31,7 @@
 		<script src="js/controllers/mainController.js"></script>
 		<script src="js/controllers/userAllAdsController.js"></script>
 		<script src="js/controllers/userProfileController.js"></script>
+		<script src="js/controllers/userPiblishAdController.js"></script>
 		<script src="js/filters/onlineAdsAppFilters.js"></script>
 	</head>
 	<body ng-controller="MainController">
@@ -60,44 +60,44 @@
 			</div>
 		</div>
 		<!-- main -->
-		<div class="row">		
-		<!-- left-side-bar -->
-		<div class="col-md-3 col-sm-10 col-xs-10">
-			<!-- main user nav -->
-			<div class="row sidebar-nav" ng-if="userIsLogged">
-				<div class="col-md-10 col-sm-8 col-xs-10 col-centered">
-					<div class="well well-sm text-info sidebar-nav-heading">
-						<h4>Wellcome home, {{currentUser}}</h4>
+		<div class="row">
+			<!-- left-side-bar -->
+			<div class="col-md-3 col-sm-10 col-xs-10">
+				<!-- main user nav -->
+				<div class="row sidebar-nav" ng-if="userIsLogged">
+					<div class="col-md-10 col-sm-8 col-xs-10 col-centered">
+						<div class="well well-sm text-info sidebar-nav-heading">
+							<h4>Wellcome home, {{currentUser}}</h4>
+						</div>
+						<div class="list-group">
+							<a href="#/home" class="list-group-item" ng-class="getClass('/home')" ng-click="loadHomePage()">Home </a>
+							<a class="list-group-item" ng-class="getClass('/user/ads')" ng-click="loadUserAds('')">My Ads</a>
+							<a class="list-group-item" ng-class="getClass('/user/publish-new-add')" ng-click="publishNewAdd()">
+							Publish New Add</a>
+							<a class="list-group-item" ng-class="getClass('/user/profile')"  ng-click="editProfile()">
+							Edit Profile</a>
+						</div>
 					</div>
-					<div class="list-group">
-						<a href="#/home" class="list-group-item" ng-class="getClass('/home')" ng-click="loadHomePage()">Home </a>
-						<a class="list-group-item" ng-class="getClass('/user/ads')" ng-click="loadUserAds('')">My Ads</a>
-						<a class="list-group-item" ng-class="getClass('/user/publish-new-add')" ng-click="publishNewAdd()">
-						Publish New Add</a>
-						<a class="list-group-item" ng-class="getClass('/user/profile')"  ng-click="editProfile()">
-						Edit Profile</a>
+				</div>
+				<!-- My ads nav -->
+				<div class="row sidebar-nav" ng-if="clickedMyAds">
+					<div class="col-md-10 col-sm-8 col-cs-10 col-centered">
+						<div class="well well-sm text-info sidebar-nav-heading">
+							<h4>My ads</h4>
+						</div>
+						<div class="list-group">
+							<a class="list-group-item" ng-class="getClass('/user/ads')" ng-click="loadUserAds('')">All</a>
+							<a class="list-group-item" ng-class="getClass('/user/ads/published')" ng-click="loadUserAds('Published')">Published</a>
+							<a class="list-group-item" ng-class="getClass('/user/ads/waitingapproval')" ng-click="loadUserAds('WaitingApproval')">Waiting Approval</a>
+							<a class="list-group-item" ng-class="getClass('/user/ads/inactive')" ng-click="loadUserAds('Inactive')">Inactive</a>
+							<a class="list-group-item" ng-class="getClass('/user/ads/rejected')" ng-click="loadUserAds('Rejected')">Rejected</a>
+						</div>
 					</div>
 				</div>
 			</div>
-			<!-- My ads nav -->
-			<div class="row sidebar-nav" ng-if="clickedMyAds">
-				<div class="col-md-10 col-sm-8 col-cs-10 col-centered">
-					<div class="well well-sm text-info sidebar-nav-heading">
-						<h4>My ads</h4>
-					</div>
-					<div class="list-group">
-						<a class="list-group-item" ng-class="getClass('/user/ads')" ng-click="loadUserAds('')">All</a>
-						<a class="list-group-item" ng-class="getClass('/user/ads/published')" ng-click="loadUserAds('Published')">Published</a>
-						<a class="list-group-item" ng-class="getClass('/user/ads/waitingapproval')" ng-click="loadUserAds('WaitingApproval')">Waiting Approval</a>
-						<a class="list-group-item" ng-class="getClass('/user/ads/inactive')" ng-click="loadUserAds('Inactive')">Inactive</a>
-						<a class="list-group-item" ng-class="getClass('/user/ads/rejected')" ng-click="loadUserAds('Rejected')">Rejected</a>
-					</div>
-				</div>
+			<!-- different views from routes are displayed here -->
+			<div class="col-md-9 col-sm-11 col-xs-11" ng-view >
 			</div>
 		</div>
-		<!-- different views from routes are displayed here -->
-		<div class="col-md-9 col-sm-11 col-xs-11" ng-view >
-		</div>
-	</div>
-</body>
+	</body>
 </html>
