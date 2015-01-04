@@ -69,5 +69,5 @@ run(function($rootScope, $location, authorizationService) {
         }
     });
 }).
-constant('baseUrl', 'http://localhost:1337/api').
+constant('baseUrl', 'http://softuni-ads.azurewebsites.net/api').
 constant('ajaxErrorText', 'Something went wrong, please try again or refresh the page.');

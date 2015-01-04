@@ -4,7 +4,6 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
     function($scope, adsData, townsData, categoriesData, authorizationService, ajaxErrorText) {
         $scope.nullValue = null;
         $scope.errorOccurred = false;
-        $scope.publishingActive = true;
         $scope.alertMsg = '';
         $scope.alertType = '';
 
@@ -34,8 +33,6 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
 
         $scope.fileSelected = function(fileInputField) {
             delete $scope.newAdData.imageDataUrl;
-             // $('.ad-image').attr('src', '');
-             // $('.image-title').attr('value', '');
             var file = fileInputField.files[0];
 
             if (file.type.match(/image\/.*/)) {
@@ -57,9 +54,15 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
             if (newAdForm.$valid && authorizationService.userIsLogged()) {
                 adsData.publishAd(newAdData).then(function(data) {
                     $scope.errorOccurred = true;
-                    $scope.publishingActive = false;
                     $scope.alertType = 'success';
                     $scope.alertMsg = 'Advertisement submitted for approval.Once approved, it will be published.';
+                    // clean publish ad form 
+                    $('.ad-image').attr('src', './img/no.image-uploaded-mini.jpg');
+                    $('.image-title').attr('value', '');
+                    $('#title').val('');
+                    $('#text').val('');
+                    $('#selectTown').val($scope.nullValue);
+                    $('#selectCategory').val($scope.nullValue);
                 }, function(error) {
                     $scope.errorOccurred = true;
                     $scope.alertType = 'danger';
@@ -67,6 +70,5 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
                 });
             }
         };
-
 
     });

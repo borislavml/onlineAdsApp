@@ -8,7 +8,7 @@
 </div>
 <!-- new ad form-->
 <form name="newAdForm" class="form-horizontal col-md-10 coll-sm-10 coll-xs-10 well
-	well-sm publis-new-add-form" ng-if="publishingActive">
+	well-sm publis-new-add-form">
 	<fieldset>
 		<legend class="text-center">Publish New Ad</legend>
 		<!-- title, text and image  -->
@@ -56,18 +56,18 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="text" class="col-md-3 col-sm-4 col-xs-4 control-label">Town:</label>
+					<label for="selectTown" class="col-md-3 col-sm-4 col-xs-4 control-label">Town:</label>
 					<div class="col-md-9 col-sm-8 col-xs-8">
-						<select class="form-control" id="select" ng-model="newAdData.townId">
+						<select class="form-control" id="selectTown" ng-model="newAdData.townId">
 							<option value="{{nullValue}}" selected>None</option>
 							<option ng-repeat="town in townsData" value="{{town.id}}">{{town.name}}</option>
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="text" class="col-md-3 col-sm-4 col-xs-4 control-label">Category:</label>
+					<label for="selectCategory" class="col-md-3 col-sm-4 col-xs-4 control-label">Category:</label>
 					<div class="col-md-9 col-sm-8 col-xs-8">
-						<select class="form-control" id="select" ng-model="newAdData.categoryId">
+						<select class="form-control" id="selectCategory" ng-model="newAdData.categoryId">
 							<option value="{{nullValue}}" selected>None</option>
 							<option ng-repeat="category in categoriesData" value="{{category.id}}">{{category.name}}</option>
 						</select>

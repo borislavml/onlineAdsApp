@@ -92,11 +92,92 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
         return deferred.promise;
     }
 
+    function deactivateAd(id) {
+        var deferred = $q.defer();
+        
+        var headers = authorizationService.getAuthorizationHeaders();
+        $http({
+            method: 'PUT',
+            url: baseUrl + '/user/ads/deactivate/' + id,
+            headers: headers
+        })
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data, status, headers, config);
+            })
+            .error(function(data, status, headers, config) {
+                deferred.reject(data, status, headers, config);
+            });
+
+        return deferred.promise;
+    }
+
+     function publishAgainAd(id) {
+        var deferred = $q.defer();
+        
+        var headers = authorizationService.getAuthorizationHeaders();
+        $http({
+            method: 'PUT',
+            url: baseUrl + '/user/ads/publishagain/' + id,
+            headers: headers
+        })
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data, status, headers, config);
+            })
+            .error(function(data, status, headers, config) {
+                deferred.reject(data, status, headers, config);
+            });
+
+        return deferred.promise;
+    }
+
+    function deleteAd(id) {
+        var deferred = $q.defer();
+        
+        var headers = authorizationService.getAuthorizationHeaders();
+        $http({
+            method: 'DELETE',
+            url: baseUrl + '/user/ads/' + id,
+            headers: headers
+        })
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data, status, headers, config);
+            })
+            .error(function(data, status, headers, config) {
+                deferred.reject(data, status, headers, config);
+            });
+
+        return deferred.promise;
+    }
+
+
+    function getAdById(id) {
+        var deferred = $q.defer();
+        
+        var headers = authorizationService.getAuthorizationHeaders();
+        $http({
+            method: 'GET',
+            url: baseUrl + '/user/ads/' + id,
+            headers: headers
+        })
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data, status, headers, config);
+            })
+            .error(function(data, status, headers, config) {
+                deferred.reject(data, status, headers, config);
+            });
+
+        return deferred.promise;
+    }
+
     return {
         getAll: getAllAdds,
         getByTown: getAllAdsByTown,
         getByCategory: getAllAdsByCategory,
         getUserAds: getUserAds,
         publishAd: publishAd,
+        deactivateAd: deactivateAd,
+        publishAgainAd: publishAgainAd,
+        deleteAd: deleteAd,
+        getAdById: getAdById
     };
 });
