@@ -2,6 +2,7 @@ var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineA
 
 onlineAdsAppControllers.controller('UserAllAdsController',
     function userAllAdsController($scope, $rootScope, $location, $modal, $timeout, adsData, ajaxErrorText) {
+        $scope.loading = true;
         var adStatus = $location.path().substr(10, $location.path().length);
         $scope.noAdsToDisplay = false;
 
@@ -24,12 +25,15 @@ onlineAdsAppControllers.controller('UserAllAdsController',
                 if (data.ads.length === 0) {
                     $scope.noAdsToDisplay = true;
                 } else {
+                    $scope.loading = true;
                     $scope.userAdsData = data;
                     $scope.totalAds = parseInt(data.numItems);
                     currentPage = pageNumber;
                 }
             }, function(error) {
                 $rootScope.$broadcast('operatonError', ajaxErrorText);
+            }).finally(function(){
+                $scope.loading = false;
             });
         }
 
@@ -39,6 +43,8 @@ onlineAdsAppControllers.controller('UserAllAdsController',
             var modalInstance = $modal.open({
                 templateUrl: './templates/modalTemplate.html',
                 controller: 'ModalController',
+                backdrop: false,
+                keyboard: false,
                 resolve: {
                     id: function() {
                         return id;
@@ -56,6 +62,8 @@ onlineAdsAppControllers.controller('UserAllAdsController',
             var modalInstance = $modal.open({
                 templateUrl: './templates/editAdModalTemplate.html',
                 controller: 'EditAdModalController',
+                backdrop: false,
+                keyboard: false,
                 resolve: {
                     id: function() {
                         return id;

@@ -37,7 +37,7 @@
 	</head>
 	<body ng-controller="MainController">
 		<!-- navigation-->
-		<div class="navbar navbar-default">
+		<div class="navbar navbar-default header-nav">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 				<span class="icon-bar"></span>
@@ -59,12 +59,11 @@
 					</li>
 				</ul>
 			</div>
-		</div>
-		
+		</div>	
 		<!-- alerts-->
-		<div class="row" ng-if="errorOccurred">
-			<div class="col-md-6 coll-sm- 8coll-xs-10 col-centered">
-				<alert type="{{alertType}}" close="closeAlert()" class="text-center alert-message">
+		<div class="row alerts-div" >
+			<div class="col-md-6 coll-sm- 8coll-xs-10 col-centered alert-message">
+				<alert type="{{alertType}}" close="closeAlert()" id="current-alert" class="text-center alert-message" ng-if="alertDialog">
 					{{alertMsg}}
 				</alert>
 			</div>

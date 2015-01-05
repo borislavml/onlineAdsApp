@@ -1,11 +1,14 @@
-<!-- no ads to display-->
-<div class="row" ng-if="noAdsToDisplay">
-	<div class="col-md-8 coll-sm-10 coll-xs-10">
-		<h4 class="text-info">Ooops.No ads in here.</h4>
+<!-- loading ads gif-->
+<div class="row" ng-show="loading">
+	<div class="spinner col-md-7 col-sm-8 col-xs-12" >
+		<img src="./img/ajax_loader_blue_512.gif" alt="" class="spinner-gif">
 	</div>
 </div>
 <!--user ads list -->
 <div class="row">
+	<div class="col-md-10 col-sm-10 col-xs-11" ng-if="noAdsToDisplay">
+		<h4 class="text-info">Ooops.No ads in here.</h4>
+	</div>
 	<div class="col-md-10 col-sm-10 col-xs-11">
 		<ul class="all-ads-list">
 			<li dir-paginate="ad in userAdsData.ads | itemsPerPage: adsPerPage" total-items="totalAds"  class="well" id="{{ad.id}}">
@@ -23,7 +26,7 @@
 						</div>
 						<!-- info -->
 						<div class="row">
-							<div class="col-md-4 col-sm-4 col-xs-8">
+							<div class="col-md-4 col-sm-4 col-xs-8 ad-image-container">
 								<img src="./img/No_image_available.svg" ng-src="{{ad.imageDataUrl}}" alt="" class="ad-image img-responsive">
 							</div>
 							<div class="col-md-8 col-sm-8 col-xs-12">
@@ -52,9 +55,9 @@
 									<strong>Status:</strong>
 								</div>
 								<div class="well well-sm text-center col-centered ad-edit-buttons">{{ad.status}} </div>
-								<div class="ad-edit-buttons" 
-								ng-if="ad.status === 'WaitingApproval' || 
-								ad.status === 'Published'">
+								<div class="ad-edit-buttons"
+									ng-if="ad.status === 'WaitingApproval' ||
+									ad.status === 'Published'">
 									<a class="btn btn-primary ad-edit-buttons-link" data="{{ad.id}}" ng-click="openModal(ad.id, 'Deactivate')">Deactivate</a>
 								</div>
 								<div class="ad-edit-buttons" ng-if="ad.status === 'Inactive'">

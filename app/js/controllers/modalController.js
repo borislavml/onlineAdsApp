@@ -1,5 +1,5 @@
 onlineAdsApp.controller('ModalController',
-    function modalController($scope, $rootScope, $modalInstance, adsData, id, action, ajaxErrorText) {
+    function modalController($scope, $rootScope, $route, $modalInstance, adsData, id, action, ajaxErrorText) {
         $scope.id = id;
         $scope.action = action;
 
@@ -18,32 +18,35 @@ onlineAdsApp.controller('ModalController',
             switch (action) {
                 case 'Deactivate':
                     adsData.deactivateAd(id).then(function(data) {
+                        $route.reload();
                         $rootScope.$broadcast('operatonSuccessfull', data.message + 
                             "It was moved into your Inactive Ads.");
-                        $("#" + id).fadeTo(1000, 0).slideUp(700, function() {
-                            $(this).remove("#" + id);
-                        });
+                        // $("#" + id).fadeTo(1000, 0).slideUp(700, function() {
+                        //     $(this).remove("#" + id);
+                        // });
                     }, function(error) {
                         $rootScope.$broadcast('operatonError', ajaxErrorText);
                     });
                     break;
                 case 'Delete':
                     adsData.deleteAd(id).then(function(data) {
+                        $route.reload();
                         $rootScope.$broadcast('operatonSuccessfull', data.message);
-                        $("#" + id).fadeTo(1000, 0).slideUp(700, function() {
-                            $(this).remove("#" + id);
-                        });
+                        // $("#" + id).fadeTo(1000, 0).slideUp(700, function() {
+                        //     $(this).remove("#" + id);
+                        // });
                     }, function(error) {
                         $rootScope.$broadcast('operatonError', ajaxErrorText);
                     });
                     break;
                 case 'Publish again':
                     adsData.publishAgainAd(id).then(function(data) {
+                        $route.reload();
                         $rootScope.$broadcast('operatonSuccessfull', data.message + 
                             "It was moved into your Waiting Approval Ads.");
-                        $("#" + id).fadeTo(1000, 0).slideUp(700, function() {
-                            $(this).remove("#" + id);
-                        });
+                        // $("#" + id).fadeTo(1000, 0).slideUp(700, function() {
+                        //     $(this).remove("#" + id);
+                        // });
                     }, function(error) {
                         $rootScope.$broadcast('operatonError', ajaxErrorText);
                     });

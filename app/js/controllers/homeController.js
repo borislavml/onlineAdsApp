@@ -2,11 +2,14 @@
 var onlineAdsAppControllers = angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('HomeController',
-    function homeController($scope,$rootScope, $http, adsData, categoriesData, townsData, ajaxErrorText) {
+    function homeController($scope, $rootScope, $http, adsData, categoriesData, townsData, ajaxErrorText) {
+        $scope.loading = true;
+        $scope.noAdsToDisplay = false;
+
         /* filter buttons values*/
         $scope.townFilter = "Town";
         $scope.categoryFilter = "Category";
-        
+
         /* get selected town/category id for further filtering */
         var currentCategoryId = '',
             currentTownId = '',
@@ -27,11 +30,14 @@ onlineAdsAppControllers.controller('HomeController',
 
         function getResultsPage(pageNumber) {
             adsData.getAll(pageNumber, currentTownId, currentCategoryId).then(function(data) {
+                $scope.loading = true;
                 $scope.adsData = data;
                 $scope.totalAds = parseInt(data.numPages) * 5;
                 currentPage = pageNumber;
             }, function(error) {
-               $rootScope.$broadcast('operatonError', ajaxErrorText);
+                $rootScope.$broadcast('operatonError', ajaxErrorText);
+            }).finally(function() {
+                $scope.loading = false;
             });
         }
 
@@ -45,12 +51,21 @@ onlineAdsAppControllers.controller('HomeController',
         /* filter ads by category */
         $scope.filterByCategory = function(categoryId, cateogryName) {
             adsData.getByCategory(categoryId, currentTownId, currentPage).then(function(data) {
+                $scope.noAdsToDisplay = false;
+                $scope.loading = true;
                 $scope.adsData = data;
+
+                if (data.ads.length === 0) {
+                    $scope.noAdsToDisplay = true;
+                }
+
                 $scope.totalAds = parseInt(data.numPages) * 5;
                 $scope.categoryFilter = cateogryName;
                 currentCategoryId = categoryId;
             }, function(error) {
                 $rootScope.$broadcast('operatonError', ajaxErrorText);
+            }).finally(function() {
+                $scope.loading = false;
             });
         };
 
@@ -64,12 +79,21 @@ onlineAdsAppControllers.controller('HomeController',
         /* filter ads by town*/
         $scope.filterByTown = function(townId, townName) {
             adsData.getByTown(townId, currentCategoryId, currentPage).then(function(data) {
+                $scope.noAdsToDisplay = false;
+                $scope.loading = true;
                 $scope.adsData = data;
+
+                if (data.ads.length === 0) {
+                    $scope.noAdsToDisplay = true;
+                }
+
                 $scope.totalAds = parseInt(data.numPages) * 5;
                 $scope.townFilter = townName;
                 currentTownId = townId;
             }, function(error) {
                 $rootScope.$broadcast('operatonError', ajaxErrorText);
+            }).finally(function() {
+                $scope.loading = false;
             });
         };
     });

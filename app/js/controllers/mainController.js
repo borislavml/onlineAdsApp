@@ -3,45 +3,45 @@ onlineAdsApp.controller('MainController',
         var currentUrl;
 
         /* handle alert messages */
-        $scope.errorOccurred = false;
+        $scope.alertDialog = false;
         $scope.alertMsg = '';
         $scope.alertType = '';
 
         $scope.closeAlert = function() {
-            $scope.errorOccurred = false;
+            $scope.alertDialog = false;
         };
 
         /* This event is sent by all other controllers for  successfully executed operation */
         $scope.$on('operatonSuccessfull', function(event, message) {
-                $scope.errorOccurred = true;
-                $scope.alertMsg = message;
-                $scope.alertType = 'success';
-                $scope.totalAds = $scope.totalAds - 1;
+            $scope.alertDialog = true;
+            $scope.alertMsg = message;
+            $scope.alertType = 'success';
 
             /* autohide alert message */
             $timeout(function() {
-                $(".alert-message").fadeTo(500, 0).slideUp(500, function() {
-                    $scope.errorOccurred = false;
+                $("#current-alert").fadeTo(500, 0).slideUp(500, function() {
+                    $scope.alertDialog = false;
                 });
             }, 5000);
         });
 
         /* This event is sent by all other controllers for  error messages */
         $scope.$on('operatonError', function(event, message) {
-            $scope.errorOccurred = true;
+            $scope.alertDialog = true;
             $scope.alertMsg = message;
             $scope.alertType = 'danger';
 
             /* autohide alert message */
             $timeout(function() {
-                $(".alert-message").fadeTo(500, 0).slideUp(500, function() {
-                    $scope.errorOccurred = false;
+                $("#current-alert").fadeTo(500, 0).slideUp(500, function() {
+                    $scope.alertDialog = false;
                 });
             }, 5000);
         });
 
         /* handle refreshing page to store services state and user data */
         function init() {
+            $scope.loading = true;
             if (authorizationService.userIsLogged()) {
                 $scope.userIsLogged = true;
                 $scope.currentUser = authorizationService.getUsername();
@@ -75,14 +75,14 @@ onlineAdsApp.controller('MainController',
             $location.path('/home');
 
             /* alert user */
-            $scope.errorOccurred = true;
+            $scope.alertDialog = true;
             $scope.alertMsg = 'Goodbye ' + $scope.currentUser + '.Thank you for using our services!';
             $scope.alertType = 'success';
 
             /* autohide alert message */
             $timeout(function() {
-                $(".alert-message").fadeTo(500, 0).slideUp(500, function() {
-                    $scope.errorOccurred = false;
+                $("#current-alert").fadeTo(500, 0).slideUp(500, function() {
+                    $scope.alertDialog = false;
                 });
             }, 4000);
         };
