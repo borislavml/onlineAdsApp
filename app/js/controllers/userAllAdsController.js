@@ -1,17 +1,9 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('UserAllAdsController',
-    function userAllAdsController($scope, $rootScope, $location, $modal, adsData, ajaxErrorText) {
+    function userAllAdsController($scope, $rootScope, $location, $modal, $timeout, adsData, ajaxErrorText) {
         var adStatus = $location.path().substr(10, $location.path().length);
-
         $scope.noAdsToDisplay = false;
-        $scope.errorOccurred = false;
-        $scope.alertMsg = '';
-        $scope.alertType = '';
-
-        $scope.closeAlert = function() {
-            $scope.errorOccurred = false;
-        };
 
         /* pagination */
         var currentPage = 1;
@@ -37,14 +29,12 @@ onlineAdsAppControllers.controller('UserAllAdsController',
                     currentPage = pageNumber;
                 }
             }, function(error) {
-                $scope.errorOccurred = true;
-                $scope.alertMsg = ajaxErrorText;
-                $scope.alertType = 'danger';
+                $rootScope.$broadcast('operatonError', ajaxErrorText);
             });
         }
 
-        // open a modal and ask user for confirmation of action
-        // requests are executed in the modal controler
+        /* open a modal dialog to ask user for confirmation of action
+         -requests are executed in the modal controler */
         $scope.openModal = function(id, action) {
             var modalInstance = $modal.open({
                 templateUrl: './templates/modalTemplate.html',
@@ -53,11 +43,24 @@ onlineAdsAppControllers.controller('UserAllAdsController',
                     id: function() {
                         return id;
                     },
-                    action: function(){
+                    action: function() {
                         return action;
                     }
                 }
             });
         };
 
+        /* open a modal dialog to ask user for confirmation of action
+         -request is executed in the EditAdModal controler */
+        $scope.openEditModal = function(id) {
+            var modalInstance = $modal.open({
+                templateUrl: './templates/editAdModalTemplate.html',
+                controller: 'EditAdModalController',
+                resolve: {
+                    id: function() {
+                        return id;
+                    }
+                }
+            });
+        };
     });

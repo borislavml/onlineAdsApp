@@ -1,36 +1,29 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('UserPiblishAdController',
-    function($scope, adsData, townsData, categoriesData, authorizationService, ajaxErrorText) {
+    function($scope, $rootScope, $timeout, adsData, townsData, categoriesData, authorizationService, ajaxErrorText) {
         $scope.nullValue = null;
-        $scope.errorOccurred = false;
-        $scope.alertMsg = '';
-        $scope.alertType = '';
-
-        $scope.closeAlert = function() {
-            $scope.errorOccurred = false;
-        };
-
-        // load towns in dropdown select
-        townsData.getAll().then(function(data) {
-            $scope.townsData = data;
-        }, function(error) {
-            // $scope.alertMsg = ajaxErrorText;
-        });
-
-        // load cateogoreis in dropdown select
-        categoriesData.getAll().then(function(data) {
-            $scope.categoriesData = data;
-        }, function(error) {
-            // $scope.alertMsg = ajaxErrorText;
-        });
-
         $scope.imageData = '';
         $scope.newAdData = {
             townId: null,
             categoryId: null
         };
 
+        /* load towns in dropdown select */
+        townsData.getAll().then(function(data) {
+            $scope.townsData = data;
+        }, function(error) {
+            $rootScope.$broadcast('operatonError', ajaxErrorText);
+        });
+
+        /* load cateogoreis in dropdown select */
+        categoriesData.getAll().then(function(data) {
+            $scope.categoriesData = data;
+        }, function(error) {
+            $rootScope.$broadcast('operatonError', ajaxErrorText);
+        });
+
+        /* get uploaded image */
         $scope.fileSelected = function(fileInputField) {
             delete $scope.newAdData.imageDataUrl;
             var file = fileInputField.files[0];
@@ -38,6 +31,7 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
             if (file.type.match(/image\/.*/)) {
                 var reader = new FileReader();
                 reader.onload = function() {
+                    /* display uploaded image */
                     $scope.newAdData.imageDataUrl = reader.result;
                     $('.ad-image').attr('src', reader.result);
                     $('.image-title').attr('value', file.name);
@@ -53,10 +47,9 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
         $scope.publishAd = function(newAdData, newAdForm) {
             if (newAdForm.$valid && authorizationService.userIsLogged()) {
                 adsData.publishAd(newAdData).then(function(data) {
-                    $scope.errorOccurred = true;
-                    $scope.alertType = 'success';
-                    $scope.alertMsg = 'Advertisement submitted for approval.Once approved, it will be published.';
-                    // clean publish ad form 
+                    $rootScope.$broadcast('operatonSuccessfull', 'Advertisement submitted for approval.Once approved, it will be published.');
+            
+                    /* clean publish ad form */
                     $('.ad-image').attr('src', './img/no.image-uploaded-mini.jpg');
                     $('.image-title').attr('value', '');
                     $('#title').val('');
@@ -64,11 +57,8 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
                     $('#selectTown').val($scope.nullValue);
                     $('#selectCategory').val($scope.nullValue);
                 }, function(error) {
-                    $scope.errorOccurred = true;
-                    $scope.alertType = 'danger';
-                    $scope.alertMsg = ajaxErrorText;
+                   $rootScope.$broadcast('operatonError', ajaxErrorText);
                 });
             }
         };
-
     });

@@ -6,7 +6,7 @@
 		<!-- Load Bootsrap and custom styles-->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-		<link rel="stylesheet" type="text/css" href="css/onlineAdsApp.css">	
+		<link rel="stylesheet" type="text/css" href="css/onlineAdsApp.css">
 		<!-- Load jQuery and BootstrapJS-->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
@@ -33,7 +33,7 @@
 		<script src="js/controllers/userProfileController.js"></script>
 		<script src="js/controllers/userPiblishAdController.js"></script>
 		<script src="js/controllers/modalController.js"></script>
-
+		<script src="js/controllers/editAdModalController.js"></script>
 	</head>
 	<body ng-controller="MainController">
 		<!-- navigation-->
@@ -58,6 +58,15 @@
 						<a href="#/register" ng-if="!userIsLogged">Register</a>
 					</li>
 				</ul>
+			</div>
+		</div>
+		
+		<!-- alerts-->
+		<div class="row" ng-if="errorOccurred">
+			<div class="col-md-6 coll-sm- 8coll-xs-10 col-centered">
+				<alert type="{{alertType}}" close="closeAlert()" class="text-center alert-message">
+					{{alertMsg}}
+				</alert>
 			</div>
 		</div>
 		<!-- main -->

@@ -1,11 +1,3 @@
-<!-- alerts-->
-<div class="row" ng-if="errorOccurred">
-	<div class="col-md-8 coll-sm-10 coll-xs-10">
-		<alert type="{{alertType}}" close="closeAlert()" class="text-center">
-			{{alertMsg}}
-		</alert>
-	</div>
-</div>
 <!-- no ads to display-->
 <div class="row" ng-if="noAdsToDisplay">
 	<div class="col-md-8 coll-sm-10 coll-xs-10">
@@ -66,7 +58,7 @@
 									<a class="btn btn-primary ad-edit-buttons-link" data="{{ad.id}}" ng-click="openModal(ad.id, 'Deactivate')">Deactivate</a>
 								</div>
 								<div class="ad-edit-buttons" ng-if="ad.status === 'Inactive'">
-									<a class="btn btn-primary ad-edit-buttons-link">Edit</a>
+									<a class="btn btn-primary ad-edit-buttons-link" data="{{ad.id}}" ng-click="openEditModal(ad.id)">Edit</a>
 								</div>
 								<div class="ad-edit-buttons" ng-if="ad.status === 'Inactive'">
 									<a class="btn btn-primary ad-edit-buttons-link" data="{{ad.id}}" ng-click="openModal(ad.id, 'Publish again')">Publish again</a>

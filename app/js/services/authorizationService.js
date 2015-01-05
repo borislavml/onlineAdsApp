@@ -7,6 +7,7 @@ onlineAdsApp.factory('authorizationService', function authorizationService($wind
             accessToken: data.access_token,
             userName: data.username
         };
+        
         $window.sessionStorage["currentUser"] = JSON.stringify(userSession);
     }
 
@@ -50,11 +51,6 @@ onlineAdsApp.factory('authorizationService', function authorizationService($wind
         return headers;
     }
 
-
-    // function setAuthorizationHeaders(accessToken) {
-    //     $http.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
-    // }
-
     function deleteAuthorizationHeaders() {
         delete headers['Authorization'];
     }
@@ -67,8 +63,5 @@ onlineAdsApp.factory('authorizationService', function authorizationService($wind
         getAccessToken: getAccessToken,
         getAuthorizationHeaders: getAuthorizationHeaders,
         deleteAuthorizationHeaders: deleteAuthorizationHeaders,
-        // userIsLogged: userIsLogged,
-        // setAuthorizationHeaders: setAuthorizationHeaders,
-        // removeAuthorizationHeaders: removeAuthorizationHeaders
     };
 });

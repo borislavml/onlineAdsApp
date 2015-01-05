@@ -1,6 +1,5 @@
 /* Serrvice for getting ll ads on home page  */
 onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizationService) {
-
     function getAllAdds(pageNumber, townId, categoryId) {
         var deferred = $q.defer();
 
@@ -149,7 +148,6 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
         return deferred.promise;
     }
 
-
     function getAdById(id) {
         var deferred = $q.defer();
         
@@ -157,6 +155,26 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
         $http({
             method: 'GET',
             url: baseUrl + '/user/ads/' + id,
+            headers: headers
+        })
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data, status, headers, config);
+            })
+            .error(function(data, status, headers, config) {
+                deferred.reject(data, status, headers, config);
+            });
+
+        return deferred.promise;
+    }
+
+     function editAd(id, editAdData) {
+        var deferred = $q.defer();
+        
+        var headers = authorizationService.getAuthorizationHeaders();
+        $http({
+            method: 'PUT',
+            url: baseUrl + '/user/ads/' + id,
+            data: editAdData,
             headers: headers
         })
             .success(function(data, status, headers, config) {
@@ -178,6 +196,7 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
         deactivateAd: deactivateAd,
         publishAgainAd: publishAgainAd,
         deleteAd: deleteAd,
-        getAdById: getAdById
+        getAdById: getAdById,
+        editAd: editAd,
     };
 });

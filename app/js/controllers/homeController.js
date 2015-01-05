@@ -2,17 +2,12 @@
 var onlineAdsAppControllers = angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('HomeController',
-    function homeController($scope, $http, adsData, categoriesData, townsData, ajaxErrorText) {
-        $scope.errorOccurred = false;
-        $scope.alertMsg = '';
-
-        $scope.closeAlert = function() {
-            $scope.errorOccurred = false;
-        };
-
+    function homeController($scope,$rootScope, $http, adsData, categoriesData, townsData, ajaxErrorText) {
+        /* filter buttons values*/
         $scope.townFilter = "Town";
         $scope.categoryFilter = "Category";
-
+        
+        /* get selected town/category id for further filtering */
         var currentCategoryId = '',
             currentTownId = '',
             currentPage = 1;
@@ -36,8 +31,7 @@ onlineAdsAppControllers.controller('HomeController',
                 $scope.totalAds = parseInt(data.numPages) * 5;
                 currentPage = pageNumber;
             }, function(error) {
-                $scope.errorOccurred = true;
-                $scope.alertMsg = ajaxErrorText;
+               $rootScope.$broadcast('operatonError', ajaxErrorText);
             });
         }
 
@@ -45,8 +39,7 @@ onlineAdsAppControllers.controller('HomeController',
         categoriesData.getAll().then(function(data) {
             $scope.categoriesData = data;
         }, function(error) {
-            $scope.errorOccurred = true;
-            $scope.alertMsg = ajaxErrorText;
+            $rootScope.$broadcast('operatonError', ajaxErrorText);
         });
 
         /* filter ads by category */
@@ -57,8 +50,7 @@ onlineAdsAppControllers.controller('HomeController',
                 $scope.categoryFilter = cateogryName;
                 currentCategoryId = categoryId;
             }, function(error) {
-                $scope.errorOccurred = true;
-                $scope.alertMsg = ajaxErrorText;
+                $rootScope.$broadcast('operatonError', ajaxErrorText);
             });
         };
 
@@ -66,8 +58,7 @@ onlineAdsAppControllers.controller('HomeController',
         townsData.getAll().then(function(data) {
             $scope.townsData = data;
         }, function(error) {
-            $scope.errorOccurred = true;
-            $scope.alertMsg = ajaxErrorText;
+            $rootScope.$broadcast('operatonError', ajaxErrorText);
         });
 
         /* filter ads by town*/
@@ -78,9 +69,7 @@ onlineAdsAppControllers.controller('HomeController',
                 $scope.townFilter = townName;
                 currentTownId = townId;
             }, function(error) {
-                $scope.errorOccurred = true;
-               $scope.alertMsg = ajaxErrorText;
-               console.log(error.message);
+                $rootScope.$broadcast('operatonError', ajaxErrorText);
             });
         };
     });
