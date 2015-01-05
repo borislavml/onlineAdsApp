@@ -176,6 +176,11 @@ input[readonly] {
 	margin-bottom: 5px !important;
 }
 
+.edit-profile-label {
+	text-align: left !important;
+	width: 200px !important;
+}
+
 
 
 

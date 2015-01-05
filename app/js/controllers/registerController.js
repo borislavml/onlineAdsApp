@@ -2,8 +2,9 @@ var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineA
 /* login controller*/
 onlineAdsAppControllers.controller('RegisterController',
     function registerController($scope,$rootScope, authenticationService, authorizationService, townsData, ajaxErrorText) {
+        var errorMessage;
         $scope.registrationActive = true;
-
+    
         // get all towns
         townsData.getAll().then(function(data) {
             $scope.townsData = data;
@@ -26,7 +27,6 @@ onlineAdsAppControllers.controller('RegisterController',
         
         /* hdnle errors with registration data */
         function handleErrorMessage(errorMessage) {
-            $scope.errorOccurred = true;
             if (errorMessage['']) {
                 $rootScope.$broadcast('operatonError', errorMessage[''][0]);
             } else if (errorMessage['model.ConfirmPassword']) {
