@@ -4,6 +4,7 @@ onlineAdsApp.controller('MainController',
 
         /* handle alert messages */
         $scope.alertDialog = false;
+        $scope.homePage = true;
         $scope.alertMsg = '';
         $scope.alertType = '';
 
@@ -15,7 +16,7 @@ onlineAdsApp.controller('MainController',
         $scope.$on('operatonSuccessfull', function(event, message) {
             $scope.alertDialog = true;
             $scope.alertMsg = message;
-            $scope.alertType = 'success';
+            $scope.alertType = 'info';
 
             /* autohide alert message */
             $timeout(function() {
@@ -39,11 +40,17 @@ onlineAdsApp.controller('MainController',
             }, 5000);
         });
 
+        /*this event is sent by login and register controller in order to hide home page navs */
+        $scope.$on('userLoginRegister', function(){
+             $scope.homePage = false;
+        });
+
         /* handle refreshing page to store services state and user data */
         function init() {
             $scope.loading = true;
             if (authorizationService.userIsLogged()) {
                 $scope.userIsLogged = true;
+                $scope.homePage = false;
                 $scope.currentUser = authorizationService.getUsername();
 
                 // show my ads nav on refresh if clicked
@@ -62,6 +69,7 @@ onlineAdsApp.controller('MainController',
              to hide login/register buttons */
             $rootScope.$on("userHasLogged", function() {
                 $scope.userIsLogged = true;
+                $scope.homePage = false;
                 $scope.currentUser = authorizationService.getUsername();
             });
         }
@@ -72,12 +80,13 @@ onlineAdsApp.controller('MainController',
             authenticationService.logout();
             $scope.userIsLogged = false;
             $scope.clickedMyAds = false;
+            $scope.homePage = true;
             $location.path('/home');
 
             /* alert user */
             $scope.alertDialog = true;
             $scope.alertMsg = 'Goodbye ' + $scope.currentUser + '.Thank you for using our services!';
-            $scope.alertType = 'success';
+            $scope.alertType = 'info';
 
             /* autohide alert message */
             $timeout(function() {
@@ -123,6 +132,14 @@ onlineAdsApp.controller('MainController',
                 $scope.userIsLogged = true;
                 $scope.clickedMyAds = false;
                 $location.path('/user/profile');
+            }
+        };
+
+         $scope.troubleshoot = function() {
+            if (authorizationService.userIsLogged()) {
+                $scope.userIsLogged = true;
+                $scope.clickedMyAds = false;
+                $location.path('/user/troubleshoot');
             }
         };
 

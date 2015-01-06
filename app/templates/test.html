@@ -1,0 +1,10 @@
+<div class="btn-group dropdown-filter">
+      <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button ng-binding" type="button" data-toggle="dropdown" aria-expanded="false"> Category
+      <span class="caret"></span> </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a ng-click="filterByCategory('', 'Category')">All</a></li>
+        <!-- ngRepeat: category in categoriesData --><li ng-repeat="category in categoriesData" class="ng-scope">
+          <a ng-click="filterByCategory(category.id, category.name)" class="filte-items-link ng-binding">
+          Cars</a>
+       
+    </div>

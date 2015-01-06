@@ -52,6 +52,9 @@ onlineAdsApp.config(['$routeProvider',
             templateUrl: 'templates/user-profile.html',
             controller: 'UserProfileController'
         }).
+        when('/user/troubleshoot', {
+            templateUrl: 'templates/troubleshoot.html'
+        }).
         when('/unauthorized', {
             templateUrl: 'templates/unauthorized.html'
         }).

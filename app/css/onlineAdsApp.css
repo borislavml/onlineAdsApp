@@ -1,6 +1,32 @@
 /* app css stylesheet #58C0DE*/
  body {
- 	padding: 5px;
+ 	padding: 2px;
+ 	background-image:url("../img/128-174.jpg") !important;
+ 	background-repeat:repeat !important; 
+ 	color: white !important;
+ }
+
+ .black-text {
+ 	color: black;
+ }
+
+ .list-group-item {
+ 	background-color: #5E5E5E !important;
+ 	color: white !important;
+ }
+
+ .list-group-item:hover {
+ 	background-color: #4B4B4B  !important;
+ }
+
+ .active {
+ 	color: #5bc0de !important;
+ 	background-color: #4B4B4B !important;
+ }
+
+ .well, .well-sm {
+ 	background-color: #5E5E5E !important;
+ 	border: 1px solid black !important;
  }
 
 .all-ads-list {
@@ -15,6 +41,7 @@
 
 .ad-info-paragraph {
 	overflow: hidden;
+	word-break: break-all;
 }
 
 .ad-image {
@@ -70,6 +97,7 @@ label, input {
 
 #confirm-password-label {
 	width: 160px;
+	float: left !important;
 }
 
 .short-label {
@@ -80,12 +108,9 @@ label, input {
 	cursor: pointer; 
 }
 
-/*.sidebar-nav {
-	width: 350px;
-}*/
-
-.login-register-forms {
-	margin-left: 10px;
+.sidebar-nav {
+	margin-right: 0px !important;
+	padding-right: 0px !important;
 }
 
 .sidebar-nav-heading{
@@ -110,6 +135,7 @@ label, input {
 
 .ad-edit-buttons {
 	margin-top: 10px;
+	overflow: hidden;
 }
 
 .ad-edit-buttons-link {
@@ -179,6 +205,19 @@ input[readonly] {
 .edit-profile-label {
 	text-align: left !important;
 	width: 200px !important;
+}
+
+span.avoidwrap { 
+	display:inline-block; 
+}
+
+.login-register-forms {
+	float:left;
+	margin-left: 5px !important
+}
+
+.site-info {
+	text-indent: 15px;
 }
 
 

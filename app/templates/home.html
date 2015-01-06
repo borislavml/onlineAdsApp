@@ -6,10 +6,10 @@
 </div>
 <div class="row">
   <!--All ads list-->
-  <div class="col-md-7 col-sm-8 col-xs-12">
-  <!-- no ads to display-->
+  <div class="col-md-8 col-sm-8 col-xs-10">
+    <!-- no ads to display-->
     <div class="row col centered" ng-if="noAdsToDisplay">
-      <h4 class="text-info text-center">No ads were founnd.</h4>
+      <h4 class="black-text text-center">No ads were founnd.</h4>
     </div>
     <ul class="all-ads-list">
       <li dir-paginate="ad in adsData.ads | filter: query | itemsPerPage: adsPerPage" total-items="totalAds"  class="well" data-id="{{ad.id}}">
@@ -30,18 +30,18 @@
           <div class="col-md-8 col-sm-8 col-xs-12">
             <p class="well well-sm ad-info-paragraph"> {{ad.text}} </p>
             <div class="row">
-              <div class="col-md-2 col-sm-3 col-xs-3  ad-info-text"> <strong>Name: </strong> </div>
-              <div class="col-md-9 col-sm-8 col-xs-8 well well-sm">{{ad.ownerName}}</div>
+              <div class="col-md-3 col-sm-4 col-xs-3  ad-info-text"> <strong>Name: </strong> </div>
+              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm">{{ad.ownerName}}</div>
             </div>
             <div class="row">
-              <div class="col-md-2 col-sm-3 col-xs-3 ad-info-text"> <strong>Email: </strong>  </div>
-              <div class="col-md-9 col-sm-8 col-xs-8 well well-sm">
+              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text"> <strong>Email: </strong>  </div>
+              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-info-paragraph">
                 <a href="mailto:{{ad.ownerEmail}}">{{ad.ownerEmail}}</a>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-2 col-sm-3 col-xs-3 ad-info-text"> <strong>Tel: </strong></div>
-              <div class="col-md-9 col-sm-8 col-xs-8 well well-sm">{{ad.ownerPhone}} </div>
+              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text ad-info-paragraph"> <strong>Tel: </strong></div>
+              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-info-paragraph">{{ad.ownerPhone}} </div>
             </div>
           </div>
         </div>
@@ -49,9 +49,9 @@
     </ul>
   </div>
   <!--Filters by category and town-->
-  <div class="col-md-4 col-sm-3 col-xs-10 filter-menues">
+  <div class="col-md-3 col-sm-3 col-xs-10 filter-menues">
     <input type="text" class="form-control" id="inputQuery" placeholder="Search" ng-model="query">
-    <h3>Filter by: </h3>
+    <h3 class="black-text">Filter by: </h3>
     <div class="btn-group dropdown-filter">
       <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false"> {{categoryFilter}}
       <span class="caret"></span> </button>
@@ -78,7 +78,7 @@
 </div>
 <!--paginaton-->
 <div class="row pagination-div">
-  <div class='col-md-9 col-sm-10 col-xs-12 col-centered'>
-    <dir-pagination-controls boundary-links="true" on-page-change="pageChanged(newPageNumber)" template-url="templates/dirPagination.tpl.html"></dir-pagination-controls>
-  </div>
+<div class='col-md-9 col-sm-10 col-xs-12 col-centered'>
+  <dir-pagination-controls boundary-links="true" on-page-change="pageChanged(newPageNumber)" template-url="templates/dirPagination.tpl.html"></dir-pagination-controls>
+</div>
 </div>

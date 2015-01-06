@@ -3,6 +3,8 @@ var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineA
 onlineAdsAppControllers.controller('LoginController',
     function loginController($scope, $rootScope, $location, authenticationService,
         authorizationService, ajaxErrorText) {
+        $rootScope.$broadcast('userLoginRegister');
+    
         $scope.login = function(credentials, loginForm) {
             if (loginForm.$valid) {
                 authenticationService.login(credentials).then(function(data) {
