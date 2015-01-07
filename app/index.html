@@ -2,7 +2,7 @@
 <html ng-app="onlineAdsApp">
 	<head>
 		<meta charset="utf-8">
-		<title>BestAds</title>
+		<title>DMNook</title>
 		<!-- Load Bootsrap and custom styles-->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
@@ -45,7 +45,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" ng-click="loadHomePage()">DMNook</a>
+				<a class="navbar-brand" ng-click="loadHomePage()"><strong class="home-page-button">DMNook</strong></a>
 			</div>
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
@@ -62,12 +62,10 @@
 			</div>
 		</div>
 		<!-- alerts-->
-		<div class="row alerts-div" >
-			<div class="col-md-6 coll-sm-8 coll-xs-8 col-centered alert-message">
-				<alert type="{{alertType}}" close="closeAlert()" id="current-alert" class="text-center alert-message" ng-if="alertDialog">
-					{{alertMsg}}
-				</alert>
-			</div>
+		<div class="col-md-6 coll-sm-8 coll-xs-8 col-centered alert-message alerts-div">
+			<alert type="{{alertType}}" close="closeAlert()" id="current-alert" class="text-center alert-message" ng-if="alertDialog">
+				{{alertMsg}}
+			</alert>
 		</div>
 		<!-- main -->
 		<div class="row">
@@ -83,7 +81,7 @@
 							<a href="#/home" class="list-group-item" ng-class="getClass('/home')" ng-click="loadHomePage()">Home </a>
 							<a class="list-group-item" ng-class="getClass('/user/ads')" ng-click="loadUserAds('')">My Ads</a>
 							<a class="list-group-item" ng-class="getClass('/user/publish-new-add')" ng-click="publishNewAdd()">	Publish New Add</a>
-							<a class="list-group-item" ng-class="getClass('/user/profile')"  
+							<a class="list-group-item" ng-class="getClass('/user/profile')"
 							ng-click="editProfile()">Edit Profile</a>
 							<a class="list-group-item" ng-class="getClass('/user/troubleshoot')"  ng-click="troubleshoot()">Troubleshooting</a>
 						</div>
@@ -106,6 +104,11 @@
 				</div>
 				<!-- site info -->
 				<div class="row sidebar-nav" ng-if="homePage">
+				    <!-- site logo -->
+					<div class="col-md-12 col-sm-12 col-xs-12 col-centered ">
+						<div class="info-page-div">
+						</div>		
+					</div>
 					<div class="col-md-12 col-sm-12 col-xs-12 col-centered">
 						<div class="well well-sm">
 							<h3 class="text-info text-center">DMNook</h3>
@@ -120,5 +123,7 @@
 			<div class="col-md-9 col-sm-9 col-xs-11" ng-view >
 			</div>
 		</div>
+		<!-- back to top button -->
+		<a class="back-to-top" ng-click="scollToTop()">Back to Top</a>
 	</body>
 </html>

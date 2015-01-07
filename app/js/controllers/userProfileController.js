@@ -8,7 +8,7 @@ onlineAdsAppControllers.controller('UserProfileController',
         townsData.getAll().then(function(data) {
             $scope.townsData = data;
         }, function(error) {
-            $rootScope.$broadcast('operatonError', ajaxErrorText);
+            $rootScope.$broadcast('alertMessage', ajaxErrorText);
         });
 
         userProfile.getProfile().then(function(data) {
@@ -20,7 +20,7 @@ onlineAdsAppControllers.controller('UserProfileController',
                 townId: data.townId ? data.townId : null,
             };
         }, function(error) {
-            $rootScope.$broadcast('operatonError', ajaxErrorText);
+            $rootScope.$broadcast('alertMessage', ajaxErrorText);
         });
 
         $scope.updateProfile = function(editProfileForm) {
@@ -30,12 +30,11 @@ onlineAdsAppControllers.controller('UserProfileController',
 
             userProfile.ediProfile(editProfileForm).then(function(data) {
                 $route.reload();
-                $rootScope.$broadcast('operatonSuccessfull', data.message);
+                $rootScope.$broadcast('alertMessage', data.message);
             }, function(error) {
-                $rootScope.$broadcast('operatonError', ajaxErrorText);
+                $rootScope.$broadcast('alertMessage', ajaxErrorText);
             });
         };
-
 
         $scope.changePassword = function(credentials, changePasswordForm) {
             if (!credentials.newPassword || !credentials.confirmPassword ||
@@ -45,7 +44,7 @@ onlineAdsAppControllers.controller('UserProfileController',
 
             userProfile.changePassword(credentials).then(function(data) {
                 $route.reload();
-                $rootScope.$broadcast('operatonSuccessfull', data.message);
+                $rootScope.$broadcast('alertMessage', data.message);
             }, function(error) {
                 errorMessage = error.modelState;
                 handleErrorMessage(errorMessage);
@@ -55,11 +54,11 @@ onlineAdsAppControllers.controller('UserProfileController',
         /* hdnle errors with change password data */
         function handleErrorMessage(errorMessage) {
             if (errorMessage['']) {
-                $rootScope.$broadcast('operatonError', errorMessage[''][0]);
+                $rootScope.$broadcast('alertMessage', errorMessage[''][0]);
             } else if (errorMessage['model.ConfirmPassword']) {
-                $rootScope.$broadcast('operatonError', errorMessage['model.ConfirmPassword'][0]);
+                $rootScope.$broadcast('alertMessage', errorMessage['model.ConfirmPassword'][0]);
             } else {
-                $rootScope.$broadcast('operatonError', ajaxErrorText);
+                $rootScope.$broadcast('alertMessage', ajaxErrorText);
             }
         }
     });

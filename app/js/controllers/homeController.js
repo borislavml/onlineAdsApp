@@ -35,9 +35,12 @@ onlineAdsAppControllers.controller('HomeController',
                 $scope.totalAds = parseInt(data.numPages) * 5;
                 currentPage = pageNumber;
             }, function(error) {
-                $rootScope.$broadcast('operatonError', ajaxErrorText);
+                $rootScope.$broadcast('alertMessage', ajaxErrorText);
             }).finally(function() {
                 $scope.loading = false;
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 1000);
             });
         }
 
@@ -45,7 +48,7 @@ onlineAdsAppControllers.controller('HomeController',
         categoriesData.getAll().then(function(data) {
             $scope.categoriesData = data;
         }, function(error) {
-            $rootScope.$broadcast('operatonError', ajaxErrorText);
+            $rootScope.$broadcast('alertMessage', ajaxErrorText);
         });
 
         /* filter ads by category */
@@ -63,7 +66,7 @@ onlineAdsAppControllers.controller('HomeController',
                 $scope.categoryFilter = cateogryName;
                 currentCategoryId = categoryId;
             }, function(error) {
-                $rootScope.$broadcast('operatonError', ajaxErrorText);
+                $rootScope.$broadcast('alertMessage', ajaxErrorText);
             }).finally(function() {
                 $scope.loading = false;
             });
@@ -73,7 +76,7 @@ onlineAdsAppControllers.controller('HomeController',
         townsData.getAll().then(function(data) {
             $scope.townsData = data;
         }, function(error) {
-            $rootScope.$broadcast('operatonError', ajaxErrorText);
+            $rootScope.$broadcast('alertMessage', ajaxErrorText);
         });
 
         /* filter ads by town*/
@@ -91,7 +94,7 @@ onlineAdsAppControllers.controller('HomeController',
                 $scope.townFilter = townName;
                 currentTownId = townId;
             }, function(error) {
-                $rootScope.$broadcast('operatonError', ajaxErrorText);
+                $rootScope.$broadcast('alertMessage', ajaxErrorText);
             }).finally(function() {
                 $scope.loading = false;
             });

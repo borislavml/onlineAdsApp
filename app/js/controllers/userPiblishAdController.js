@@ -13,14 +13,14 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
         townsData.getAll().then(function(data) {
             $scope.townsData = data;
         }, function(error) {
-            $rootScope.$broadcast('operatonError', ajaxErrorText);
+            $rootScope.$broadcast('alertMessage', ajaxErrorText);
         });
 
         /* load cateogoreis in dropdown select */
         categoriesData.getAll().then(function(data) {
             $scope.categoriesData = data;
         }, function(error) {
-            $rootScope.$broadcast('operatonError', ajaxErrorText);
+            $rootScope.$broadcast('alertMessage', ajaxErrorText);
         });
 
         /* get uploaded image */
@@ -47,7 +47,7 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
         $scope.publishAd = function(newAdData, newAdForm) {
             if (newAdForm.$valid && authorizationService.userIsLogged()) {
                 adsData.publishAd(newAdData).then(function(data) {
-                    $rootScope.$broadcast('operatonSuccessfull', 'Advertisement submitted for approval.Once approved, it will be published.');
+                    $rootScope.$broadcast('alertMessage', 'Advertisement submitted for approval.Once approved, it will be published.');
             
                     /* clean publish ad form */
                     $('.ad-image').attr('src', './img/no.image-uploaded-mini.jpg');
@@ -57,7 +57,7 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
                     $('#selectTown').val($scope.nullValue);
                     $('#selectCategory').val($scope.nullValue);
                 }, function(error) {
-                   $rootScope.$broadcast('operatonError', ajaxErrorText);
+                   $rootScope.$broadcast('alertMessage', ajaxErrorText);
                 });
             }
         };

@@ -47,8 +47,10 @@ onlineAdsApp.factory('authorizationService', function authorizationService($wind
         var accessToken = getAccessToken();
         if (accessToken) {
             angular.extend(headers, {Authorization: 'Bearer ' + accessToken});
+            return headers;
         }
-        return headers;
+
+        return null;
     }
 
     function deleteAuthorizationHeaders() {

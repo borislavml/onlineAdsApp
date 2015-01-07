@@ -1,66 +1,56 @@
-onlineAdsApp.factory('authenticationService', 
-	function authentication($http, $q, baseUrl, authorizationService) {
+onlineAdsApp.factory('authenticationService',
+    function authentication($http, $q, baseUrl, authorizationService) {
+        function authenticateRequester(method, url, data) {
+            var deferred = $q.defer();
 
-    function login(credentials) {
-        var deferred = $q.defer();
-
-        $http({
-            method: 'POST',
-            url: baseUrl + '/user/login',
-            data: credentials
-        })
-            .success(function(data, status, headers, config) {              
-                deferred.resolve(data, status, headers, config);
+            $http({
+                method: method,
+                url: url,
+                data: data
             })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
+                .success(function(data, status, headers, config) {
+                    deferred.resolve(data, status, headers, config);
+                })
+                .error(function(data, status, headers, config) {
+                    deferred.reject(data, status, headers, config);
+                });
 
-        return deferred.promise;
-    }
+            return deferred.promise;
+        }
 
-    function register(credentials) {
-        var deferred = $q.defer();
+        var login = function(data){
+            return authenticateRequester('POST', baseUrl + '/user/login', data);
+        };
 
-        $http({
-            method: 'POST',
-            url: baseUrl + '/user/register',
-            data: credentials
-        })
-            .success(function(data, status, headers, config) {              
-                deferred.resolve(data, status, headers, config);
+         var register = function(credentials){
+            return authenticateRequester('POST',baseUrl + '/user/register', credentials);
+        };
+
+        function logout() {
+            var deferred = $q.defer(),
+                headers = authorizationService.getAuthorizationHeaders();
+
+            $http({
+                method: 'POST',
+                url: baseUrl + '/user/logout',
+                data: {},
+                headers: headers
             })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
+                .success(function(data, status, headers, config) {
+                    authorizationService.deleteAuthorizationHeaders();
+                    delete sessionStorage['currentUser'];
+                    deferred.resolve(data, status, headers, config);
+                })
+                .error(function(data, status, headers, config) {
+                    deferred.reject(data, status, headers, config);
+                });
 
-        return deferred.promise;
-    }
+            return deferred.promise;
+        }
 
-    function logout(){
-         var deferred = $q.defer();
-          headers = authorizationService.getAuthorizationHeaders();
-        $http({
-            method: 'POST',
-            url: baseUrl + '/user/logout',
-            data: {},
-            headers: headers
-        })
-            .success(function(data, status, headers, config) {
-                authorizationService.deleteAuthorizationHeaders();
-                delete sessionStorage['currentUser'];              
-                deferred.resolve(data, status, headers, config);
-            })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
-
-        return deferred.promise;
-    }
-
-    return {
-        login: login,
-        register: register,
-        logout: logout
-    };
-});
+        return {
+            login: login,
+            register: register,
+            logout: logout
+        };
+    });

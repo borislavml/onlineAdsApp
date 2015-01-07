@@ -10,39 +10,28 @@ onlineAdsApp.controller('MainController',
 
         $scope.closeAlert = function() {
             $scope.alertDialog = false;
+            $('.alerts-div').css('z-index', -1);
         };
 
-        /* This event is sent by all other controllers for  successfully executed operation */
-        $scope.$on('operatonSuccessfull', function(event, message) {
-            $scope.alertDialog = true;
-            $scope.alertMsg = message;
-            $scope.alertType = 'info';
-
-            /* autohide alert message */
-            $timeout(function() {
-                $("#current-alert").fadeTo(500, 0).slideUp(500, function() {
-                    $scope.alertDialog = false;
-                });
-            }, 5000);
-        });
-
-        /* This event is sent by all other controllers for  error messages */
-        $scope.$on('operatonError', function(event, message) {
+        /* This event is sent by all controllers after success/error ajax callback */
+        $scope.$on('alertMessage', function(event, message) {
             $scope.alertDialog = true;
             $scope.alertMsg = message;
             $scope.alertType = 'danger';
+            $('.alerts-div').css('z-index', 99);
 
             /* autohide alert message */
             $timeout(function() {
                 $("#current-alert").fadeTo(500, 0).slideUp(500, function() {
                     $scope.alertDialog = false;
+                    $('.alerts-div').css('z-index', -1);
                 });
             }, 5000);
         });
 
         /*this event is sent by login and register controller in order to hide home page navs */
-        $scope.$on('userLoginRegister', function(){
-             $scope.homePage = false;
+        $scope.$on('userLoginRegister', function() {
+            $scope.homePage = false;
         });
 
         /* handle refreshing page to store services state and user data */
@@ -86,12 +75,14 @@ onlineAdsApp.controller('MainController',
             /* alert user */
             $scope.alertDialog = true;
             $scope.alertMsg = 'Goodbye ' + $scope.currentUser + '.Thank you for using our services!';
-            $scope.alertType = 'info';
+            $scope.alertType = 'danger';
+            $('.alerts-div').css('z-index', 99);
 
             /* autohide alert message */
             $timeout(function() {
                 $("#current-alert").fadeTo(500, 0).slideUp(500, function() {
                     $scope.alertDialog = false;
+                    $('.alerts-div').css('z-index', -1);
                 });
             }, 4000);
         };
@@ -134,8 +125,9 @@ onlineAdsApp.controller('MainController',
                 $location.path('/user/profile');
             }
         };
-
-         $scope.troubleshoot = function() {
+        
+        /* redirect user to troubleshoot page */
+        $scope.troubleshoot = function() {
             if (authorizationService.userIsLogged()) {
                 $scope.userIsLogged = true;
                 $scope.clickedMyAds = false;
@@ -152,3 +144,23 @@ onlineAdsApp.controller('MainController',
             }
         };
     });
+
+/* back to top button */
+$(document).ready(function() {
+    var offset = 220;
+    var duration = 500;
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > offset) {
+            $('.back-to-top').fadeIn(duration);
+        } else {
+            $('.back-to-top').fadeOut(duration);
+        }
+    });
+    $('.back-to-top').click(function(event) {
+        event.preventDefault();
+        $('html, body').animate({
+            scrollTop: 0
+        }, duration);
+        return false;
+    });
+});

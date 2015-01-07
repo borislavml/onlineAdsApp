@@ -1,9 +1,20 @@
 /* app css stylesheet #58C0DE*/
  body {
- 	padding: 2px;
- 	background-image:url("../img/128-174.jpg") !important;
- 	background-repeat:repeat !important; 
+ 	padding: 0px 10px;
+ 	background:url("../img/500.gif") no-repeat center center fixed,
+ 	url("../img/128-174.jpg") repeat !important;
  	color: white !important;
+ }
+
+ .info-page-div{
+ 	width: 180px;
+ 	height: 180px;
+ 	background:url("../img/logo-new.gif") no-repeat center center;
+ 	margin: 5px auto;
+ }
+
+ .home-page-button:hover {
+ 	color: #5DB1DE !important;
  }
 
  .black-text {
@@ -27,6 +38,7 @@
  .well, .well-sm {
  	background-color: #5E5E5E !important;
  	border: 1px solid black !important;
+ 	opacity: 0.97;
  }
 
 .all-ads-list {
@@ -39,16 +51,20 @@
   padding-top: 7px;
 }
 
-.ad-info-paragraph {
+/*.ad-info-paragraph {
 	overflow: hidden;
 	word-break: break-all;
 }
-
+*/
 .ad-image {
 	width: 100%;
 	border: 1px solid black;
 	border-radius: 10px;
 	margin-bottom: 5px;
+}
+
+.ad-image:hover {
+  opacity: 0.8;	
 }
 
 .ad-image-container {
@@ -119,10 +135,10 @@ label, input {
    word-break: break-all;
 }
 
-.ad-title {
+/*.ad-title {
 	overflow: hidden;
 	word-break: break-all;
-}
+}*/
 
 .left-side-ad {
 	border-right: 1px solid black !important;
@@ -171,35 +187,8 @@ input[readonly] {
   cursor: text !important;
 }
 
-.spinner  {
-	width: 100px;
-	height: 100px;
-	position: absolute;
-    top:300px;
-    bottom: 0;
-    left: 0;
-    right: 360px;
-    margin: auto;
-}
-
-.spinner-gif{
-	width: 80px;
-	height: 80px;
-}
-
-.alerts-div {
-	height: 55px;
-	margin-top: 0px !important;
-}
-
-.alert-message {
-	padding-top: 8px !important;
-	padding-bottom: 8px !important; 
-	margin-top: 0px !important;
-}
-
 .header-nav {
-	margin-bottom: 5px !important;
+	margin-bottom: 15px !important;
 }
 
 .edit-profile-label {
@@ -213,11 +202,56 @@ span.avoidwrap {
 
 .login-register-forms {
 	float:left;
-	margin-left: 5px !important
+	margin-left: 5px !important;
 }
 
 .site-info {
 	text-indent: 15px;
+}
+
+/*back to top button */
+.back-to-top {
+    position: fixed;
+    bottom: 2em;
+    right: 0px;
+    text-decoration: none;
+    color: white;
+    background-color: #3e444c;
+    font-size: 12px;
+    padding: 1em;
+    display: none;
+}
+
+.back-to-top:hover {    
+    background-color: #4B4B4B !important;
+    color: #5bc0de;
+}
+
+/* ajax loading spinner */
+.spinner  {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+    top:200px;
+    bottom: 0;
+    left: 0;
+    right: 30%;
+    margin:auto;
+}
+
+.spinner-gif{
+	width: 80px;
+	height: 80px;
+}
+
+/* alert messages*/
+.alerts-div {
+	position: fixed;
+	top: 40%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
 }
 
 

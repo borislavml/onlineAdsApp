@@ -1,8 +1,8 @@
 /* Serrvice for getting all  towns  */
 onlineAdsApp.factory('townsData', function townsData($http, $q, baseUrl) {
-    var deferred = $q.defer();
+    function getAllTowns() {
+        var deferred = $q.defer();
 
-    function getAllTowns(success, error) {
         $http({
             method: 'GET',
             url: baseUrl + '/towns'

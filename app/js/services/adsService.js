@@ -1,64 +1,13 @@
 /* Serrvice for getting ll ads on home page  */
 onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizationService) {
-    function getAllAdds(pageNumber, townId, categoryId) {
-        var deferred = $q.defer();
-
-        $http({
-            method: 'GET',
-            url: baseUrl + '/ads?pagesize=5&startpage=' + pageNumber + '&TownId=' + townId + '&CategoryId=' + categoryId
-        })
-            .success(function(data, status, headers, config) {
-                deferred.resolve(data, status, headers, config);
-            })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
-
-        return deferred.promise;
-    }
-
-    function getAllAdsByTown(townId, categoryId, pageNumber) {
-        var deferred = $q.defer();
-
-        $http({
-            method: 'GET',
-            url: baseUrl + '/ads?pagesize=5&TownId=' + townId + '&CategoryId=' + categoryId + '&startpage=' + pageNumber
-        })
-            .success(function(data, status, headers, config) {
-                deferred.resolve(data, status, headers, config);
-            })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
-
-        return deferred.promise;
-    }
-
-    function getAllAdsByCategory(categoryId, townId, pageNumber) {
-        var deferred = $q.defer();
-
-        $http({
-            method: 'GET',
-            url: baseUrl + '/ads?pagesize=5&CategoryId=' + categoryId + '&TownId=' + townId + '&startpage=' + pageNumber
-        })
-            .success(function(data, status, headers, config) {
-                deferred.resolve(data, status, headers, config);
-            })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
-
-        return deferred.promise;
-    }
-
-    function getUserAds(pageNumber, adsWithStatus) {
+    function adsRequester(method, url, data) {
         var deferred = $q.defer();
 
         var headers = authorizationService.getAuthorizationHeaders();
         $http({
-            method: 'GET',
-            url: baseUrl + '/user/ads?pagesize=3&startpage=' + pageNumber + '&status=' + adsWithStatus,
-            data: {},
+            method: method,
+            url: url,
+            data: data,
             headers: headers
         })
             .success(function(data, status, headers, config) {
@@ -71,121 +20,49 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
         return deferred.promise;
     }
 
-    function publishAd(newAdData) {
-        var deferred = $q.defer();
-        
-        var headers = authorizationService.getAuthorizationHeaders();
-        $http({
-            method: 'POST',
-            url: baseUrl + '/user/ads',
-            data: newAdData,
-            headers: headers
-        })
-            .success(function(data, status, headers, config) {
-                deferred.resolve(data, status, headers, config);
-            })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
+    var getAllAdds = function(pageNumber, townId, categoryId){
+        return adsRequester('GET',  baseUrl + '/ads?pagesize=5&startpage=' + pageNumber +
+         '&TownId=' + townId + '&CategoryId=' + categoryId, null);
+    };
 
-        return deferred.promise;
-    }
+    var getAllAdsByTown = function(townId, categoryId, pageNumber){
+        return adsRequester('GET',  baseUrl + '/ads?pagesize=5&TownId=' + townId + 
+            '&CategoryId=' + categoryId + '&startpage=' + pageNumber, null);
+    };
 
-    function deactivateAd(id) {
-        var deferred = $q.defer();
-        
-        var headers = authorizationService.getAuthorizationHeaders();
-        $http({
-            method: 'PUT',
-            url: baseUrl + '/user/ads/deactivate/' + id,
-            headers: headers
-        })
-            .success(function(data, status, headers, config) {
-                deferred.resolve(data, status, headers, config);
-            })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
+    var getAllAdsByCategory = function(categoryId, townId, pageNumber){
+        return adsRequester('GET', baseUrl + '/ads?pagesize=5&CategoryId=' + categoryId + 
+            '&TownId=' + townId + '&startpage=' + pageNumber, null);
+    };
 
-        return deferred.promise;
-    }
+     var getUserAds = function(pageNumber, adsWithStatus){
+        return adsRequester('GET', baseUrl + '/user/ads?pagesize=3&startpage=' +
+         pageNumber + '&status=' + adsWithStatus, null);
+    };
 
-     function publishAgainAd(id) {
-        var deferred = $q.defer();
-        
-        var headers = authorizationService.getAuthorizationHeaders();
-        $http({
-            method: 'PUT',
-            url: baseUrl + '/user/ads/publishagain/' + id,
-            headers: headers
-        })
-            .success(function(data, status, headers, config) {
-                deferred.resolve(data, status, headers, config);
-            })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
+     var publishAd = function(newAdData){
+        return adsRequester('POST', baseUrl + '/user/ads', newAdData);
+    };
 
-        return deferred.promise;
-    }
+    var deactivateAd = function(id){
+        return adsRequester('PUT', baseUrl + '/user/ads/deactivate/' + id, null);
+    };
 
-    function deleteAd(id) {
-        var deferred = $q.defer();
-        
-        var headers = authorizationService.getAuthorizationHeaders();
-        $http({
-            method: 'DELETE',
-            url: baseUrl + '/user/ads/' + id,
-            headers: headers
-        })
-            .success(function(data, status, headers, config) {
-                deferred.resolve(data, status, headers, config);
-            })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
+     var publishAgainAd = function(id){
+        return adsRequester('PUT', baseUrl + '/user/ads/publishagain/' + id, null);
+    };
 
-        return deferred.promise;
-    }
+     var deleteAd = function(id){
+        return adsRequester('DELETE', baseUrl + '/user/ads/' + id, null);
+    };
 
-    function getAdById(id) {
-        var deferred = $q.defer();
-        
-        var headers = authorizationService.getAuthorizationHeaders();
-        $http({
-            method: 'GET',
-            url: baseUrl + '/user/ads/' + id,
-            headers: headers
-        })
-            .success(function(data, status, headers, config) {
-                deferred.resolve(data, status, headers, config);
-            })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
+    var getAdById = function(id){
+        return adsRequester('GET', baseUrl + '/user/ads/' + id, null);
+    };
 
-        return deferred.promise;
-    }
-
-     function editAd(id, editAdData) {
-        var deferred = $q.defer();
-        
-        var headers = authorizationService.getAuthorizationHeaders();
-        $http({
-            method: 'PUT',
-            url: baseUrl + '/user/ads/' + id,
-            data: editAdData,
-            headers: headers
-        })
-            .success(function(data, status, headers, config) {
-                deferred.resolve(data, status, headers, config);
-            })
-            .error(function(data, status, headers, config) {
-                deferred.reject(data, status, headers, config);
-            });
-
-        return deferred.promise;
-    }
+     var editAd = function(id, editAdData){
+        return adsRequester('PUT', baseUrl + '/user/ads/' + id, editAdData);
+    };
 
     return {
         getAll: getAllAdds,

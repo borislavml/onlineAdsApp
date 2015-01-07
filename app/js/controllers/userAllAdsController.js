@@ -3,9 +3,10 @@ var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineA
 onlineAdsAppControllers.controller('UserAllAdsController',
     function userAllAdsController($scope, $rootScope, $location, $modal, $timeout, adsData, ajaxErrorText) {
         $scope.loading = true;
-        var adStatus = $location.path().substr(10, $location.path().length);
         $scope.noAdsToDisplay = false;
 
+        var adStatus = $location.path().substr(10, $location.path().length);
+        
         /* pagination */
         var currentPage = 1;
         $scope.totalAds = 0;
@@ -31,7 +32,7 @@ onlineAdsAppControllers.controller('UserAllAdsController',
                     currentPage = pageNumber;
                 }
             }, function(error) {
-                $rootScope.$broadcast('operatonError', ajaxErrorText);
+                $rootScope.$broadcast('alertMessage', ajaxErrorText);
             }).finally(function(){
                 $scope.loading = false;
             });
@@ -56,7 +57,7 @@ onlineAdsAppControllers.controller('UserAllAdsController',
             });
         };
 
-        /* open a modal dialog to ask user for confirmation of action
+        /* open a modal dialog for user to edit ad;
          -request is executed in the EditAdModal controler */
         $scope.openEditModal = function(id) {
             var modalInstance = $modal.open({
