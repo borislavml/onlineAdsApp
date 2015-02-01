@@ -1,26 +1,28 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('UserPiblishAdController',
-    function($scope, $rootScope, $timeout, adsData, townsData, categoriesData, authorizationService, ajaxErrorText) {
+    function userPublishController($scope, $rootScope, $timeout, adsData, townsData, categoriesData,
+     authorizationService, errorsService) {
         $scope.nullValue = null;
         $scope.imageData = '';
         $scope.newAdData = {
             townId: null,
-            categoryId: null
+            categoryId: null,
+            imageDataUrl: null,
         };
 
         /* load towns in dropdown select */
         townsData.getAll().then(function(data) {
             $scope.townsData = data;
         }, function(error) {
-            $rootScope.$broadcast('alertMessage', ajaxErrorText);
+            errorsService.handleError(error);
         });
 
         /* load cateogoreis in dropdown select */
         categoriesData.getAll().then(function(data) {
             $scope.categoriesData = data;
         }, function(error) {
-            $rootScope.$broadcast('alertMessage', ajaxErrorText);
+            errorsService.handleError(error);
         });
 
         /* get uploaded image */
@@ -46,9 +48,14 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
 
         $scope.publishAd = function(newAdData, newAdForm) {
             if (newAdForm.$valid && authorizationService.userIsLogged()) {
+                /* set image data to null if no image has been uploaded*/
+                if ($scope.newAdForm.imageDataUrl == './img/no.image-uploaded-mini.jpg') {
+                    $scope.newAdForm.imageDataUrl = null;
+                };
+
                 adsData.publishAd(newAdData).then(function(data) {
                     $rootScope.$broadcast('alertMessage', 'Advertisement submitted for approval.Once approved, it will be published.');
-            
+
                     /* clean publish ad form */
                     $('.ad-image').attr('src', './img/no.image-uploaded-mini.jpg');
                     $('.image-title').attr('value', '');
@@ -57,8 +64,17 @@ onlineAdsAppControllers.controller('UserPiblishAdController',
                     $('#selectTown').val($scope.nullValue);
                     $('#selectCategory').val($scope.nullValue);
                 }, function(error) {
-                   $rootScope.$broadcast('alertMessage', ajaxErrorText);
+                    errorsService.handleError(error);
                 });
             }
+        };
+
+        /* delete current image */
+        $scope.deleteImage = function() {
+            delete $scope.newAdData.imageDataUrl;
+            $('.ad-image').attr('src', './img/no.image-uploaded-mini.jpg');
+            $('.image-title').attr('value', '');
+            $scope.newAdData.imageDataUrl = null;
+            $scope.newAdForm.imageDataUrl = null;
         };
     });

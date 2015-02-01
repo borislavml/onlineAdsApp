@@ -1,10 +1,10 @@
-onlineAdsApp.controller('EditAdModalController',
-    function editAdModalController($scope, $rootScope, $modalInstance, $route, adsData, errorsService, 
-     categoriesData, townsData, id, ajaxErrorText) {
+onlineAdsApp.controller('AdminEditAdModalController',
+    function adminEditAdModalController($scope, $rootScope, $modalInstance, $route, adsData, 
+        categoriesData,townsData, id, errorsService) {
         $scope.id = id;
 
         /* get selected ad */
-        adsData.getAdById(id).then(function(data) {
+        adsData.adminGetAdById(id).then(function(data) {
             $scope.currentAd = data;
             $scope.editAdForm = {
                 title: data.title,
@@ -13,9 +13,11 @@ onlineAdsApp.controller('EditAdModalController',
                 categoryId: data.categoryId ? data.categoryId : null,
                 townId: data.townId ? data.townId : null,
                 changeImage: false,
+                date: data.date,
+                status: data.status
             };
         }, function(error) {
-            errorsService.handleError(error);
+           errorsService.handleError(error);
         });
 
 
@@ -77,11 +79,10 @@ onlineAdsApp.controller('EditAdModalController',
                 editAdForm.imageDataUrl = null;
             }
 
-            adsData.editAd(id, editAdForm).then(function(data) {
+            adsData.adminEditAd(id, editAdForm).then(function(data) {
                 $modalInstance.close();
                 $route.reload();
-                $rootScope.$broadcast('alertMessage', data.message +
-                    "Don't forget to submit it for publishing.");
+                $rootScope.$broadcast('alertMessage', data.message);
             }, function(error) {
                 $modalInstance.close();
                 $route.reload();

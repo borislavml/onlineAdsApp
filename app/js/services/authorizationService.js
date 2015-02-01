@@ -5,9 +5,10 @@ onlineAdsApp.factory('authorizationService', function authorizationService($wind
     function setUserSession(data) {
         userSession = {
             accessToken: data.access_token,
-            userName: data.username
-        };
-        
+            userName: data.username,
+            isAdmin: data.isAdmin
+        }
+
         $window.sessionStorage["currentUser"] = JSON.stringify(userSession);
     }
 
@@ -38,15 +39,31 @@ onlineAdsApp.factory('authorizationService', function authorizationService($wind
         var userData = sessionStorage['currentUser'];
         if (userData) {
             return true;
+        }
+
+        return false;
+    }
+
+    function userIsAdmin() {
+        var userData = JSON.parse(sessionStorage['currentUser']);
+        return userData.isAdmin === "true";
+    }
+
+    function getUserRole() {
+        var userData = JSON.parse(sessionStorage['currentUser']);
+        if (userData.isAdmin === "true") {
+            return "admin";
         } else {
-            return false;
+            return "regular";
         }
     }
 
     function getAuthorizationHeaders() {
         var accessToken = getAccessToken();
         if (accessToken) {
-            angular.extend(headers, {Authorization: 'Bearer ' + accessToken});
+            angular.extend(headers, {
+                Authorization: 'Bearer ' + accessToken
+            });
             return headers;
         }
 
@@ -61,6 +78,8 @@ onlineAdsApp.factory('authorizationService', function authorizationService($wind
         setUserSession: setUserSession,
         getCurrentUser: getCurrentUser,
         userIsLogged: userIsLogged,
+        userIsAdmin: userIsAdmin,
+        getUserRole: getUserRole,
         getUsername: getUsername,
         getAccessToken: getAccessToken,
         getAuthorizationHeaders: getAuthorizationHeaders,

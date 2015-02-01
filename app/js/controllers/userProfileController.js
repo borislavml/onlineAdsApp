@@ -1,14 +1,14 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('UserProfileController',
-    function userProfileController($scope, $rootScope, $route, userProfile, townsData, ajaxErrorText) {
+    function userProfileController($scope, $rootScope, $route, userProfile, townsData, errorsService) {
         var errorMessage;
 
         /* get towns for dropdown */
         townsData.getAll().then(function(data) {
             $scope.townsData = data;
         }, function(error) {
-            $rootScope.$broadcast('alertMessage', ajaxErrorText);
+            errorsService.handleError(error);
         });
 
         userProfile.getProfile().then(function(data) {
@@ -20,7 +20,7 @@ onlineAdsAppControllers.controller('UserProfileController',
                 townId: data.townId ? data.townId : null,
             };
         }, function(error) {
-            $rootScope.$broadcast('alertMessage', ajaxErrorText);
+            errorsService.handleError(error);
         });
 
         $scope.updateProfile = function(editProfileForm) {
@@ -32,7 +32,7 @@ onlineAdsAppControllers.controller('UserProfileController',
                 $route.reload();
                 $rootScope.$broadcast('alertMessage', data.message);
             }, function(error) {
-                $rootScope.$broadcast('alertMessage', ajaxErrorText);
+                errorsService.handleError(error);
             });
         };
 
@@ -47,18 +47,7 @@ onlineAdsAppControllers.controller('UserProfileController',
                 $rootScope.$broadcast('alertMessage', data.message);
             }, function(error) {
                 errorMessage = error.modelState;
-                handleErrorMessage(errorMessage);
+                errorsService.handleProfileEditError(errorMessage);
             });
         };
-
-        /* hdnle errors with change password data */
-        function handleErrorMessage(errorMessage) {
-            if (errorMessage['']) {
-                $rootScope.$broadcast('alertMessage', errorMessage[''][0]);
-            } else if (errorMessage['model.ConfirmPassword']) {
-                $rootScope.$broadcast('alertMessage', errorMessage['model.ConfirmPassword'][0]);
-            } else {
-                $rootScope.$broadcast('alertMessage', ajaxErrorText);
-            }
-        }
     });

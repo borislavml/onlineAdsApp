@@ -1,9 +1,10 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 /* login controller*/
 onlineAdsAppControllers.controller('RegisterController',
-    function registerController($scope, $rootScope, authenticationService, authorizationService, townsData, ajaxErrorText) {
+    function registerController($scope, $rootScope, $location, authenticationService, authorizationService,
+        townsData, errorsService) {
         var errorMessage;
-        
+
         $rootScope.$broadcast('userLoginRegister');
         $scope.registrationActive = true;
         $scope.EMAIL_REGEXP = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -21,21 +22,11 @@ onlineAdsAppControllers.controller('RegisterController',
                 authenticationService.register(credentials).then(function(data) {
                     authorizationService.setUserSession(data);
                     $rootScope.$broadcast('alertMessage', 'User account created.Please login');
+                    $location.path('/login');
                 }, function(error) {
                     errorMessage = error.modelState;
-                    handleErrorMessage(errorMessage);
+                    errorsService.handleRegisterError(errorMessage);
                 });
             }
         };
-
-        /* hdnle errors with registration data */
-        function handleErrorMessage(errorMessage) {
-            if (errorMessage['']) {
-                $rootScope.$broadcast('alertMessage', errorMessage[''][0]);
-            } else if (errorMessage['model.ConfirmPassword']) {
-                $rootScope.$broadcast('alertMessage', errorMessage['model.ConfirmPassword'][0]);
-            } else {
-                $rootScope.$broadcast('alertMessage', ajaxErrorText);
-            }
-        }
     });

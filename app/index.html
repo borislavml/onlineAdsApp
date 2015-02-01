@@ -26,6 +26,7 @@
 		<script src="js/services/authorizationService.js"></script>
 		<script src="js/services/authenticationService.js"></script>
 		<script src="js/services/userProfileService.js"></script>
+		<script src="js/services/errorsSerivce.js"></script>
 		<script src="js/controllers/homeController.js"></script>
 		<script src="js/controllers/registerController.js"></script>
 		<script src="js/controllers/loginController.js"></script>
@@ -35,6 +36,9 @@
 		<script src="js/controllers/userPiblishAdController.js"></script>
 		<script src="js/controllers/modalController.js"></script>
 		<script src="js/controllers/editAdModalController.js"></script>
+		<script src="js/controllers/adminAdsController.js"></script>
+		<script src="js/controllers/adminModalController.js"></script>
+		<script src="js/controllers/adminEditAdModalController.js"></script>
 	</head>
 	<body ng-controller="MainController">
 		<!-- navigation-->
@@ -50,13 +54,13 @@
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="#/login" ng-if="!userIsLogged">Login</a>
+						<a href="#/login" ng-if="!userHasLogged">Login</a>
 					</li>
 					<li>
-						<a ng-if="userIsLogged" ng-click="logout()">Logout</a>
+						<a ng-if="userHasLogged" ng-click="logout()">Logout</a>
 					</li>
 					<li>
-						<a href="#/register" ng-if="!userIsLogged">Register</a>
+						<a href="#/register" ng-if="!userHasLogged">Register</a>
 					</li>
 				</ul>
 			</div>
@@ -72,14 +76,14 @@
 			<!-- left-side-bar -->
 			<div class="col-md-3 col-sm-3 col-xs-10">
 				<!-- main user nav -->
-				<div class="row sidebar-nav" ng-if="userIsLogged">
+				<div class="row sidebar-nav" ng-if="regularUser">
 					<div class="col-md-11 col-sm-12 col-xs-10 col-centered">
 						<div class="well well-sm text-info sidebar-nav-heading">
 							<h4>Wellcome home, <span class="avoidwrap"> {{currentUser}}</span></h4>
 						</div>
 						<div class="list-group">
 							<a href="#/home" class="list-group-item" ng-class="getClass('/home')" ng-click="loadHomePage()">Home </a>
-							<a class="list-group-item" ng-class="getClass('/user/ads')" ng-click="loadUserAds('')">My Ads</a>
+							<a class="list-group-item" ng-class="getClassActiveAds('/user/ads')"  ng-click="loadUserAds('')">My Ads</a>
 							<a class="list-group-item" ng-class="getClass('/user/publish-new-add')" ng-click="publishNewAdd()">	Publish New Add</a>
 							<a class="list-group-item" ng-class="getClass('/user/profile')"
 							ng-click="editProfile()">Edit Profile</a>
@@ -102,12 +106,42 @@
 						</div>
 					</div>
 				</div>
+				<!-- main admin nav -->
+				<div class="row sidebar-nav" ng-if="userIsAdmin">
+					<div class="col-md-11 col-sm-12 col-xs-10 col-centered">
+						<div class="well well-sm text-info sidebar-nav-heading">
+							<h4><span class="avoidwrap">{{currentUser}}</span></h4>
+						</div>
+						<div class="list-group">
+							<a class="list-group-item" ng-class="getClassActiveAds('/admin/home')"  ng-click="loadAdminAds('')">
+							Ads</a>
+							<a class="list-group-item" ng-class="getClass('/admin/users')" ng-click="loadUsers()">Users</a>
+							<a class="list-group-item" ng-class="getClass('/admin/categories')" ng-click="loadCategories()">	Categories</a>
+							<a class="list-group-item" ng-class="getClass('/admin/towns')" ng-click="loadTowns()">Towns</a>
+						</div>
+					</div>
+				</div>
+				<!-- Admin ads nav -->
+				<div class="row sidebar-nav" ng-if="userIsAdmin">
+					<div class="col-md-11 col-sm-12 col-xs-10 col-centered">
+						<div class="well well-sm text-info sidebar-nav-heading">
+							<h4>Ads</h4>
+						</div>
+						<div class="list-group">
+							<a class="list-group-item" ng-class="getClass('/admin/home')" ng-click="loadAdminAds('')">All</a>
+							<a class="list-group-item" ng-class="getClass('/admin/ads/published')" ng-click="loadAdminAds('Published')">Published</a>
+							<a class="list-group-item" ng-class="getClass('/admin/ads/waitingapproval')" ng-click="loadAdminAds('WaitingApproval')">Waiting Approval</a>
+							<a class="list-group-item" ng-class="getClass('/admin/ads/inactive')" ng-click="loadAdminAds('Inactive')">Inactive</a>
+							<a class="list-group-item" ng-class="getClass('/admin/ads/rejected')" ng-click="loadAdminAds('Rejected')">Rejected</a>
+						</div>
+					</div>
+				</div>
 				<!-- site info -->
 				<div class="row sidebar-nav" ng-if="homePage">
-				    <!-- site logo -->
+					<!-- site logo -->
 					<div class="col-md-12 col-sm-12 col-xs-12 col-centered ">
 						<div class="info-page-div">
-						</div>		
+						</div>
 					</div>
 					<div class="col-md-12 col-sm-12 col-xs-12 col-centered">
 						<div class="well well-sm">

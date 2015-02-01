@@ -1,7 +1,7 @@
 var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
 
 onlineAdsAppControllers.controller('UserAllAdsController',
-    function userAllAdsController($scope, $rootScope, $location, $modal, $timeout, adsData, ajaxErrorText) {
+    function userAllAdsController($scope, $rootScope, $location, $modal, $timeout, adsData, errorsService) {
         $scope.loading = true;
         $scope.noAdsToDisplay = false;
 
@@ -32,7 +32,7 @@ onlineAdsAppControllers.controller('UserAllAdsController',
                     currentPage = pageNumber;
                 }
             }, function(error) {
-                $rootScope.$broadcast('alertMessage', ajaxErrorText);
+                errorsService.handleError(error);
             }).finally(function(){
                 $scope.loading = false;
             });

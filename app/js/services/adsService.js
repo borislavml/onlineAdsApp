@@ -20,54 +20,69 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
         return deferred.promise;
     }
 
-    var getAllAdds = function(pageNumber, townId, categoryId){
-        return adsRequester('GET',  baseUrl + '/ads?pagesize=5&startpage=' + pageNumber +
-         '&TownId=' + townId + '&CategoryId=' + categoryId, null);
+    /* user ads services */
+    var getAllAddsFiltered = function(pageNumber, townId, categoryId, adsPerPage) {
+        return adsRequester('GET', baseUrl + '/ads?pagesize=' + adsPerPage  + '&startpage=' + pageNumber +
+            '&TownId=' + townId + '&CategoryId=' + categoryId, null);
     };
 
-    var getAllAdsByTown = function(townId, categoryId, pageNumber){
-        return adsRequester('GET',  baseUrl + '/ads?pagesize=5&TownId=' + townId + 
-            '&CategoryId=' + categoryId + '&startpage=' + pageNumber, null);
-    };
-
-    var getAllAdsByCategory = function(categoryId, townId, pageNumber){
-        return adsRequester('GET', baseUrl + '/ads?pagesize=5&CategoryId=' + categoryId + 
-            '&TownId=' + townId + '&startpage=' + pageNumber, null);
-    };
-
-     var getUserAds = function(pageNumber, adsWithStatus){
+    var getUserAds = function(pageNumber, adsWithStatus) {
         return adsRequester('GET', baseUrl + '/user/ads?pagesize=3&startpage=' +
-         pageNumber + '&status=' + adsWithStatus, null);
+            pageNumber + '&status=' + adsWithStatus, null);
     };
 
-     var publishAd = function(newAdData){
+    var publishAd = function(newAdData) {
         return adsRequester('POST', baseUrl + '/user/ads', newAdData);
     };
 
-    var deactivateAd = function(id){
+    var deactivateAd = function(id) {
         return adsRequester('PUT', baseUrl + '/user/ads/deactivate/' + id, null);
     };
 
-     var publishAgainAd = function(id){
+    var publishAgainAd = function(id) {
         return adsRequester('PUT', baseUrl + '/user/ads/publishagain/' + id, null);
     };
 
-     var deleteAd = function(id){
+    var deleteAd = function(id) {
         return adsRequester('DELETE', baseUrl + '/user/ads/' + id, null);
     };
 
-    var getAdById = function(id){
+    var getAdById = function(id) {
         return adsRequester('GET', baseUrl + '/user/ads/' + id, null);
     };
 
-     var editAd = function(id, editAdData){
+    var editAd = function(id, editAdData) {
         return adsRequester('PUT', baseUrl + '/user/ads/' + id, editAdData);
     };
 
+    /* admin ads services */
+    var adminGetAllAddsFiltered = function(pageNumber, townId, categoryId, adStatus, adsPerPage) {
+        return adsRequester('GET', baseUrl + '/admin/ads?pagesize=' + adsPerPage + '&startpage=' + pageNumber +
+            '&TownId=' + townId + '&CategoryId=' + categoryId + '&status=' + adStatus, null);
+    };
+
+    var adminGetAdById = function(id) {
+        return adsRequester('GET', baseUrl + '/admin/ads/' + id, null);
+    };
+
+    var adminApproveAd = function(id) {
+        return adsRequester('PUT', baseUrl + '/admin/ads/approve/' + id, null);
+    };
+
+    var adminRejectAd = function(id) {
+        return adsRequester('PUT', baseUrl + '/admin/ads/reject/' + id, null);
+    };
+
+    var adminDeleteAd = function(id) {
+        return adsRequester('DELETE', baseUrl + '/admin/ads/' + id, null);
+    };
+
+     var adminEditAd = function(id, editAdData) {
+        return adsRequester('PUT', baseUrl + '/admin/ads/' + id, editAdData);
+    };
+
     return {
-        getAll: getAllAdds,
-        getByTown: getAllAdsByTown,
-        getByCategory: getAllAdsByCategory,
+        getAllAddsFiltered: getAllAddsFiltered,
         getUserAds: getUserAds,
         publishAd: publishAd,
         deactivateAd: deactivateAd,
@@ -75,5 +90,11 @@ onlineAdsApp.factory('adsData', function adsData($http, $q, baseUrl, authorizati
         deleteAd: deleteAd,
         getAdById: getAdById,
         editAd: editAd,
+        adminGetAllFiltered: adminGetAllAddsFiltered,
+        adminGetAdById: adminGetAdById,
+        adminApproveAd: adminApproveAd,
+        adminRejectAd: adminRejectAd,
+        adminDeleteAd: adminDeleteAd,
+        adminEditAd: adminEditAd,
     };
 });

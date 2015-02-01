@@ -58,6 +58,26 @@ onlineAdsApp.config(['$routeProvider',
         when('/unauthorized', {
             templateUrl: 'templates/unauthorized.html'
         }).
+        when('/admin/home', {
+            templateUrl: 'templates/admin-ads.html',
+            controller: 'AdminAdsController'
+        }).
+        when('/admin/ads/published', {
+            templateUrl: 'templates/admin-ads.html',
+            controller: 'AdminAdsController'
+        }).
+        when('/admin/ads/waitingapproval', {
+            templateUrl: 'templates/admin-ads.html',
+            controller: 'AdminAdsController'
+        }).
+        when('/admin/ads/inactive', {
+            templateUrl: 'templates/admin-ads.html',
+            controller: 'AdminAdsController'
+        }).
+        when('/admin/ads/rejected', {
+            templateUrl: 'templates/admin-ads.html',
+            controller: 'AdminAdsController'
+        }).
         otherwise({
             redirectTo: '/home'
         });
@@ -66,11 +86,17 @@ onlineAdsApp.config(['$routeProvider',
 run(function($rootScope, $location, authorizationService) {
     $rootScope.$on('$routeChangeStart', function(event, next) {
         var path = $location.path();
-        if (!authorizationService.userIsLogged() && path !== '/login' &&
-            path !== '/register' && path !== '/home') {
+        if (!authorizationService.userIsLogged() && path !== '/login' && path !== '/register' && path !== '/home') {
             $location.path('/unauthorized');
-        }
+        } else if (authorizationService.userIsLogged()) {
+            if (!authorizationService.userIsAdmin() && path.indexOf("admin") > -1) {
+                $location.path('/unauthorized');
+            };
+        };
     });
 }).
-constant('baseUrl', 'http://softuni-ads.azurewebsites.net/api').
-constant('ajaxErrorText', 'Something went wrong, please try again or refresh the page.');
+constant('baseUrl', 'http://localhost:1337/api')
+.constant('imageSize', '50kb')
+.constant('ajaxErrorText', 'Something went wrong, please try again or refresh the page.')
+.constant('adsPerPageUser', '5')
+.constant('adsPerPageAdmin', '3');

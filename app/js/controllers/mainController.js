@@ -1,6 +1,10 @@
+/* Controllers */
+var onlineAdsAppControllers = onlineAdsAppControllers || angular.module('onlineAdsAppControllers', []);
+
 onlineAdsApp.controller('MainController',
     function mainController($scope, $rootScope, $window, $location, $timeout, authorizationService, authenticationService) {
-        var currentUrl;
+        var currentUrl,
+            userRole;
 
         /* handle alert messages */
         $scope.alertDialog = false;
@@ -37,29 +41,62 @@ onlineAdsApp.controller('MainController',
         /* handle refreshing page to store services state and user data */
         function init() {
             $scope.loading = true;
+
             if (authorizationService.userIsLogged()) {
-                $scope.userIsLogged = true;
+                $scope.userHasLogged = true;
                 $scope.homePage = false;
                 $scope.currentUser = authorizationService.getUsername();
 
-                // show my ads nav on refresh if clicked
-                currentUrl = $location.path();
-                if (currentUrl === '/user/ads' || currentUrl === '/user/ads/published' ||
-                    currentUrl === '/user/ads/waitingapproval' || currentUrl === '/user/ads/inactive' ||
-                    currentUrl === '/user/ads/rejected') {
-                    $scope.clickedMyAds = true;
+                userRole = authorizationService.getUserRole();
+                switch (userRole) {
+                    case "admin":
+                        $scope.userIsAdmin = true;
+                        // show ads nav on refresh if clicked
+                        currentUrl = $location.path();
+                        if (currentUrl === '/admin/ads/published' || currentUrl === '/admin/ads/waitingapproval' ||
+                            currentUrl === '/admin/ads/inactive' || currentUrl === '/admin/ads/rejected') {
+                            $scope.clickedMyAdsAdmin = true;
+                        }
+
+                        break;
+                    case "regular":
+                        $scope.regularUser = true;
+                        // show my ads nav on refresh if clicked
+                        currentUrl = $location.path();
+                        if (currentUrl === '/user/ads' || currentUrl === '/user/ads/published' ||
+                            currentUrl === '/user/ads/waitingapproval' || currentUrl === '/user/ads/inactive' ||
+                            currentUrl === '/user/ads/rejected') {
+                            $scope.clickedMyAds = true;
+                        }
+
+                        break;
+                    default:
+                        break;
                 }
             } else {
-                $scope.userIsLogged = false;
+                $scope.regularUser = false;
+                $scope.userIsAdmin = false;
                 $scope.clickedMyAdds = false;
             }
 
             /* This event is sent by LoginController when the user has logged 
              to hide login/register buttons */
             $rootScope.$on("userHasLogged", function() {
-                $scope.userIsLogged = true;
+                $scope.userHasLogged = true;
                 $scope.homePage = false;
                 $scope.currentUser = authorizationService.getUsername();
+
+                userRole = authorizationService.getUserRole();
+                switch (userRole) {
+                    case "admin":
+                        $scope.userIsAdmin = true;
+                        break;
+                    case "regular":
+                        $scope.regularUser = true;
+                        break;
+                    default:
+                        break;
+                }
             });
         }
 
@@ -67,8 +104,11 @@ onlineAdsApp.controller('MainController',
 
         $scope.logout = function() {
             authenticationService.logout();
-            $scope.userIsLogged = false;
+            $scope.userHasLogged = false;
+            $scope.regularUser = false;
+            $scope.userIsAdmin = false;
             $scope.clickedMyAds = false;
+            $scope.clickedMyAdsAdmin = false;
             $scope.homePage = true;
             $location.path('/home');
 
@@ -97,7 +137,7 @@ onlineAdsApp.controller('MainController',
         ads are loaded in the UserAllAdsController */
         $scope.loadUserAds = function(adsWithStatus) {
             if (authorizationService.userIsLogged()) {
-                $scope.userIsLogged = true;
+                $scope.regularUser = true;
                 $scope.clickedMyAds = true;
 
                 if (adsWithStatus === '') {
@@ -111,7 +151,7 @@ onlineAdsApp.controller('MainController',
         /* redirect user to publish-new-add page */
         $scope.publishNewAdd = function() {
             if (authorizationService.userIsLogged()) {
-                $scope.userIsLogged = true;
+                $scope.regularUser = true;
                 $scope.clickedMyAds = false;
                 $location.path('/user/publish-new-add');
             }
@@ -120,20 +160,36 @@ onlineAdsApp.controller('MainController',
         /* redirect user to edit-profile page */
         $scope.editProfile = function() {
             if (authorizationService.userIsLogged()) {
-                $scope.userIsLogged = true;
+                $scope.regularUser = true;
                 $scope.clickedMyAds = false;
                 $location.path('/user/profile');
             }
         };
-        
+
         /* redirect user to troubleshoot page */
         $scope.troubleshoot = function() {
             if (authorizationService.userIsLogged()) {
-                $scope.userIsLogged = true;
+                $scope.regularUser = true;
                 $scope.clickedMyAds = false;
                 $location.path('/user/troubleshoot');
             }
         };
+
+        /* redirect admin to route with requested ads-status from Ads-navbar 
+        ads are loaded in the AdminAllAdsController */
+        $scope.loadAdminAds = function(adsWithStatus) {
+            if (authorizationService.userIsAdmin()) {
+                $scope.userIsAdmin = true;
+                $scope.clickedMyAdsAdmin = true;
+
+                if (adsWithStatus === '') {
+                    $location.path('/admin/home');
+                } else {
+                    $location.path('/admin/ads/' + adsWithStatus.toLowerCase());
+                }
+            }
+        };
+
 
         /* activate clicked links on page refresh*/
         $scope.getClass = function(path) {
@@ -143,6 +199,16 @@ onlineAdsApp.controller('MainController',
                 return "";
             }
         };
+
+        /* activate ads-nav link on ads-by-status link clicked and page refresh*/
+        $scope.getClassActiveAds = function(path) {
+            if ($location.path() === path || $location.path().indexOf('/user/ads/') > -1 ||
+                $location.path().indexOf('/admin/ads/') > -1) {
+                return "active";
+            } else {
+                return "";
+            }
+        }
     });
 
 /* back to top button */

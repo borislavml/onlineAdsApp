@@ -21,6 +21,10 @@
  	color: black;
  }
 
+ .regular-font-size {
+ 	font-size: 16px !important;
+ }
+
  .list-group-item {
  	background-color: #5E5E5E !important;
  	color: white !important;
@@ -36,9 +40,10 @@
  }
 
  .well, .well-sm {
-/* 	background-color: #BABABA !important;*/
+ /*	background-color: #BABABA !important;*/
+/*	 background-color: white !important;*/
  	background-color: #5E5E5E !important;
- 	border: 1px solid white !important;
+ 	border: 1px solid black !important;
  	opacity: 0.97;
  }
 
@@ -210,6 +215,30 @@ span.avoidwrap {
 	text-indent: 15px;
 }
 
+.ad-status-top {
+	margin-top: 20px;
+}
+
+.ad-status-bottom {
+	margin-bottom: 10px;
+}
+
+.admin-ad-buttons-div {
+   border-top: 1px solid black;
+}
+
+.admin-ad-edit-buttons {
+	margin-top: 10px;
+	overflow: hidden;
+	display: inline-block;
+	width: 24%;
+	margin: 10px auto;
+}
+
+.admin-ad-edit-buttons-link {
+	width: 98%;
+}
+
 /*back to top button */
 .back-to-top {
     position: fixed;
@@ -253,7 +282,9 @@ span.avoidwrap {
 	left: 0;
 	right: 0;
 	margin: auto;
+	font-size: 15px;
 }
+
 
 
 
