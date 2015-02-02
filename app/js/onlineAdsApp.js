@@ -78,6 +78,14 @@ onlineAdsApp.config(['$routeProvider',
             templateUrl: 'templates/admin-ads.html',
             controller: 'AdminAdsController'
         }).
+        when('/admin/users', {
+            templateUrl: 'templates/admin-users.html',
+            controller: 'AdminUsersController'
+        }).
+        when('/admin/users/edit/:id', {
+            templateUrl: 'templates/admin-users-edit.html',
+            controller: 'AdminEditUsersController'
+        }).
         otherwise({
             redirectTo: '/home'
         });
@@ -99,4 +107,5 @@ constant('baseUrl', 'http://localhost:1337/api')
 .constant('imageSize', '50kb')
 .constant('ajaxErrorText', 'Something went wrong, please try again or refresh the page.')
 .constant('adsPerPageUser', '5')
-.constant('adsPerPageAdmin', '3');
+.constant('adsPerPageAdmin', '3')
+.constant('usersPerPage', '10');

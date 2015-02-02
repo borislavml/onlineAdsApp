@@ -39,6 +39,9 @@
 		<script src="js/controllers/adminAdsController.js"></script>
 		<script src="js/controllers/adminModalController.js"></script>
 		<script src="js/controllers/adminEditAdModalController.js"></script>
+		<script src="js/controllers/adminUsersController.js"></script>
+		<script src="js/controllers/adminEditUsersController.js"></script>
+		<script src="js/controllers/deleteUserModalController.js"></script>
 	</head>
 	<body ng-controller="MainController">
 		<!-- navigation-->
@@ -122,7 +125,7 @@
 					</div>
 				</div>
 				<!-- Admin ads nav -->
-				<div class="row sidebar-nav" ng-if="userIsAdmin">
+				<div class="row sidebar-nav" ng-if="clickedMyAdsAdmin">
 					<div class="col-md-11 col-sm-12 col-xs-10 col-centered">
 						<div class="well well-sm text-info sidebar-nav-heading">
 							<h4>Ads</h4>

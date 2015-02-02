@@ -31,9 +31,35 @@ onlineAdsApp.factory('userProfile', function($http, $q, baseUrl, authorizationSe
         return userRequester('PUT', baseUrl + '/user/changePassword', data);
     };
 
+    /* admin requests */
+    var adminGetAllUsers = function(usersPerPage, pageNumber) {
+        return userRequester('GET', baseUrl + '/admin/users/?pagesize=' + usersPerPage + '&startpage=' + pageNumber, null)
+    }
+
+    var adminGetUserById = function(userId) {
+        return userRequester('GET', baseUrl + '/admin/users/' + userId, null)
+    }
+
+    var adminUpdateUser = function(userName, editProfileForm) {
+        return userRequester('PUT', baseUrl + '/admin/user/' + userName, editProfileForm)
+    }
+
+    var adminSetUserPassword = function(credentials) {
+        return userRequester('PUT', baseUrl + '/admin/setpassword', credentials)
+    }
+
+    var adminDeleteUser = function(username) {
+        return userRequester('DELETE', baseUrl + '/admin/user/' + username , null)
+    }
+
     return {
         getProfile: getProfile,
         ediProfile: ediProfile,
-        changePassword: changePassword
+        changePassword: changePassword,
+        adminGetAllUsers: adminGetAllUsers,
+        adminGetUserById: adminGetUserById,
+        adminUpdateUser: adminUpdateUser,
+        adminSetUserPassword: adminSetUserPassword,
+        adminDeleteUser: adminDeleteUser
     };
 });

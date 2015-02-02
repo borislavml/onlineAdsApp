@@ -239,6 +239,14 @@ span.avoidwrap {
 	width: 98%;
 }
 
+.edit-user-buutons:hover{
+	color: red !important;
+}
+
+.checkbox-isAdmin {
+	margin-bottom: 10px !important;
+}
+
 /*back to top button */
 .back-to-top {
     position: fixed;

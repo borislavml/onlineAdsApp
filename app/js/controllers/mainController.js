@@ -51,10 +51,12 @@ onlineAdsApp.controller('MainController',
                 switch (userRole) {
                     case "admin":
                         $scope.userIsAdmin = true;
+                        $scope.clickedMyAdsAdmin = false;
                         // show ads nav on refresh if clicked
                         currentUrl = $location.path();
                         if (currentUrl === '/admin/ads/published' || currentUrl === '/admin/ads/waitingapproval' ||
-                            currentUrl === '/admin/ads/inactive' || currentUrl === '/admin/ads/rejected') {
+                            currentUrl === '/admin/ads/inactive' || currentUrl === '/admin/ads/rejected' ||
+                            currentUrl === '/admin/home') {
                             $scope.clickedMyAdsAdmin = true;
                         }
 
@@ -90,6 +92,7 @@ onlineAdsApp.controller('MainController',
                 switch (userRole) {
                     case "admin":
                         $scope.userIsAdmin = true;
+                        $scope.clickedMyAdsAdmin = true;
                         break;
                     case "regular":
                         $scope.regularUser = true;
@@ -190,6 +193,14 @@ onlineAdsApp.controller('MainController',
             }
         };
 
+        /* redirect admin to users page*/
+        $scope.loadUsers = function() {
+            if (authorizationService.userIsAdmin()) {
+                $scope.userIsAdmin = true;
+                $scope.clickedMyAdsAdmin = false;
+                $location.path('/admin/users')
+            }
+        };
 
         /* activate clicked links on page refresh*/
         $scope.getClass = function(path) {
