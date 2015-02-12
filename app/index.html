@@ -27,6 +27,7 @@
 		<script src="js/services/authenticationService.js"></script>
 		<script src="js/services/userProfileService.js"></script>
 		<script src="js/services/errorsSerivce.js"></script>
+
 		<script src="js/controllers/homeController.js"></script>
 		<script src="js/controllers/registerController.js"></script>
 		<script src="js/controllers/loginController.js"></script>
@@ -34,14 +35,23 @@
 		<script src="js/controllers/userAllAdsController.js"></script>
 		<script src="js/controllers/userProfileController.js"></script>
 		<script src="js/controllers/userPiblishAdController.js"></script>
-		<script src="js/controllers/modalController.js"></script>
-		<script src="js/controllers/editAdModalController.js"></script>
+		<script src="js/controllers/userAdModalController.js"></script>
+		<script src="js/controllers/userEditAdModalController.js"></script>
+
 		<script src="js/controllers/adminAdsController.js"></script>
-		<script src="js/controllers/adminModalController.js"></script>
+		<script src="js/controllers/adminAdModalController.js"></script>
 		<script src="js/controllers/adminEditAdModalController.js"></script>
 		<script src="js/controllers/adminUsersController.js"></script>
 		<script src="js/controllers/adminEditUsersController.js"></script>
-		<script src="js/controllers/deleteUserModalController.js"></script>
+		<script src="js/controllers/adminDeleteUserModalController.js"></script>
+		<script src="js/controllers/adminCategoriesController.js"></script>
+		<script src="js/controllers/adminAddCategoryModalController.js"></script>
+		<script src="js/controllers/adminDeleteCategoryModalController.js"></script>
+		<script src="js/controllers/adminEditCategoryModalController.js"></script>
+		<script src="js/controllers/adminTownsController.js"></script>
+		<script src="js/controllers/adminAddTownModalController.js"></script>
+		<script src="js/controllers/adminDeleteTownModalController.js"></script>
+		<script src="js/controllers/adminEditTownModalController.js"></script>
 	</head>
 	<body ng-controller="MainController">
 		<!-- navigation-->
@@ -118,7 +128,7 @@
 						<div class="list-group">
 							<a class="list-group-item" ng-class="getClassActiveAds('/admin/home')"  ng-click="loadAdminAds('')">
 							Ads</a>
-							<a class="list-group-item" ng-class="getClass('/admin/users')" ng-click="loadUsers()">Users</a>
+							<a class="list-group-item" ng-class="getClassUsersMenu('/admin/users')" ng-click="loadUsers()">Users</a>
 							<a class="list-group-item" ng-class="getClass('/admin/categories')" ng-click="loadCategories()">	Categories</a>
 							<a class="list-group-item" ng-class="getClass('/admin/towns')" ng-click="loadTowns()">Towns</a>
 						</div>

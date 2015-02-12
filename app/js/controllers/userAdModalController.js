@@ -1,5 +1,5 @@
-onlineAdsApp.controller('ModalController',
-    function modalController($scope, $rootScope, $route, $modalInstance, adsData, id, action, ajaxErrorText) {
+onlineAdsApp.controller('UserAdModalController',
+    function userAdModalController($scope, $rootScope, $route, $modalInstance, adsData, id, action, errorsService) {
         $scope.id = id;
         $scope.action = action;
 
@@ -7,7 +7,8 @@ onlineAdsApp.controller('ModalController',
         adsData.getAdById(id).then(function(data) {
             $scope.currentAd = data;
         }, function(error) {
-            $rootScope.$broadcast('alertMessage', ajaxErrorText);
+            errorsService.handleError(error);
+            errorsService.handleError(error);
         });
 
         /* confirm CRUD operation on ad */
@@ -22,7 +23,7 @@ onlineAdsApp.controller('ModalController',
                         $rootScope.$broadcast('alertMessage', data.message + 
                             "It was moved into your Inactive Ads.");
                     }, function(error) {
-                        $rootScope.$broadcast('alertMessage', ajaxErrorText);
+                        errorsService.handleError(error);
                     });
                     break;
                 case 'Delete':
@@ -30,7 +31,7 @@ onlineAdsApp.controller('ModalController',
                         $route.reload();
                         $rootScope.$broadcast('alertMessage', data.message);
                     }, function(error) {
-                        $rootScope.$broadcast('alertMessage', ajaxErrorText);
+                        errorsService.handleError(error);
                     });
                     break;
                 case 'Publish again':
@@ -39,7 +40,7 @@ onlineAdsApp.controller('ModalController',
                         $rootScope.$broadcast('alertMessage', data.message + 
                             "It was moved into your Waiting Approval Ads.");
                     }, function(error) {
-                        $rootScope.$broadcast('alertMessage', ajaxErrorText);
+                        errorsService.handleError(error);
                     });
                     break;
                 default:

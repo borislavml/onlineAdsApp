@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h3 class="modal-title text-center">Edit Town</h3>
+</div>
+<form name="editTownForm" class="form-horizontal ">
+    <fieldset>
+        <div class="modal-body">
+            <!-- Town  -->
+            <div class="row">
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                    <div class="form-group">
+                        <label for="title" class="col-md-3 col-sm-4 col-xs-4 control-label">
+                        Town: <b class="text-danger">*</b> </label>
+                        <div class="col-md-9 col-sm-8 col-xs-8">
+                            <input type="text" name="name" class="form-control" id="name" ng-model="townName" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- note on changes-->
+            <div class="form-group">
+                <div class="col-md-12">
+                    <p class="text-danger text-center"><b class="text-danger">Note:</b>Editing a town will result in change of all ads with this town.</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="form-group">
+                <button class="btn btn-info" type="submit" name="edit" ng-click="ok()" >
+                Edit</button>
+                <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

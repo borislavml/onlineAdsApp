@@ -1,5 +1,5 @@
-onlineAdsApp.controller('DeleteUserModalController',
-    function deleteUserModalController($scope, $rootScope, $route, $modalInstance, userProfile, userID, errorsService) {
+onlineAdsApp.controller('AdminDeleteUserModalController',
+    function adminDeleteUserModalController($scope, $rootScope, $route, $modalInstance, userProfile, userID, errorsService) {
         $scope.username;
         $scope.userID = userID;
 

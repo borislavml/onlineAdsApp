@@ -83,8 +83,16 @@ onlineAdsApp.config(['$routeProvider',
             controller: 'AdminUsersController'
         }).
         when('/admin/users/edit/:id', {
-            templateUrl: 'templates/admin-users-edit.html',
+            templateUrl: 'templates/admin-edit-user.html',
             controller: 'AdminEditUsersController'
+        }).
+        when('/admin/categories', {
+            templateUrl: 'templates/admin-categories.html',
+            controller: 'AdminCategoriesController'
+        }).
+        when('/admin/towns', {
+            templateUrl: 'templates/admin-towns.html',
+            controller: 'AdminTownsController'
         }).
         otherwise({
             redirectTo: '/home'
@@ -104,8 +112,10 @@ run(function($rootScope, $location, authorizationService) {
     });
 }).
 constant('baseUrl', 'http://localhost:1337/api')
-.constant('imageSize', '50kb')
-.constant('ajaxErrorText', 'Something went wrong, please try again or refresh the page.')
-.constant('adsPerPageUser', '5')
-.constant('adsPerPageAdmin', '3')
-.constant('usersPerPage', '10');
+    .constant('imageSize', '50kb')
+    .constant('ajaxErrorText', 'Something went wrong, please try again or refresh the page.')
+    .constant('adsPerPageUser', '5')
+    .constant('adsPerPageAdmin', '3')
+    .constant('categoriesPerPageAdmin', '10')
+    .constant('townsPerPageAdmin', '10')
+    .constant('usersPerPage', '10');

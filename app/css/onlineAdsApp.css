@@ -247,6 +247,11 @@ span.avoidwrap {
 	margin-bottom: 10px !important;
 }
 
+.users-table, .table, thead, tr, tbody, td  {
+	table-layout: fixed !important;
+	word-wrap: break-word !important;
+}
+
 /*back to top button */
 .back-to-top {
     position: fixed;

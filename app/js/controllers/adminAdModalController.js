@@ -1,5 +1,5 @@
-onlineAdsApp.controller('AdminModalController',
-    function adminModalController($scope, $rootScope, $route, $modalInstance, adsData, id, action, errorsService) {
+onlineAdsApp.controller('AdminAdModalController',
+    function adminAdModalController($scope, $rootScope, $route, $modalInstance, adsData, id, action, errorsService) {
         $scope.id = id;
         $scope.action = action;
 

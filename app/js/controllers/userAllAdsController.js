@@ -42,8 +42,8 @@ onlineAdsAppControllers.controller('UserAllAdsController',
          -requests are executed in the modal controler */
         $scope.openModal = function(id, action) {
             var modalInstance = $modal.open({
-                templateUrl: './templates/modalTemplate.html',
-                controller: 'ModalController',
+                templateUrl: './templates/user-ad-modal-template.html',
+                controller: 'UserAdModalController',
                 backdrop: false,
                 keyboard: false,
                 resolve: {
@@ -61,8 +61,8 @@ onlineAdsAppControllers.controller('UserAllAdsController',
          -request is executed in the EditAdModal controler */
         $scope.openEditModal = function(id) {
             var modalInstance = $modal.open({
-                templateUrl: './templates/editAdModalTemplate.html',
-                controller: 'EditAdModalController',
+                templateUrl: './templates/user-edit-ad-modal-template.html',
+                controller: 'UserEditAdModalController',
                 backdrop: false,
                 keyboard: false,
                 resolve: {

@@ -1,35 +1,29 @@
-<!-- loading ads gif-->
+<!-- loading categories gif-->
 <div class="row" ng-if="loading">
   <div class="spinner" >
     <img src="./img/ajax_loader_blue_512.gif" alt="" class="spinner-gif">
   </div>
 </div>
 <div class="row">
-  <div class="col-md-9 col-sm-9 col-xs-9">
-    <!-- no users to display-->
-    <div class="col-centered" ng-if="noUsersToDisplay">
-      <h4 class="black-text text-center">No users were founnd.</h4>
+  <div class="col-md-8 col-sm-8 col-xs-9">
+    <!-- no towns to display-->
+    <div class="col-centered" ng-if="noTownsToDisplay">
+      <h4 class="black-text text-center">No towns were founnd.</h4>
     </div>
-    <!-- users list -->
+    <!-- categories list -->
     <table class="table table-striped table-hover users-table">
       <thead>
         <tr>
-          <th>Username</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
+          <th>Towns</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr dir-paginate="user in usersData.users | filter: query | itemsPerPage: usersPerPage" total-items="totalUsers" data-id="{{user.id}}">
-          <td>{{user.username}}</td>
-          <td>{{user.name}}</td>
-          <td>{{user.email}}</td>
-          <td>{{user.phoneNumber}}</td>
+        <tr dir-paginate="town in townsData.towns | filter: query | itemsPerPage: townsPerPage" total-items="totaTowns" data-id="{{town.id}}">
+          <td>{{town.username}}</td>
           <td>
-            <a data="{{user.id}}" ng-click="editUserProfile(user.id)" class="edit-user-buutons">Edit</a>
-            <a data="{{user.id}}" ng-click="openModal(user.id)" class="edit-user-buutons" >Delete</a>
+            <a data="{{town.id}}" data="{{town.username}}" ng-click="editTown(town.username, town.id)" class="edit-user-buutons">Edit</a>
+            <a data="{{town.id}}" data="{{town.username}}" ng-click="deleteTown(town.username, town.id)" class="edit-user-buutons" >Delete</a>
           </td>
         </tr>
       </tbody>
@@ -38,10 +32,10 @@
   <!-- search and filet -->
   <div class="col-md-3 col-sm-3 col-xs-10">
     <input type="text" class="form-control" id="inputQuery" placeholder="Search" ng-model="query">
-    <!--Users per page -->
-    <h3 class="black-text regular-font-size">Users per page: </h3>
+    <!-- towns per page -->
+    <h3 class="black-text regular-font-size">Towns per page: </h3>
     <div class="btn-group dropdown-filter">
-      <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false" }> {{usersPerPage}}
+      <button class="btn btn-primary btn-lg dropdown-toggle dropdown-filte-button" type="button" data-toggle="dropdown" aria-expanded="false" }> {{townsPerPage}}
       <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu" >
@@ -53,7 +47,9 @@
         </li>
       </ul>
     </div>
-    <h3 class="black-text regular-font-size">Total users: {{totalUsersCount}} </h3>
+    <h3 class="black-text regular-font-size">Total towns: {{totaTownsCount}} </h3>
+    <!--Add category button -->
+    <a class="btn btn-primary btn-lg" ng-click="addTown()">Add Town</a>
   </div>
 </div>
 <!--paginaton-->

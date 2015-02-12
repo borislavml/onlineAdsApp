@@ -1,6 +1,6 @@
-onlineAdsApp.controller('EditAdModalController',
-    function editAdModalController($scope, $rootScope, $modalInstance, $route, adsData, errorsService, 
-     categoriesData, townsData, id, ajaxErrorText) {
+onlineAdsApp.controller('UserEditAdModalController',
+    function userEditAdModalController($scope, $rootScope, $modalInstance, $route, adsData, errorsService, 
+     categoriesData, townsData, id) {
         $scope.id = id;
 
         /* get selected ad */

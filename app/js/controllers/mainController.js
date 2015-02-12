@@ -202,6 +202,25 @@ onlineAdsApp.controller('MainController',
             }
         };
 
+        /* redirect admin to categories page*/
+        $scope.loadCategories = function() {
+            if (authorizationService.userIsAdmin()) {
+                $scope.userIsAdmin = true;
+                $scope.clickedMyAdsAdmin = false;
+                $location.path('/admin/categories')
+            }
+        };
+
+         /* redirect admin to towns page*/
+        $scope.loadTowns = function() {
+            if (authorizationService.userIsAdmin()) {
+                $scope.userIsAdmin = true;
+                $scope.clickedMyAdsAdmin = false;
+                $location.path('/admin/towns')
+            }
+        };
+
+
         /* activate clicked links on page refresh*/
         $scope.getClass = function(path) {
             if ($location.path() === path) {
@@ -215,6 +234,15 @@ onlineAdsApp.controller('MainController',
         $scope.getClassActiveAds = function(path) {
             if ($location.path() === path || $location.path().indexOf('/user/ads/') > -1 ||
                 $location.path().indexOf('/admin/ads/') > -1) {
+                return "active";
+            } else {
+                return "";
+            }
+        }
+
+        /* activate users-nav link on edit-user link clicked and page refresh*/
+        $scope.getClassUsersMenu = function(path) {
+            if ($location.path() === path || $location.path().indexOf('/admin/users/') > -1) {
                 return "active";
             } else {
                 return "";

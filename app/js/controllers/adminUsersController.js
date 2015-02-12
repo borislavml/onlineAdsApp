@@ -75,8 +75,8 @@ onlineAdsAppControllers.controller('AdminUsersController',
          -requests are executed in the modal controler */
         $scope.openModal = function(userID) {
             var modalInstance = $modal.open({
-                templateUrl: './templates/modalTemplateDeleteUser.html',
-                controller: 'DeleteUserModalController',
+                templateUrl: './templates/admin-delete-user-modal-template.html',
+                controller: 'AdminDeleteUserModalController',
                 backdrop: false,
                 keyboard: false,
                 resolve: {

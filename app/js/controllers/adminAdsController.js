@@ -150,8 +150,8 @@ onlineAdsAppControllers.controller('AdminAdsController',
          -requests are executed in the modal controler */
         $scope.adminOpenModal = function(id, action) {
             var modalInstance = $modal.open({
-                templateUrl: './templates/AdminModalTemplate.html',
-                controller: 'AdminModalController',
+                templateUrl: './templates/admin-ad-modal-template.html',
+                controller: 'AdminAdModalController',
                 backdrop: false,
                 keyboard: false,
                 resolve: {
@@ -169,7 +169,7 @@ onlineAdsAppControllers.controller('AdminAdsController',
          -request is executed in the adminEditAdModal controler */
         $scope.adminOpenEditModal = function(id) {
             var modalInstance = $modal.open({
-                templateUrl: './templates/adminEditAdModalTemplate.html',
+                templateUrl: './templates/admin-edit-ad-modal-template.html',
                 controller: 'AdminEditAdModalController',
                 backdrop: false,
                 keyboard: false,

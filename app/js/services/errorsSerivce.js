@@ -5,6 +5,10 @@ onlineAdsApp.factory('errorsService', function errorsService($rootScope, ajaxErr
             $rootScope.$broadcast('alertMessage', 'Image size too big! The image size should be less than' + imageSize + '!');
         } else if (error.message.indexOf('Authorization has been denied') > -1) {
             $rootScope.$broadcast('alertMessage', 'You are not authorized to perform this type of request!');
+        } else if (error.message.indexOf('You Can not delete category with advertisements') > -1) {
+            $rootScope.$broadcast('alertMessage', error.message);
+        } else if (error.message.indexOf('You can not delete a town that is used by users!') > -1) {
+            $rootScope.$broadcast('alertMessage', error.message);
         } else {
             $rootScope.$broadcast('alertMessage', ajaxErrorText);
         }
