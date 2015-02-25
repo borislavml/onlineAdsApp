@@ -11,7 +11,7 @@
       <h4 class="black-text text-center">No categories were founnd.</h4>
     </div>
     <!-- categories list -->
-    <table class="table table-striped table-hover users-table">
+    <table class="table table-hover users-table">
       <thead>
         <tr>
           <th>Category</th>
@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr dir-paginate="category in categoriesData.categories | filter: query | itemsPerPage: categoriesPerPage" total-items="totalCategorires" data-id="{{category.id}}">
+        <tr dir-paginate="category in categoriesData.categories | filter: query | itemsPerPage: categoriesPerPage" total-items="totalCategorires" data-id="{{category.id}}" class="info">
           <td>{{category.username}}</td>
           <td>
             <a data="{{category.id}}" data="{{category.username}}" ng-click="editCategory(category.username, category.id)" class="edit-user-buutons">Edit</a>

@@ -11,7 +11,7 @@
       <h4 class="black-text text-center">No users were founnd.</h4>
     </div>
     <!-- users list -->
-    <table class="table table-striped table-hover users-table">
+    <table class="table table-hover users-table">
       <thead>
         <tr>
           <th>Username</th>
@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr dir-paginate="user in usersData.users | filter: query | itemsPerPage: usersPerPage" total-items="totalUsers" data-id="{{user.id}}">
+        <tr dir-paginate="user in usersData.users | filter: query | itemsPerPage: usersPerPage" total-items="totalUsers" data-id="{{user.id}}" class="info">
           <td>{{user.username}}</td>
           <td>{{user.name}}</td>
           <td>{{user.email}}</td>
