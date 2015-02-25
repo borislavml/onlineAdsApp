@@ -55,7 +55,7 @@
 	</head>
 	<body ng-controller="MainController">
 		<!-- navigation-->
-		<div class="navbar navbar-inverse header-nav">
+		<div class="navbar navbar-default header-nav">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 				<span class="icon-bar"></span>
@@ -92,7 +92,8 @@
 				<div class="row sidebar-nav" ng-if="regularUser">
 					<div class="col-md-11 col-sm-12 col-xs-10 col-centered">
 						<div class="well well-sm text-info sidebar-nav-heading">
-							<h4>Wellcome home, <span class="avoidwrap"> {{currentUser}}</span></h4>
+							<h4 class="sidebar-nav-heading-message">Wellcome home, <span class="avoidwrap"> {{currentUser}}
+							</span></h4>
 						</div>
 						<div class="list-group">
 							<a href="#/home" class="list-group-item" ng-class="getClass('/home')" ng-click="loadHomePage()">Home </a>
@@ -108,7 +109,7 @@
 				<div class="row sidebar-nav" ng-if="clickedMyAds">
 					<div class="col-md-11 col-sm-12 col-xs-10 col-centered">
 						<div class="well well-sm text-info sidebar-nav-heading">
-							<h4>My ads</h4>
+							<h4 class="sidebar-nav-heading-message">My ads</h4>
 						</div>
 						<div class="list-group">
 							<a class="list-group-item" ng-class="getClass('/user/ads')" ng-click="loadUserAds('')">All</a>
@@ -123,7 +124,7 @@
 				<div class="row sidebar-nav" ng-if="userIsAdmin">
 					<div class="col-md-11 col-sm-12 col-xs-10 col-centered">
 						<div class="well well-sm text-info sidebar-nav-heading">
-							<h4><span class="avoidwrap">{{currentUser}}</span></h4>
+							<h4 class="sidebar-nav-heading-message"><span class="avoidwrap">{{currentUser}}</span></h4>
 						</div>
 						<div class="list-group">
 							<a class="list-group-item" ng-class="getClassActiveAds('/admin/home')"  ng-click="loadAdminAds('')">
@@ -138,7 +139,7 @@
 				<div class="row sidebar-nav" ng-if="clickedMyAdsAdmin">
 					<div class="col-md-11 col-sm-12 col-xs-10 col-centered">
 						<div class="well well-sm text-info sidebar-nav-heading">
-							<h4>Ads</h4>
+							<h4 class="sidebar-nav-heading-message">Ads</h4>
 						</div>
 						<div class="list-group">
 							<a class="list-group-item" ng-class="getClass('/admin/home')" ng-click="loadAdminAds('')">All</a>

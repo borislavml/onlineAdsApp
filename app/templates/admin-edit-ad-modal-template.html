@@ -30,7 +30,7 @@
                     <img ng-src="{{editAdForm.imageDataUrl}}"  alt=""
                     class="ad-image img-responsive">
                     <div class="ad-edit-buttons" >
-                        <a class="btn btn-primary ad-edit-buttons-link" ng-click="deleteImage()">Delete</a>
+                        <a class="btn btn-danger ad-edit-buttons-link" ng-click="deleteImage()">Delete</a>
                     </div>
                 </div>
             </div>
@@ -96,9 +96,9 @@
         </div>
         <div class="modal-footer">
             <div class="form-group">
-                <button class="btn btn-info" type="submit" name="edit" data="{{currentAd.id}}" ng-click="ok(currentAd.id, editAdForm)" >
+                <button class="btn btn-danger" type="submit" name="edit" data="{{currentAd.id}}" ng-click="ok(currentAd.id, editAdForm)" >
                 Edit</button>
-                <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+                <button class="btn btn-info" ng-click="cancel()">Cancel</button>
             </div>
         </div>
     </fieldset>

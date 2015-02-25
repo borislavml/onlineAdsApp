@@ -12,14 +12,14 @@
       <h4 class="black-text text-center">No ads were founnd.</h4>
     </div>
     <ul class="all-ads-list">
-      <li dir-paginate="ad in adsData.ads | filter: query | itemsPerPage: adsPerPage" total-items="totalAds"  class="well" data-id="{{ad.id}}">
+      <li dir-paginate="ad in adsData.ads | filter: query | itemsPerPage: adsPerPage" total-items="totalAds"  class="well ad-container-well" data-id="{{ad.id}}">
         <!--header -->
         <div class="row">
           <div class="col-md-8 col-sm-8 col-xs-12">
             <h3 class="ad-title">{{ad.title}}</h3>
           </div>
           <div class="col-md-4 col-sm-4 col-xs-12 pull-right">
-            <span class="text-info pull-right"> {{ad.date | date:"EEE dd-MMM-yyyy"}} </span>
+            <span class="text-info pull-right ad-date-container"> {{ad.date | date:"EEE dd-MMM-yyyy"}} </span>
           </div>
         </div>
         <!-- info -->
@@ -29,41 +29,41 @@
             <div class="text-center col-centered ad-status-top">
               <strong>Status:</strong>
             </div>
-            <div class="well well-sm text-center col-centered ad-edit-buttons ad-status-bottom">{{ad.status}} </div>
+            <div class="well well-sm text-center col-centered ad-edit-buttons ad-status-bottom ad-status">{{ad.status}} </div>
           </div>
           <div class="col-md-8 col-sm-8 col-xs-12">
             <p class="well well-sm ad-info-paragraph"> {{ad.text}} </p>
             <!-- username -->
             <div class="row">
-              <div class="col-md-3 col-sm-4 col-xs-3  ad-info-text"> <strong>Username: </strong> </div>
-              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm">{{ad.ownerUsername}}</div>
+              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text ad-contact-info-titles"> <strong>Username: </strong> </div>
+              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-info-paragraph">{{ad.ownerUsername}}</div>
             </div>
             <!-- name -->
             <div class="row">
-              <div class="col-md-3 col-sm-4 col-xs-3  ad-info-text"> <strong>Name: </strong> </div>
-              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm">{{ad.ownerName}}</div>
+              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text ad-contact-info-titles"> <strong>Name: </strong> </div>
+              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-info-paragraph">{{ad.ownerName}}</div>
             </div>
             <!-- email -->
             <div class="row">
-              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text"> <strong>Email: </strong>  </div>
+              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text ad-contact-info-titles"> <strong>Email: </strong>  </div>
               <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-info-paragraph">
                 <a href="mailto:{{ad.ownerEmail}}">{{ad.ownerEmail}}</a>
               </div>
             </div>
             <!-- telephone -->
             <div class="row">
-              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text ad-info-paragraph"> <strong>Tel: </strong></div>
+              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text ad-contact-info-titles"> <strong>Tel: </strong></div>
               <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-info-paragraph">{{ad.ownerPhone}} </div>
             </div>
             <!-- Category -->
             <div class="row">
-              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text ad-info-paragraph"> <strong>Category: </strong></div>
+              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text  ad-contact-info-titles"> <strong>Category: </strong></div>
               <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-info-paragraph">
               {{ad.categoryName ? ad.categoryName : 'Not available'}} </div>
             </div>
             <!-- Town -->
             <div class="row">
-              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text ad-info-paragraph"> <strong>Town: </strong></div>
+              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text ad-contact-info-titles"> <strong>Town: </strong></div>
               <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-info-paragraph">
               {{ad.townName ? ad.townName : 'Not available'}} </div>
             </div>
@@ -74,20 +74,20 @@
           <!-- approve -->
           <div class="col-md-11 col-sm-11 col-xs-11 admin-ad-buttons-div col-centered">
             <div class="admin-ad-edit-buttons" ng-if="ad.status === 'WaitingApproval' || ad.status === 'Rejected'">
-              <a class="btn btn-info admin-ad-edit-buttons-link" data="{{ad.id}}" ng-click="adminOpenModal(ad.id, 'Approve')">Approve</a>
+              <a class="btn btn-danger admin-ad-edit-buttons-link" data="{{ad.id}}" ng-click="adminOpenModal(ad.id, 'Approve')">Approve</a>
             </div>
             <!-- reject -->
             <div class="admin-ad-edit-buttons" ng-if="ad.status === 'WaitingApproval'">
-              <a class="btn btn-info admin-ad-edit-buttons-link" data="{{ad.id}}" ng-click="adminOpenModal(ad.id, 'Reject')">
+              <a class="btn btn-danger admin-ad-edit-buttons-link" data="{{ad.id}}" ng-click="adminOpenModal(ad.id, 'Reject')">
               Reject</a>
             </div>
             <!-- edit -->
             <div class="admin-ad-edit-buttons">
-              <a class="btn btn-info admin-ad-edit-buttons-link" data="{{ad.id}}" ng-click="adminOpenEditModal(ad.id)">Edit</a>
+              <a class="btn btn-danger admin-ad-edit-buttons-link" data="{{ad.id}}" ng-click="adminOpenEditModal(ad.id)">Edit</a>
             </div>
             <!-- delete -->
             <div class="admin-ad-edit-buttons">
-              <a class="btn btn-info admin-ad-edit-buttons-link" data="{{ad.id}}" ng-click="adminOpenModal(ad.id, 'Delete')">
+              <a class="btn btn-danger admin-ad-edit-buttons-link" data="{{ad.id}}" ng-click="adminOpenModal(ad.id, 'Delete')">
               Delete</a>
             </div>
           </div>

@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">Are you sure you want to {{action.toLowerCase()}} this ad.</h3>
+    <h3 class="modal-title col-centered">Are you sure you want to {{action.toLowerCase()}} this ad.</h3>
 </div>
 <div class="modal-body">
     <!--header -->
@@ -8,7 +8,7 @@
             <h3 class="ad-title">{{currentAd.title}}</h3>
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 pull-right">
-            <span class="text-info pull-right"> {{currentAd.date | date:"EEE dd-MMM-yyyy"}} </span>
+            <span class="text-info pull-right ad-date-container"> {{currentAd.date | date:"EEE dd-MMM-yyyy"}} </span>
         </div>
     </div>
     <!-- info -->
@@ -19,15 +19,15 @@
         <div class="col-md-8 col-sm-8 col-xs-12">
             <p class="well well-sm ad-info-paragraph"> {{currentAd.text}} </p>
             <div class="row">
-                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text"> <strong>Category:</strong> </div>
-                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm">
+                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text ad-contact-info-titles"> <strong>Category:</strong> </div>
+                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm ad-contact-info">
                     {{currentAd.categoryName ? currentAd.categoryName : 'Not available'}}
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text"><strong>Town:
+                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text ad-contact-info-titles"><strong>Town:
                 </strong> </div>
-                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm">
+                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm ad-contact-info">
                     {{currentAd.townName ? currentAd.townName : 'Not available'}}
                 </div>
             </div>
@@ -35,6 +35,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-info" ng-click="ok()">{{action}}</button>
-    <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-danger" ng-click="ok()">{{action}}</button>
+    <button class="btn btn-info" ng-click="cancel()">Cancel</button>
 </div>

@@ -8,48 +8,48 @@
             <h3 class="ad-title">{{currentAd.title}}</h3>
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 pull-right">
-            <span class="text-info pull-right"> {{currentAd.date | date:"EEE dd-MMM-yyyy"}} </span>
+            <span class="text-info pull-right ad-date-container"> {{currentAd.date | date:"EEE dd-MMM-yyyy"}} </span>
         </div>
     </div>
     <!-- info -->
     <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-8">
             <img src="./img/No_image_available.svg" ng-src="{{currentAd.imageDataUrl}}" alt="" class="ad-image img-responsive">
-            <div class="text-center col-centered ad-status-top">
+            <div class="text-center col-centered ad-status-top ">
                 <strong>Status:</strong>
             </div>
-            <div class="well well-sm text-center col-centered ad-edit-buttons ad-status-bottom">{{currentAd.status}} </div>
+            <div class="well well-sm text-center col-centered ad-edit-buttons ad-status-bottom ad-status">{{currentAd.status}} </div>
         </div>
         <div class="col-md-8 col-sm-8 col-xs-12">
             <p class="well well-sm ad-info-paragraph"> {{currentAd.text}} </p>
             <!-- Category -->
             <div class="row">
-                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text"> <strong>Category:</strong> </div>
-                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm">
+                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text ad-contact-info-titles"> <strong>Category:</strong> </div>
+                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm ad-contact-info">
                     {{currentAd.categoryName ? currentAd.categoryName : 'Not available'}}
                 </div>
             </div>
             <!-- Town -->
             <div class="row">
-                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text"><strong>Town:
+                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text ad-contact-info-titles"><strong>Town:
                 </strong> </div>
-                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm">
+                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm ad-contact-info">
                     {{currentAd.townName ? currentAd.townName : 'Not available'}}
                 </div>
             </div>
             <!-- Username -->
             <div class="row">
-                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text"><strong>Username:
+                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text ad-contact-info-titles"><strong>Username:
                 </strong> </div>
-                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm">
+                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm ad-contact-info">
                     {{currentAd.ownerUsername}}
                 </div>
             </div>
             <!-- email -->
             <div class="row">
-                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text"><strong>Email:
+                <div class="col-md-3 col-sm-4 col-xs-6 ad-info-text ad-contact-info-titles"><strong>Email:
                 </strong> </div>
-                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm">
+                <div class="col-md-8 col-sm-8 col-xs-6 well well-sm ad-contact-info">
                     {{currentAd.ownerEmail}}
                 </div>
             </div>
@@ -57,6 +57,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-info" ng-click="ok()">{{action}}</button>
-    <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-danger" ng-click="ok()">{{action}}</button>
+    <button class="btn btn-info" ng-click="cancel()">Cancel</button>
 </div>

@@ -12,14 +12,14 @@
       <h4 class="black-text text-center">No ads were founnd.</h4>
     </div>
     <ul class="all-ads-list">
-      <li dir-paginate="ad in adsData.ads | filter: query | itemsPerPage: adsPerPage" total-items="totalAds"  class="well" data-id="{{ad.id}}">
+      <li dir-paginate="ad in adsData.ads | filter: query | itemsPerPage: adsPerPage" total-items="totalAds"  class="well ad-container-well" data-id="{{ad.id}}">
         <!--header -->
         <div class="row">
           <div class="col-md-8 col-sm-8 col-xs-12">
             <h3 class="ad-title">{{ad.title}}</h3>
           </div>
           <div class="col-md-4 col-sm-4 col-xs-12 pull-right">
-            <span class="text-info pull-right"> {{ad.date | date:"EEE dd-MMM-yyyy"}} </span>
+            <span class="text-info pull-right ad-date-container"> {{ad.date | date:"EEE dd-MMM-yyyy"}} </span>
           </div>
         </div>
         <!-- info -->
@@ -30,18 +30,18 @@
           <div class="col-md-8 col-sm-8 col-xs-12">
             <p class="well well-sm ad-info-paragraph"> {{ad.text}} </p>
             <div class="row">
-              <div class="col-md-3 col-sm-4 col-xs-3  ad-info-text"> <strong>Name: </strong> </div>
-              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm">{{ad.ownerName}}</div>
+              <div class="col-md-3 col-sm-4 col-xs-3 ad-contact-info-titles"> <strong>Name: </strong> </div>
+              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-contact-info">{{ad.ownerName}}</div>
             </div>
             <div class="row">
-              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text"> <strong>Email: </strong>  </div>
-              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-info-paragraph">
+              <div class="col-md-3 col-sm-4 col-xs-3 ad-contact-info-titles"> <strong>Email: </strong>  </div>
+              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-contact-info">
                 <a href="mailto:{{ad.ownerEmail}}">{{ad.ownerEmail}}</a>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text ad-info-paragraph"> <strong>Tel: </strong></div>
-              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-info-paragraph">{{ad.ownerPhone}} </div>
+              <div class="col-md-3 col-sm-4 col-xs-3 ad-info-text ad-contact-info-titles"> <strong>Tel: </strong></div>
+              <div class="col-md-8 col-sm-7 col-xs-8 well well-sm ad-contact-info">{{ad.ownerPhone}} </div>
             </div>
           </div>
         </div>

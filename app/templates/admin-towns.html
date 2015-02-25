@@ -11,7 +11,7 @@
       <h4 class="black-text text-center">No towns were founnd.</h4>
     </div>
     <!-- categories list -->
-    <table class="table table-striped table-hover users-table">
+    <table class="table table-hover users-table">
       <thead>
         <tr>
           <th>Towns</th>
@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr dir-paginate="town in townsData.towns | filter: query | itemsPerPage: townsPerPage" total-items="totaTowns" data-id="{{town.id}}">
+        <tr dir-paginate="town in townsData.towns | filter: query | itemsPerPage: townsPerPage" total-items="totaTowns" data-id="{{town.id}}" class="info">
           <td>{{town.username}}</td>
           <td>
             <a data="{{town.id}}" data="{{town.username}}" ng-click="editTown(town.username, town.id)" class="edit-user-buutons">Edit</a>
